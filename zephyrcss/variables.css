@@ -1,19 +1,50 @@
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --info-color: #17a2b8;
-    --light-color: #f8f9fa;
-    --dark-color: #343a40;
+    /* Main palette colors */
+    --primary-color: #5D4E60;    /* Muted dark purple */
+    --secondary-color: #826C7F;  /* Muted medium purple */
+    --accent-color: #A88FAC;     /* Soft purple */
+    --background-color: #F4F7F9; /* Very light blue-gray */
+    --neutral-color: #D4B2D8;    /* Light grayish purple */
 
-    --font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-family-monospace: "Courier New", Courier, monospace;
+    /* Semantic colors */
+    --info-color: #17a2b8;       /* Keeping a standard blue for info */
 
-    --body-bg: #fff;
-    --body-color: #212529;
+    /* Text colors */
+    --light-text: #FFFFFF;       /* White for text on dark backgrounds */
 
-    --link-color: #007bff;
+    /* Semantic colors */
+    --success-color: #2ECC71;    /* Soft green */
+    --success-text: #3EEE90;
+    --danger-color: #EF5F6F;     /* Soft red */
+    --danger-text: #E74C3C;
+    --warning-color: #F39C12;    /* Amber */
+    --warning-text: #FFB61E;
+
+    /* Component-specific colors */
+    --button-hover-bg: #2980B9;  /* Darker blue for button hover */
+    --input-focus-border: #826C7F; /* Adjusted to match the secondary color */
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #2C3E50;       /* Dark blue-gray for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
     --link-decoration: none;
+    --link-hover-color: #d54644; /* Darker shade of coral for hover */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--neutral-color);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--primary-color);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: white;
+    --card-bg: white;
+    --card-border: var(--neutral-color);
 }

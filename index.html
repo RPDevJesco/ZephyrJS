@@ -6,31 +6,30 @@
     <title>ZephyrJS Components</title>
     <link rel="stylesheet" href="./zephyrcss/zephyr.css">
 </head>
-<body>
+<body style="background: var(--body-color)">
+
 <basic-card>
     <div slot="header">My Card Title</div>
     <div slot="content">This is the card content.</div>
 </basic-card>
 
-<!-- Unless additional buttons are needed in the footer, only the header and body need to be specified -->
 <modal-dialog>
     <div slot="header">Dialog Header</div>
     <div slot="body">Dialog Body</div>
 </modal-dialog>
 
 <notification-box type="success" auto-dismiss="3000" class="d-block mt-3">
-    <span slot="icon" class="icon">&#10004;&#xFE0F;</span> <!-- Check mark -->
+    <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
     <span slot="header" class="text-primary">Success</span>
     <span slot="body" class="text-dark">This is a success notification.</span>
 </notification-box>
 
 <notification-box type="error" class="d-block mt-3">
-    <span slot="icon" class="icon">&#10060;</span> <!-- Cross mark -->
+    <span slot="icon" class="icon">&#10060;</span>
     <span slot="header" class="text-danger">Error</span>
     <span slot="body" class="text-dark">This is an error notification.</span>
 </notification-box>
 
-<!-- New Core Components -->
 <custom-button class="d-block mt-3">Click Me</custom-button>
 
 <custom-input class="d-block mt-3"></custom-input>

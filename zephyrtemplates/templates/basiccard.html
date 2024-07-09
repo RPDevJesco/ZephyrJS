@@ -2,17 +2,24 @@
     <style>
         :host {
             display: block;
-            border: 1px solid var(--card-border-color, #ccc);
+            border: 1px solid var(--card-border, var(--neutral-color));
             border-radius: var(--card-border-radius, 8px);
             padding: var(--card-padding, 16px);
-            box-shadow: var(--card-box-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+            box-shadow: var(--card-box-shadow, 0 2px 4px rgba(42, 72, 88, 0.1));
+            background-color: var(--card-bg, white);
+            color: var(--body-color);
+            font-family: var(--font-family-sans-serif);
         }
         .header {
             font-size: var(--card-header-font-size, 1.5em);
             font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: var(--card-header-margin-bottom, 12px);
         }
         .content {
             margin-top: var(--card-content-margin-top, 8px);
+            font-family: var(--font-family-serif);
+            line-height: 1.6;
         }
     </style>
     <div class="header">

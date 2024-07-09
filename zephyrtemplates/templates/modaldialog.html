@@ -6,27 +6,34 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--modal-background, white);
+            background: var(--modal-background, var(--background-color));
             border-radius: var(--modal-border-radius, 10px);
-            box-shadow: var(--modal-box-shadow, 0 4px 8px rgba(0, 0, 0, 0.2));
+            box-shadow: var(--modal-box-shadow, 0 4px 8px rgba(42, 72, 88, 0.2));
             width: var(--modal-width, 300px);
             max-width: 100%;
             z-index: var(--modal-z-index, 1000);
+            font-family: var(--font-family-sans-serif);
         }
         .header {
             padding: var(--modal-header-padding, 16px);
-            background: var(--modal-header-background, #f5f5f5);
-            border-bottom: 1px solid var(--modal-header-border-color, #ddd);
+            background: var(--modal-header-background, var(--primary-color));
+            color: var(--light-color);
+            border-bottom: 1px solid var(--modal-header-border-color, var(--neutral-color));
             font-size: var(--modal-header-font-size, 1.25em);
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
         .body {
             padding: var(--modal-body-padding, 16px);
+            color: var(--body-color);
         }
         .footer {
             padding: var(--modal-footer-padding, 16px);
-            background: var(--modal-footer-background, #f5f5f5);
-            border-top: 1px solid var(--modal-footer-border-color, #ddd);
+            background: var(--modal-footer-background, var(--neutral-color));
+            border-top: 1px solid var(--modal-footer-border-color, var(--neutral-color));
             text-align: right;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
     </style>
     <div class="header">

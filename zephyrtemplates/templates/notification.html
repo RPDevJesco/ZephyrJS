@@ -3,33 +3,34 @@
         :host {
             display: block;
             padding: var(--notification-padding, 16px);
-            background: var(--notification-background, var(--light-color));
+            background: var(--notification-background, var(--light-text));
             border-left: 5px solid var(--notification-border-color, var(--primary-color));
             margin-bottom: 16px;
             position: relative;
             transition: opacity 0.3s ease, transform 0.3s ease;
+            font-family: var(--font-family-sans-serif);
+            color: var(--light-text);
+            box-shadow: 0 2px 4px rgba(42, 72, 88, 0.1);
         }
         :host([hidden]) {
             display: none;
         }
         :host([type="success"]) {
             border-color: var(--success-color);
-            background: var(--success-color);
-            color: var(--light-color);
+            background: var(--success-text);
         }
         :host([type="error"]) {
             border-color: var(--danger-color);
-            background: var(--danger-color);
-            color: var(--light-color);
+            background: var(--danger-text);
         }
         :host([type="warning"]) {
             border-color: var(--warning-color);
-            background: var(--warning-color);
-            color: var(--dark-color);
+            background: var(--warning-text);
         }
         .header {
             font-weight: bold;
             margin-bottom: 8px;
+            color: var(--primary-color);
         }
         .body {
             font-size: var(--notification-font-size, 1em);
@@ -42,7 +43,11 @@
             border: none;
             font-size: 1.5em;
             cursor: pointer;
-            color: inherit;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+        .close-button:hover {
+            color: var(--accent-color);
         }
         .icon {
             margin-right: 8px;

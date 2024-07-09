@@ -3,20 +3,24 @@
         :host {
             display: inline-block;
             padding: var(--button-padding, 10px 20px);
-            background: var(--button-background, #007bff);
-            color: var(--button-color, white);
+            background: var(--button-primary-bg, var(--accent-color));
+            color: var(--button-primary-color, white);
             border: none;
             border-radius: var(--button-border-radius, 5px);
             cursor: pointer;
             text-align: center;
             font-size: var(--button-font-size, 1em);
+            font-family: var(--font-family-sans-serif);
+            transition: background-color 0.3s ease;
         }
         :host(:hover) {
-            background: var(--button-hover-background, #0056b3);
+            background: var(--button-hover-background, #d54644);
         }
         :host([disabled]) {
-            background: var(--button-disabled-background, #6c757d);
+            background: var(--button-disabled-background, var(--neutral-color));
+            color: var(--primary-color);
             cursor: not-allowed;
+            opacity: 0.7;
         }
     </style>
     <slot></slot>

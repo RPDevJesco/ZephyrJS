@@ -3,17 +3,22 @@
         :host {
             display: block;
             margin: var(--input-margin, 10px 0);
+            font-family: var(--font-family-sans-serif);
         }
         input {
             width: 100%;
             padding: var(--input-padding, 10px);
-            border: var(--input-border, 1px solid #ccc);
+            border: var(--input-border, 1px solid var(--neutral-color));
             border-radius: var(--input-border-radius, 4px);
             font-size: var(--input-font-size, 1rem);
+            background-color: var(--background-color);
+            color: var(--body-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         input:focus {
-            border-color: var(--input-focus-border-color, var(--primary-color));
+            border-color: var(--input-focus-border-color, var(--secondary-color));
             outline: none;
+            box-shadow: 0 0 0 2px rgba(126, 189, 194, 0.2);
         }
     </style>
     <input type="text" />
