@@ -1,6 +1,6 @@
-import { defineCustomElement, ZephyrJS } from "../zephyrcore/zephyr.js";
+import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
-class ModalDialog extends ZephyrJS {
+export default class ModalDialog extends ZephyrJS {
     constructor() {
         super();
     }

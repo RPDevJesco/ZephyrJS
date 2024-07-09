@@ -1,0 +1,20 @@
+<template id="input">
+    <style>
+        :host {
+            display: block;
+            margin: var(--input-margin, 10px 0);
+        }
+        input {
+            width: 100%;
+            padding: var(--input-padding, 10px);
+            border: var(--input-border, 1px solid #ccc);
+            border-radius: var(--input-border-radius, 4px);
+            font-size: var(--input-font-size, 1rem);
+        }
+        input:focus {
+            border-color: var(--input-focus-border-color, var(--primary-color));
+            outline: none;
+        }
+    </style>
+    <input type="text" />
+</template>

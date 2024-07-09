@@ -1,0 +1,27 @@
+<template id="dropdown">
+    <style>
+        :host {
+            display: inline-block;
+            position: relative;
+        }
+        select {
+            width: 100%;
+            padding: var(--dropdown-padding, 10px);
+            border: var(--dropdown-border, 1px solid #ccc);
+            border-radius: var(--dropdown-border-radius, 4px);
+            font-size: var(--dropdown-font-size, 1rem);
+            appearance: none;
+            background: var(--dropdown-background, var(--light-color));
+            background-image: var(--dropdown-arrow, url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23343a40;"/></svg>'));
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        select:focus {
+            border-color: var(--dropdown-focus-border-color, var(--primary-color));
+            outline: none;
+        }
+    </style>
+    <select>
+        <slot></slot>
+    </select>
+</template>

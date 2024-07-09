@@ -1,6 +1,6 @@
-import { defineCustomElement, ZephyrJS } from "../zephyrcore/zephyr.js";
+import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
-class BasicCard extends ZephyrJS {
+export default class BasicCard extends ZephyrJS {
     constructor() {
         super();
     }

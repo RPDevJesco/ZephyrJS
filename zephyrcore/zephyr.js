@@ -2,7 +2,7 @@
  * ZephyrJS is a base class for creating custom HTML elements with shadow DOM, state management,
  * and data binding capabilities.
  */
-class ZephyrJS extends HTMLElement {
+export default class ZephyrJS extends HTMLElement {
     /**
      * Initializes the custom element, sets up shadow DOM, state management, and data bindings.
      */

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZephyrJS Components</title>
     <link rel="stylesheet" href="./zephyrcss/zephyr.css">
 </head>
 <body>
@@ -15,15 +18,29 @@
     <div slot="body">Dialog Body</div>
 </modal-dialog>
 
-<notification-box>
-    <div slot="header">Notification Header</div>
-    <div slot="body">This is a notification message.</div>
+<notification-box type="success" auto-dismiss="3000" class="d-block mt-3">
+    <span slot="icon" class="icon">&#10004;&#xFE0F;</span> <!-- Check mark -->
+    <span slot="header" class="text-primary">Success</span>
+    <span slot="body" class="text-dark">This is a success notification.</span>
 </notification-box>
 
-<script type="module" src="./zephyrtemplates/BasicCard.js"></script>
-<script type="module" src="./zephyrtemplates/ModalDialog.js"></script>
-<script type="module" src="./zephyrtemplates/Button.js"></script>
-<script type="module" src="./zephyrtemplates/Notification.js"></script>
+<notification-box type="error" class="d-block mt-3">
+    <span slot="icon" class="icon">&#10060;</span> <!-- Cross mark -->
+    <span slot="header" class="text-danger">Error</span>
+    <span slot="body" class="text-dark">This is an error notification.</span>
+</notification-box>
 
+<!-- New Core Components -->
+<custom-button class="d-block mt-3">Click Me</custom-button>
+
+<custom-input class="d-block mt-3"></custom-input>
+
+<custom-dropdown class="d-block mt-3">
+    <option value="option1">Option 1</option>
+    <option value="option2">Option 2</option>
+    <option value="option3">Option 3</option>
+</custom-dropdown>
+
+<script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
 </body>
 </html>
