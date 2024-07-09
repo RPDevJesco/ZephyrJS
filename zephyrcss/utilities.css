@@ -1,0 +1,93 @@
+/* Typography */
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+
+/* Spacing */
+.m-0 {
+    margin: 0 !important;
+}
+.mt-1 {
+    margin-top: .25rem !important;
+}
+.mt-2 {
+    margin-top: .5rem !important;
+}
+.mt-3 {
+    margin-top: 1rem !important;
+}
+.mt-4 {
+    margin-top: 1.5rem !important;
+}
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+/* Display */
+.d-block {
+    display: block !important;
+}
+.d-inline-block {
+    display: inline-block !important;
+}
+.d-none {
+    display: none !important;
+}
+
+/* Colors */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+.bg-secondary {
+    background-color: var(--secondary-color) !important;
+}
+.bg-success {
+    background-color: var(--success-color) !important;
+}
+.bg-danger {
+    background-color: var(--danger-color) !important;
+}
+.bg-warning {
+    background-color: var(--warning-color) !important;
+}
+.bg-info {
+    background-color: var(--info-color) !important;
+}
+.bg-light {
+    background-color: var(--light-color) !important;
+}
+.bg-dark {
+    background-color: var(--dark-color) !important;
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+.text-secondary {
+    color: var(--secondary-color) !important;
+}
+.text-success {
+    color: var(--success-color) !important;
+}
+.text-danger {
+    color: var(--danger-color) !important;
+}
+.text-warning {
+    color: var(--warning-color) !important;
+}
+.text-info {
+    color: var(--info-color) !important;
+}
+.text-light {
+    color: var(--light-color) !important;
+}
+.text-dark {
+    color: var(--dark-color) !important;
+}

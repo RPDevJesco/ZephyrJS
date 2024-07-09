@@ -1,0 +1,24 @@
+<template id="basic-card">
+    <style>
+        :host {
+            display: block;
+            border: 1px solid var(--card-border-color, #ccc);
+            border-radius: var(--card-border-radius, 8px);
+            padding: var(--card-padding, 16px);
+            box-shadow: var(--card-box-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        .header {
+            font-size: var(--card-header-font-size, 1.5em);
+            font-weight: bold;
+        }
+        .content {
+            margin-top: var(--card-content-margin-top, 8px);
+        }
+    </style>
+    <div class="header">
+        <slot name="header"></slot>
+    </div>
+    <div class="content">
+        <slot name="content"></slot>
+    </div>
+</template>

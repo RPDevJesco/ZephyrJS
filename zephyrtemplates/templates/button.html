@@ -1,0 +1,23 @@
+<template id="button">
+    <style>
+        :host {
+            display: inline-block;
+            padding: var(--button-padding, 10px 20px);
+            background: var(--button-background, #007bff);
+            color: var(--button-color, white);
+            border: none;
+            border-radius: var(--button-border-radius, 5px);
+            cursor: pointer;
+            text-align: center;
+            font-size: var(--button-font-size, 1em);
+        }
+        :host(:hover) {
+            background: var(--button-hover-background, #0056b3);
+        }
+        :host([disabled]) {
+            background: var(--button-disabled-background, #6c757d);
+            cursor: not-allowed;
+        }
+    </style>
+    <slot></slot>
+</template>

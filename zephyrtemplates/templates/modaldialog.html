@@ -1,0 +1,42 @@
+<template id="modal-dialog">
+    <style>
+        :host {
+            display: block;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--modal-background, white);
+            border-radius: var(--modal-border-radius, 10px);
+            box-shadow: var(--modal-box-shadow, 0 4px 8px rgba(0, 0, 0, 0.2));
+            width: var(--modal-width, 300px);
+            max-width: 100%;
+            z-index: var(--modal-z-index, 1000);
+        }
+        .header {
+            padding: var(--modal-header-padding, 16px);
+            background: var(--modal-header-background, #f5f5f5);
+            border-bottom: 1px solid var(--modal-header-border-color, #ddd);
+            font-size: var(--modal-header-font-size, 1.25em);
+        }
+        .body {
+            padding: var(--modal-body-padding, 16px);
+        }
+        .footer {
+            padding: var(--modal-footer-padding, 16px);
+            background: var(--modal-footer-background, #f5f5f5);
+            border-top: 1px solid var(--modal-footer-border-color, #ddd);
+            text-align: right;
+        }
+    </style>
+    <div class="header">
+        <slot name="header"></slot>
+    </div>
+    <div class="body">
+        <slot name="body"></slot>
+    </div>
+    <div class="footer">
+        <custom-button on="click:{{close}}">Close</custom-button>
+        <slot name="footer"></slot>
+    </div>
+</template>

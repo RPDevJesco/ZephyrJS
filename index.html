@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./zephyrcss/zephyr.css">
+</head>
+<body>
+<basic-card>
+    <div slot="header">My Card Title</div>
+    <div slot="content">This is the card content.</div>
+</basic-card>
+
+<!-- Unless additional buttons are needed in the footer, only the header and body need to be specified -->
+<modal-dialog>
+    <div slot="header">Dialog Header</div>
+    <div slot="body">Dialog Body</div>
+</modal-dialog>
+
+<notification-box>
+    <div slot="header">Notification Header</div>
+    <div slot="body">This is a notification message.</div>
+</notification-box>
+
+<script type="module" src="./zephyrtemplates/BasicCard.js"></script>
+<script type="module" src="./zephyrtemplates/ModalDialog.js"></script>
+<script type="module" src="./zephyrtemplates/Button.js"></script>
+<script type="module" src="./zephyrtemplates/Notification.js"></script>
+
+</body>
+</html>

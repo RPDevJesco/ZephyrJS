@@ -1,0 +1,24 @@
+<template id="notification">
+    <style>
+        :host {
+            display: block;
+            padding: var(--notification-padding, 16px);
+            background: var(--notification-background, #f8f9fa);
+            border-left: 5px solid var(--notification-border-color, #007bff);
+            margin-bottom: 16px;
+        }
+        .header {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .body {
+            font-size: var(--notification-font-size, 1em);
+        }
+    </style>
+    <div class="header">
+        <slot name="header"></slot>
+    </div>
+    <div class="body">
+        <slot name="body"></slot>
+    </div>
+</template>
