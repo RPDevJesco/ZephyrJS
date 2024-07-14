@@ -89,4 +89,4 @@ ZephyrJS is MIT licensed.
 ### Support
 For support, please open an issue on our GitHub repository.
 
-Built with ❤️ by the ZephyrJS Team
+Built with ❤️
