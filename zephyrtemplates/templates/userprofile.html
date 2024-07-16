@@ -1,0 +1,25 @@
+<template id="user-profile">
+    <style>
+        .user-profile {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            max-width: 300px;
+            text-align: center;
+        }
+        .user-profile h2 {
+            margin-top: 0;
+        }
+        .user-profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <div class="user-profile">
+        <img data-bind="image" src="" alt="User Image"/>
+        <h2 data-bind="name"></h2>
+        <p><strong>Email:</strong> <span data-bind="email"></span></p>
+        <p><strong>Phone:</strong> <span data-bind="phone"></span></p>
+    </div>
+</template>

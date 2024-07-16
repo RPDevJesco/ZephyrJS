@@ -23,6 +23,7 @@
     /* Component-specific colors */
     --button-hover-bg: #2980B9;  /* Darker blue for button hover */
     --input-focus-border: #826C7F; /* Adjusted to match the secondary color */
+    --button-click-bg: #1190B9;
 
     /* Typography */
     --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
@@ -47,4 +48,63 @@
     --button-primary-color: white;
     --card-bg: white;
     --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-border-radius: 8px;
+    --card-padding: 16px;
+    --card-box-shadow: 0 2px 4px rgba(42, 72, 88, 0.1);
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--secondary-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%232A4858;"/></svg>');
+    --dropdown-focus-border-color: var(--secondary-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: 0 4px 8px rgba(42, 72, 88, 0.2);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--light-text);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-color);
+    --notification-error-background: var(--danger-color);
+    --notification-warning-background: var(--warning-color);
+    --notification-success-text: var(--success-text);
+    --notification-error-text: var(--danger-text);
+    --notification-warning-text: var(--warning-text);
 }

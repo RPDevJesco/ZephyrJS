@@ -45,6 +45,9 @@ export default class ZephyrJS extends HTMLElement {
         } else {
             this.templateUrl = this.constructor.templateUrl;
         }
+
+        // Determine if render blocking is enabled
+        this.renderBlocking = this.constructor.renderBlocking || false;
     }
 
     /**
@@ -53,6 +56,9 @@ export default class ZephyrJS extends HTMLElement {
      */
     async connectedCallback() {
         try {
+            if (this.renderBlocking) {
+                await this.performRenderBlockingTasks();
+            }
             this.template = await this.loadTemplate(); // Load the template asynchronously
             await this.render(); // Render the component
             this.componentDidMount && this.componentDidMount(); // Call componentDidMount if defined
@@ -292,6 +298,14 @@ export default class ZephyrJS extends HTMLElement {
             element.removeEventListener(eventName, boundMethod);
         });
         this._eventListeners = []; // Clear the event listeners list
+    }
+
+    /**
+     * Perform render blocking tasks. Override in subclasses to provide specific tasks.
+     */
+    async performRenderBlockingTasks() {
+        // Default implementation does nothing. Subclasses should override this method.
+        return Promise.resolve();
     }
 }
 

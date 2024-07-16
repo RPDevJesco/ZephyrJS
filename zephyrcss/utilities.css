@@ -91,3 +91,25 @@
 .text-dark {
     color: var(--dark-color) !important;
 }
+
+/* Flex */
+.d-flex {
+    display: flex !important;
+}
+.justify-content-center {
+    justify-content: center !important;
+}
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+.justify-content-between {
+    justify-content: space-between !important;
+}
+.align-items-center {
+    align-items: center !important;
+}
+
+/* Width */
+.w-100 {
+    width: 100% !important;
+}
