@@ -1,20 +1,40 @@
-<template id="markdownrenderer">
+<template id="markdown-renderer">
     <style>
-        :host {
-            display: block;
-            font-family: var(--font-family-sans-serif);
+        .markdown-container {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
         }
         pre {
-            background: #f4f4f4;
+            background-color: #272822;
+            color: #F8F8F2;
             padding: 10px;
             border-radius: 5px;
-            overflow: auto;
+            overflow-x: auto;
         }
-        code {
-            background: #f4f4f4;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
+        .keyword { color: #F92672; }
+        .string { color: #E6DB74; }
+        .number { color: #AE81FF; }
+        .function { color: #A6E22E; }
+        .comment { color: #75715E; }
+        .method { color: #66D9EF; }
+        .tag { color: #00f; }
+        .attribute { color: #f00; }
+        .comment { color: #008000; }
+        .at-rule { color: #AF00DB; }
+        .punctuation { color: #000000; }
+        .property { color: #FF0000; }
+        .value { color: #0000FF; }
+        .selector { color: #800000; }
+        .indentation { color: #CCCCCC; }
     </style>
-    <div id="content"></div>
+    <div class="markdown-container">
+        <div id="output"></div>
+    </div>
 </template>

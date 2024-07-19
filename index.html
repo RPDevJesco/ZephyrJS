@@ -42,21 +42,113 @@
 
 <user-profile class="d-block mt-3"></user-profile>
 
-<markdown-renderer class="d-block mt-3" markdown="
-# Hello World!
+<markdown-renderer markdown-content="
+This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~
 
-This is **Markdown** rendered in a web component.
+```c
+#include <stdio.h>
 
-Here is some inline code: \`console.log('Hello, world!');\`
-
-And here is a code block:
-
-\`\`\`
-function greet() {
-    console.log('Hello, world!');
+int main() {
+    printf('Hello, World!\\n');
+    return 0;
 }
-greet();
-\`\`\`
+```
+
+```css
+body {
+background-color: lightblue;
+}
+
+h1 {
+color: navy;
+margin-left: 20px;
+}
+```
+
+```cpp
+#include <iostream>
+
+int main() {
+std::cout << 'Hello World!//n';
+return 0;
+}
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <p>This is a test page.</p>
+</body>
+</html>
+```
+
+```java
+import java.util.Scanner;
+
+public class ScannerAndKeyboard {
+
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.print('Enter your name: ');
+        String name = s.nextLine();
+        System.out.println('Hello ' + name + '!');
+    }
+}
+```
+
+```js
+class CountdownTimer {
+    constructor(timeSec) {
+        this.timeSec = timeSec;
+    }
+
+    start() {
+        const timer = setInterval(() => {
+            if (this.timeSec <= 0) {
+                clearInterval(timer);
+                console.log('stop');
+                return;
+            }
+            let mins = Math.floor(this.timeSec / 60);
+            let secs = this.timeSec % 60;
+            let timeformat = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            console.log(timeformat);
+            this.timeSec -= 1;
+        }, 1000);
+    }
+}
+
+// Example usage
+const timer = new CountdownTimer(5);
+timer.start();
+```
+
+```py
+import time
+
+class CountdownTimer:
+    def __init__(self, time_sec):
+        self.time_sec = time_sec
+
+    def start(self):
+        while self.time_sec:
+            mins, secs = divmod(self.time_sec, 60)
+            timeformat = '{:02d}:{:02d}'.format(mins, secs)
+            print(timeformat, end='\r')
+            time.sleep(1)
+            self.time_sec -= 1
+
+        print('stop')
+
+# Example usage
+timer = CountdownTimer(5)
+timer.start()
+```
 "></markdown-renderer>
 
 
