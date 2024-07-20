@@ -19,7 +19,7 @@ ZephyrJS is a lightweight, customizable web component framework for building mod
 ### Import ZephyrJS:
 
 ```js
-import { ZephyrJS, defineCustomElement } from 'zephyrjs';
+import  ZephyrJS, {defineCustomElement } from 'zephyrjs';
 ```
 
 ### Create a custom element:
@@ -80,6 +80,7 @@ ZephyrJS comes with several pre-built components:
 <data-table>
 <tree-table>
 <layout-component>
+<timeline-component>
 ```
 
 ### Customization
@@ -87,11 +88,145 @@ Customize components using CSS variables:
 
 ```css
 :root {
-  --primary-color: #5D4E60;
-  --secondary-color: #826C7F;
-  --accent-color: #A88FAC;
+    /* Main palette colors */
+    --primary-color: #5D4E60;    /* Muted dark purple */
+    --secondary-color: #826C7F;  /* Muted medium purple */
+    --accent-color: #A88FAC;     /* Soft purple */
+    --background-color: #F4F7F9; /* Very light blue-gray */
+    --neutral-color: #D4B2D8;    /* Light grayish purple */
+    --secondary-color-light: #e0e1ff; /* Light shade of secondary color */
+
+    /* Semantic colors */
+    --info-color: #17a2b8;       /* Standard blue for info */
+    --info-background: #d1ecf1;  /* Light blue for info background */
+    --success-color: #2ECC71;    /* Soft green */
+    --success-background: #d4edda; /* Light green for success background */
+    --danger-color: #E74C3C;     /* Soft red */
+    --danger-background: #f8d7da; /* Light red for danger background */
+    --warning-color: #F39C12;    /* Amber */
+    --warning-background: #fff3cd; /* Light amber for warning background */
+
+    /* Text colors */
+    --light-text: var(--white);      /* White for text on dark backgrounds */
+    --dark-text: #2C3E50;       /* Dark blue-gray for main text */
+
+    /* Component-specific colors */
+    --button-hover-bg: #2980B9;  /* Darker blue for button hover */
+    --input-focus-border: #826C7F; /* Adjusted to match the secondary color */
+    --button-click-bg: #1190B9;
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #2C3E50;       /* Dark blue-gray for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
+    --link-decoration: none;
+    --link-hover-color: #d54644; /* Darker shade of coral for hover */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--neutral-color);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--primary-color);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: white;
+    --card-bg: white;
+    --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-box-shadow: var(--shadow-light);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--secondary-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%232A4858;"/></svg>');
+    --dropdown-focus-border-color: var(--secondary-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: var(--shadow-dark);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--light-text);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-background);
+    --notification-error-background: var(--danger-background);
+    --notification-warning-background: var(--warning-background);
+    --notification-success-text: var(--success-color);
+    --notification-error-text: var(--danger-color);
+    --notification-warning-text: var(--warning-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #272822;
+    --markdown-color: #F8F8F2;
+    --markdown-keyword: #F92672;
+    --markdown-string: #E6DB74;
+    --markdown-number: #AE81FF;
+    --markdown-function: #A6E22E;
+    --markdown-comment: #75715E;
+    --markdown-method: #66D9EF;
+    --markdown-tag: #0000FF;
+    --markdown-attribute: #FF0000;
+    --markdown-at-rule: #AF00DB;
+    --markdown-punctuation: #000000;
+    --markdown-property: #FF0000;
+    --markdown-value: #0000FF;
+    --markdown-selector: #800000;
+    --markdown-indentation: #CCCCCC;
+    --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+    --border-radius: 5px;
 }
 ```
+
+You can create your own variables.css to change the values to what suits your project over the defaults.
 
 ### License
 ZephyrJS is MIT licensed.
@@ -112,7 +247,6 @@ Built with ❤️
 - Card Group: A component for displaying multiple cards in a grid or list layout.
 - Search Component: A component for searching through data that exists in a Data Table or Tree Table to navigate to the specified item.
 - Form: A component for creating and managing user input forms, including validation and submission handling.
-- Pagination: A component for navigating through large sets of data or content, often used in conjunction with tables or lists.
 - Datepicker: A component for selecting dates from a calendar interface.
 - Timepicker: A component for selecting times, often used alongside a datepicker.
 - Slider/Range Input: A component for selecting a value or range of values from a predefined range.
