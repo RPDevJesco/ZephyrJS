@@ -72,6 +72,7 @@ ZephyrJS comes with several pre-built components:
 <modal-dialog>
 <notification-box>
 <user-profile>
+<markdown-editor>
 <markdown-renderer>
 ```
 
@@ -105,6 +106,7 @@ Built with ❤️
 - **Alert: A component for displaying contextual feedback messages, such as warnings, errors, or success messages.
 - **Breadcrumbs: A component to display the navigation path and help users understand their location within a web application.
 - **Card Group: A component for displaying multiple cards in a grid or list layout.
+- **Search Component: A component for searching through data that exists in a Data Table or Tree Table to navigate to the specified item.
 - **Form: A component for creating and managing user input forms, including validation and submission handling.
 - **Pagination: A component for navigating through large sets of data or content, often used in conjunction with tables or lists.
 - **Datepicker: A component for selecting dates from a calendar interface.
@@ -123,8 +125,6 @@ Built with ❤️
 - **Tree Table: A combination of a tree view and a table, allowing hierarchical data to be displayed in a tabular format.
 - **Split Pane: A component for creating resizable split views, allowing users to adjust the size of adjacent content areas.
 - **Infinite Scroll: A component for loading content dynamically as the user scrolls, often used in social media feeds or long lists.
-- **Markdown Editor: An interactive editor for creating and previewing markdown content with real-time rendering.
-- **Code Editor: A component for editing and highlighting code, possibly integrating with libraries like Ace or CodeMirror.
 - **Color Picker: A component for selecting colors, often used in design and customization tools.
 - **Stepper Wizard: A more advanced stepper component that guides users through multi-step processes, with validation and navigation controls.
 - **Image Gallery: A component for displaying image collections with features like lightbox viewing, thumbnails, and captions.
