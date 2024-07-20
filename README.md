@@ -79,6 +79,7 @@ ZephyrJS comes with several pre-built components:
 <accordion-table>
 <data-table>
 <tree-table>
+<layout-component>
 ```
 
 ### Customization

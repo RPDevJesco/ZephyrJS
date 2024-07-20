@@ -12,3 +12,8 @@ import Accordion from "../zephyrtemplates/Accordion.js";
 import DataTable from "../zephyrtemplates/DataTable.js";
 import TreeTable from "../zephyrtemplates/TreeTable.js";
 import AccordionTable from "../zephyrtemplates/AccordionTable.js";
+import PaginationComponent from "../zephyrtemplates/PaginationComponent.js";
+import FilterComponent from "../zephyrtemplates/FilterComponent.js";
+import SearchComponent from "../zephyrtemplates/SearchComponent.js";
+import InlineEditingComponent from "../zephyrtemplates/InlineEditingComponent.js";
+import LayoutComponent from "../zephyrtemplates/LayoutComponent.js";

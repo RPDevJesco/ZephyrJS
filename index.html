@@ -7,115 +7,109 @@
         <link rel="stylesheet" href="./zephyrcss/zephyr.css" />
     </head>
     <body style="background: var(--body-color)">
-        <basic-card>
-            <div slot="header">My Card Title</div>
-            <div slot="content">This is the card content.</div>
-        </basic-card>
-
-        <accordion-component class="d-block mt-3"
-                             items='[
+    <layout-component>
+        <div slot="header" class="header">
+            <accordion-component class="d-block mt-3"
+                                                               items='[
                                 {"header": "Section 1", "content": "Content for section 1"},
                                 {"header": "Section 2", "content": "Content for section 2"},
                                 {"header": "Section 3", "content": "Content for section 3"}]'>
         </accordion-component>
-
-        <accordion-table class="d-block mt-3"
-                         columns='[
-                            {"label": "Name", "field": "name"},
-                            {"label": "Age", "field": "age"},
-                            {"label": "Email", "field": "email"}]'
-                         data='[
-                            {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "details": "<p>Details about John Doe.</p>"},
-                            {"id": 2, "name": "Jane Smith", "age": 25, "email": "jane@example.com", "details": "<p>Details about Jane Smith.</p>"},
-                            {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com", "details": "<p>Details about Mike Johnson.</p>"}]'>
-        </accordion-table>
-
-        <data-table class="d-block mt-3"
-                    columns='[
+            <notification-box
+                    type="success"
+                    auto-dismiss="3000"
+                    class="d-block mt-3"
+            >
+                <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
+                <span slot="header" class="text-primary">Success</span>
+                <span slot="body" class="text-dark"
+                >This is a success notification.</span
+                >
+            </notification-box>
+            <notification-box type="error" class="d-block mt-3">
+                <span slot="icon" class="icon">&#10060;</span>
+                <span slot="header" class="text-danger">Error</span>
+                <span slot="body" class="text-dark"
+                >This is an error notification.</span
+                >
+            </notification-box>
+        </div>
+        <div slot="sidebar" class="sidebar">
+            <kanban-board class="d-block mt-3"
+                          columns='[
+                      {"name": "To Do", "cards": ["Task 1", "Task 2"]},
+                      {"name": "In Progress", "cards": ["Task 3"]},
+                      {"name": "Done", "cards": ["Task 4"]}]'>
+            </kanban-board>
+        </div>
+        <div slot="main" class="main">
+            <data-table class="d-block mt-3"
+                        columns='[
                         {"label": "Name", "field": "name"},
                         {"label": "Age", "field": "age"},
                         {"label": "Email", "field": "email"}]'
-                    data='[
+                        data='[
                         {"name": "John Doe", "age": 30, "email": "john@example.com"},
                         {"name": "Jane Smith", "age": 25, "email": "jane@example.com"},
                         {"name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
-        </data-table>
-
-        <modal-dialog>
-            <div slot="header">Dialog Header</div>
-            <div slot="body">Dialog Body</div>
-        </modal-dialog>
-
-        <notification-box
-            type="success"
-            auto-dismiss="3000"
-            class="d-block mt-3"
-        >
-            <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
-            <span slot="header" class="text-primary">Success</span>
-            <span slot="body" class="text-dark"
-                >This is a success notification.</span
-            >
-        </notification-box>
-
-        <notification-box type="error" class="d-block mt-3">
-            <span slot="icon" class="icon">&#10060;</span>
-            <span slot="header" class="text-danger">Error</span>
-            <span slot="body" class="text-dark"
-                >This is an error notification.</span
-            >
-        </notification-box>
-
-        <custom-button class="d-block mt-3">Click Me</custom-button>
-
-        <custom-input class="d-block mt-3"></custom-input>
-
-        <custom-dropdown class="d-block mt-3">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
-        </custom-dropdown>
-
-        <tree-table class="d-block mt-3"
-                    columns='[
-                        {"label": "Name", "field": "name"},
-                        {"label": "Age", "field": "age"},
-                        {"label": "Email", "field": "email"}]'
-                    data='[
-                        {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "children": [
-                            {"id": 2, "name": "Jane Doe", "age": 25, "email": "jane@example.com"}
-                        ]},
-                        {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
-        </tree-table>
-
-        <kanban-board class="d-block mt-3"
-                      columns='[
-                        {"name": "To Do", "cards": ["Task 1", "Task 2"]},
-                        {"name": "In Progress", "cards": ["Task 3"]},
-                        {"name": "Done", "cards": ["Task 4"]}]'>
-        </kanban-board>
-
-        <user-profile class="d-block mt-3"></user-profile>
-
-        <markdown-editor class="d-block mt-3"></markdown-editor>
-
-        <markdown-renderer
-            markdown-content="This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~"
-        ></markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            </data-table>
+            <modal-dialog>
+                <div slot="header">Dialog Header</div>
+                <div slot="body">Dialog Body</div>
+            </modal-dialog>
+            <accordion-table class="d-block mt-3"
+                             columns='[
+                            {"label": "Name", "field": "name"},
+                            {"label": "Age", "field": "age"},
+                            {"label": "Email", "field": "email"}]'
+                             data='[
+                            {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "details": "<p>Details about John Doe.</p>"},
+                            {"id": 2, "name": "Jane Smith", "age": 25, "email": "jane@example.com", "details": "<p>Details about Jane Smith.</p>"},
+                            {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com", "details": "<p>Details about Mike Johnson.</p>"}]'>
+            </accordion-table>
+            <user-profile class="d-block mt-3"></user-profile>
+            <tree-table class="d-block mt-3"
+                        columns='[
+                      {"label": "Name", "field": "name"},
+                      {"label": "Age", "field": "age"},
+                      {"label": "Email", "field": "email"}]'
+                        data='[
+                      {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "children": [
+                          {"id": 2, "name": "Jane Doe", "age": 25, "email": "jane@example.com"}
+                      ]},
+                      {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
+            </tree-table>
+            <basic-card>
+                <div slot="header">My Card Title</div>
+                <div slot="content">This is the card content.</div>
+            </basic-card>
+            <custom-button class="d-block mt-3">Click Me</custom-button>
+            <custom-input class="d-block mt-3"></custom-input>
+            <custom-dropdown class="d-block mt-3">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </custom-dropdown>
+            <markdown-editor class="d-block mt-3"></markdown-editor>
+        </div>
+        <div slot="footer" class="footer">
+            <markdown-renderer
+                    markdown-content="This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~"
+            ></markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```c
 #include <stdio.h>
 
 int main() {
-    printf('Hello, World!\\n');
-    return 0;
+  printf('Hello, World!\\n');
+  return 0;
 }
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```css
 body {
 background-color: lightblue;
@@ -126,10 +120,10 @@ color: navy;
 margin-left: 20px;
 }
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```cpp
 #include <iostream>
 
@@ -138,108 +132,110 @@ std::cout << 'Hello World!//n';
 return 0;
 }
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Page</title>
+  <title>Test Page</title>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>This is a test page.</p>
+  <h1>Hello, World!</h1>
+  <p>This is a test page.</p>
 </body>
 </html>
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```java
 import java.util.Scanner;
 
 public class ScannerAndKeyboard {
 
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        System.out.print('Enter your name: ');
-        String name = s.nextLine();
-        System.out.println('Hello ' + name + '!');
-    }
+  public static void main(String[] args) {
+      Scanner s = new Scanner(System.in);
+      System.out.print('Enter your name: ');
+      String name = s.nextLine();
+      System.out.println('Hello ' + name + '!');
+  }
 }
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```js
 class CountdownTimer {
-    constructor(timeSec) {
-        this.timeSec = timeSec;
-    }
+  constructor(timeSec) {
+      this.timeSec = timeSec;
+  }
 
-    start() {
-        const timer = setInterval(() => {
-            if (this.timeSec <= 0) {
-                clearInterval(timer);
-                console.log('stop');
-                return;
-            }
-            let mins = Math.floor(this.timeSec / 60);
-            let secs = this.timeSec % 60;
-            let timeformat = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-            console.log(timeformat);
-            this.timeSec -= 1;
-        }, 1000);
-    }
+  start() {
+      const timer = setInterval(() => {
+          if (this.timeSec <= 0) {
+              clearInterval(timer);
+              console.log('stop');
+              return;
+          }
+          let mins = Math.floor(this.timeSec / 60);
+          let secs = this.timeSec % 60;
+          let timeformat = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+          console.log(timeformat);
+          this.timeSec -= 1;
+      }, 1000);
+  }
 }
 
 // Example usage
 const timer = new CountdownTimer(5);
 timer.start();
 ```"
-        >
-        </markdown-renderer>
-        <markdown-renderer
-            markdown-content="
+            >
+            </markdown-renderer>
+            <markdown-renderer
+                    markdown-content="
 ```py
 import time
 
 class CountdownTimer:
-    def __init__(self, time_sec):
-        self.time_sec = time_sec
+  def __init__(self, time_sec):
+      self.time_sec = time_sec
 
-    def start(self):
-        while self.time_sec:
-            mins, secs = divmod(self.time_sec, 60)
-            timeformat = '{:02d}:{:02d}'.format(mins, secs)
-            print(timeformat, end='\r')
-            time.sleep(1)
-            self.time_sec -= 1
+  def start(self):
+      while self.time_sec:
+          mins, secs = divmod(self.time_sec, 60)
+          timeformat = '{:02d}:{:02d}'.format(mins, secs)
+          print(timeformat, end='\r')
+          time.sleep(1)
+          self.time_sec -= 1
 
-        print('stop')
+      print('stop')
 
 # Example usage
 timer = CountdownTimer(5)
 timer.start()
 ```"
-        >
-        </markdown-renderer>
+            >
+            </markdown-renderer>
+        </div>
+    </layout-component>
 
-        <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const kanbanBoard = document.querySelector('kanban-board');
-                const newColumns = [
-                    { name: "To Do", cards: ["New Task 1", "New Task 2"] },
-                    { name: "In Progress", cards: ["New Task 3"] },
-                    { name: "Done", cards: ["New Task 4"] }
-                ];
-                kanbanBoard.setColumns(newColumns);
-            });
-    </script>
-    </body>
+      <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
+      <script>
+          document.addEventListener("DOMContentLoaded", () => {
+              const kanbanBoard = document.querySelector('kanban-board');
+              const newColumns = [
+                  { name: "To Do", cards: ["New Task 1", "New Task 2"] },
+                  { name: "In Progress", cards: ["New Task 3"] },
+                  { name: "Done", cards: ["New Task 4"] }
+              ];
+              kanbanBoard.setColumns(newColumns);
+          });
+  </script>
+  </body>
 </html>

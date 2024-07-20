@@ -1,0 +1,43 @@
+<template id="layoutcomponent">
+    <style>
+        :host {
+            display: grid;
+            grid-template-areas:
+                        "header header header"
+                        "sidebar main main"
+                        "footer footer footer";
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: auto 1fr;
+            height: 100vh;
+        }
+
+        ::slotted([slot="header"]) {
+            grid-area: header;
+            background-color: var(--primary-color, #007bff);
+            color: var(--light-text, #fff);
+        }
+
+        ::slotted([slot="sidebar"]) {
+            grid-area: sidebar;
+            background-color: var(--accent-color, #ccc);
+            color: var(--dark-text, #333);
+        }
+
+        ::slotted([slot="main"]) {
+            grid-area: main;
+            background-color: var(--body-color, #f8f9fa);
+            color: var(--dark-text, #333);
+            overflow-y: auto;
+        }
+
+        ::slotted([slot="footer"]) {
+            grid-area: footer;
+            background-color: var(--primary-color, #007bff);
+            color: var(--light-text, #fff);
+        }
+    </style>
+    <slot name="header"></slot>
+    <slot name="sidebar"></slot>
+    <slot name="main"></slot>
+    <slot name="footer"></slot>
+</template>
