@@ -1,0 +1,16 @@
+/* Centering Utilities */
+
+/* Horizontal Centering */
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+/* Vertical Centering */
+.my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+
+/* Both Horizontal and Vertical Centering */
+.m-auto { margin: auto !important; }
+
+/* Flex Centering */
+.d-flex-center { display: flex !important; justify-content: center !important; align-items: center !important; }
+
+/* Grid Centering */
+.d-grid-center { display: grid !important; place-items: center !important; }

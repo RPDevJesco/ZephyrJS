@@ -1,7 +1,7 @@
 <template id="markdown-editor">
     <style>
         .markdown-container {
-            font-family: Arial, sans-serif;
+            font-family: var(--font-family-sans-serif);
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -12,32 +12,32 @@
             margin-bottom: 10px;
         }
         #output {
-            border: 1px solid #ccc;
+            border: 1px solid var(--neutral-color);
             padding: 10px;
             white-space: pre-wrap;
+            color: var(--markdown-text);
         }
         pre {
-            background-color: #272822;
-            color: #F8F8F2;
+            background-color: var(--markdown-bg);
+            color: var(--markdown-color);
             padding: 10px;
             border-radius: 5px;
             overflow-x: auto;
         }
-        .keyword { color: #F92672; }
-        .string { color: #E6DB74; }
-        .number { color: #AE81FF; }
-        .function { color: #A6E22E; }
-        .comment { color: #75715E; }
-        .method { color: #66D9EF; }
-        .tag { color: #00f; }
-        .attribute { color: #f00; }
-        .comment { color: #008000; }
-        .at-rule { color: #AF00DB; }
-        .punctuation { color: #000000; }
-        .property { color: #FF0000; }
-        .value { color: #0000FF; }
-        .selector { color: #800000; }
-        .indentation { color: #CCCCCC; }
+        .keyword { color: var(--markdown-keyword); }
+        .string { color: var(--markdown-string); }
+        .number { color: var(--markdown-number); }
+        .function { color: var(--markdown-function); }
+        .comment { color: var(--markdown-comment); }
+        .method { color: var(--markdown-method); }
+        .tag { color: var(--markdown-tag); }
+        .attribute { color: var(--markdown-attribute); }
+        .at-rule { color: var(--markdown-at-rule); }
+        .punctuation { color: var(--markdown-punctuation); }
+        .property { color: var(--markdown-property); }
+        .value { color: var(--markdown-value); }
+        .selector { color: var(--markdown-selector); }
+        .indentation { color: var(--markdown-indentation); }
     </style>
     <div class="markdown-container">
         <textarea id="markdown-input" bind="{{markdownInput}}" on="input:{{updateMarkdownInput}}"></textarea>

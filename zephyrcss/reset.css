@@ -1,0 +1,24 @@
+/* Reset CSS styles to ensure consistency */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}

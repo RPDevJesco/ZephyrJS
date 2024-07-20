@@ -1,0 +1,61 @@
+/* Margin */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: .25rem !important; }
+.m-2 { margin: .5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+
+/* Margin - Auto */
+.m-auto { margin: auto !important; }
+
+/* Margin - X Axis */
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: .25rem !important; margin-right: .25rem !important; }
+.mx-2 { margin-left: .5rem !important; margin-right: .5rem !important; }
+.mx-3 { margin-left: 1rem !important; margin-right: 1rem !important; }
+.mx-4 { margin-left: 1.5rem !important; margin-right: 1.5rem !important; }
+.mx-5 { margin-left: 3rem !important; margin-right: 3rem !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
+
+/* Margin - Y Axis */
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: .25rem !important; margin-bottom: .25rem !important; }
+.my-2 { margin-top: .5rem !important; margin-bottom: .5rem !important; }
+.my-3 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+.my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.my-5 { margin-top: 3rem !important; margin-bottom: 3rem !important; }
+.my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+
+/* Responsive Margin */
+@media (min-width: 576px) {
+    .m-sm-0 { margin: 0 !important; }
+    .mt-sm-0 { margin-top: 0 !important; }
+    .mr-sm-0 { margin-right: 0 !important; }
+    .mb-sm-0 { margin-bottom: 0 !important; }
+    .ml-sm-0 { margin-left: 0 !important; }
+}
+
+@media (min-width: 768px) {
+    .m-md-0 { margin: 0 !important; }
+    .mt-md-0 { margin-top: 0 !important; }
+    .mr-md-0 { margin-right: 0 !important; }
+    .mb-md-0 { margin-bottom: 0 !important; }
+    .ml-md-0 { margin-left: 0 !important; }
+}
+
+@media (min-width: 992px) {
+    .m-lg-0 { margin: 0 !important; }
+    .mt-lg-0 { margin-top: 0 !important; }
+    .mr-lg-0 { margin-right: 0 !important; }
+    .mb-lg-0 { margin-bottom: 0 !important; }
+    .ml-lg-0 { margin-left: 0 !important; }
+}
+
+@media (min-width: 1200px) {
+    .m-xl-0 { margin: 0 !important; }
+    .mt-xl-0 { margin-top: 0 !important; }
+    .mr-xl-0 { margin-right: 0 !important; }
+    .mb-xl-0 { margin-bottom: 0 !important; }
+    .ml-xl-0 { margin-left: 0 !important; }
+}

@@ -40,11 +40,10 @@ export default class UserProfile extends ZephyrJS {
 
     connectedCallback() {
         super.connectedCallback();
-        console.log('UserProfile component connected');
     }
 
     componentDidMount() {
-        console.log('UserProfile component did mount with state:', this.state);
+
     }
 
     updateBindings() {

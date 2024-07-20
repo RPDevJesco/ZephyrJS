@@ -2,9 +2,9 @@
     <style>
         :host {
             display: block;
-            padding: var(--notification-padding, 16px);
-            background: var(--notification-background, var(--light-text));
-            border-left: 5px solid var(--notification-border-color, var(--primary-color));
+            padding: var(--notification-padding);
+            background: var(--notification-background);
+            border-left: 5px solid var(--notification-border-color);
             margin-bottom: 16px;
             position: relative;
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -17,15 +17,15 @@
         }
         :host([type="success"]) {
             border-color: var(--success-color);
-            background: var(--success-text);
+            background: var(--success-background);
         }
         :host([type="error"]) {
             border-color: var(--danger-color);
-            background: var(--danger-text);
+            background: var(--danger-background);
         }
         :host([type="warning"]) {
             border-color: var(--warning-color);
-            background: var(--warning-text);
+            background: var(--warning-background);
         }
         .header {
             font-weight: bold;
@@ -33,7 +33,7 @@
             color: var(--primary-color);
         }
         .body {
-            font-size: var(--notification-font-size, 1em);
+            font-size: var(--notification-font-size);
         }
         .close-button {
             position: absolute;

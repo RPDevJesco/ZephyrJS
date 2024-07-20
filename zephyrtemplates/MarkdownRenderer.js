@@ -86,8 +86,6 @@ class DefaultHighlighter extends LanguageHighlighter {
     }
 
     highlightSyntax(code) {
-        console.log("Input default text:", code);
-
         // Escape HTML entities
         let result = this.escapeHtml(code);
 
@@ -101,7 +99,6 @@ class DefaultHighlighter extends LanguageHighlighter {
         // Preserve indentation
         result = result.replace(/^( +)/gm, match => `<span class="indentation">${'&nbsp;'.repeat(match.length)}</span>`);
 
-        console.log("Output default text:", result);
         return result;
     }
 }
@@ -241,8 +238,6 @@ class JavaScriptHighlighter extends LanguageHighlighter {
     }
 
     highlightSyntax(code) {
-        console.log("Input JavaScript code:", code);
-
         const patterns = [
             { pattern: /(\/\/.*$)|(\/\*[\s\S]*?\*\/)/gm, className: 'comment' },
             { pattern: /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)/g, className: 'string' },
@@ -284,7 +279,6 @@ class JavaScriptHighlighter extends LanguageHighlighter {
         // Highlight indentation
         result = result.replace(/^(\s+)/gm, match => `<span class="indentation">${match}</span>`);
 
-        console.log("Output JavaScript code:", result);
         return result;
     }
 
@@ -315,8 +309,6 @@ class PythonHighlighter extends LanguageHighlighter {
     }
 
     highlightSyntax(code) {
-        console.log("Input code:", code);
-
         const patterns = [
             { pattern: /(#.*$)/gm, className: 'comment' },
             { pattern: /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g, className: 'string' },
@@ -357,7 +349,6 @@ class PythonHighlighter extends LanguageHighlighter {
         // Highlight indentation
         result = result.replace(/^(\s+)/gm, match => `<span class="indentation">${match}</span>`);
 
-        console.log("Output code:", result);
         return result;
     }
 
@@ -388,8 +379,6 @@ class HTMLHighlighter extends LanguageHighlighter {
     }
 
     highlightSyntax(code) {
-        console.log("Input code:", code);
-
         // Unescape the code first
         code = this.unescapeHtml(code);
 
@@ -397,15 +386,12 @@ class HTMLHighlighter extends LanguageHighlighter {
         const attributePattern = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/gi;
 
         let result = code.replace(tagPattern, (match) => {
-            console.log("Matched tag:", match);
             let highlighted = match.replace(attributePattern, (attrMatch, attrName, attrValue) => {
-                console.log("Matched attribute:", attrName, attrValue);
                 return `${attrName}="<span class="string">${this.escapeHtml(attrValue)}</span>"`;
             });
             return `<span class="tag">${highlighted}</span>`;
         });
 
-        console.log("Output code:", result);
         return result;
     }
 }
@@ -417,8 +403,6 @@ class CSSHighlighter extends LanguageHighlighter {
     }
 
     highlightSyntax(code) {
-        console.log("Input CSS code:", code);
-
         const patterns = [
             { pattern: /\/\*[\s\S]*?\*\//g, className: 'comment' },
             { pattern: /([@][\w-]+)/g, className: 'at-rule' },
@@ -462,7 +446,6 @@ class CSSHighlighter extends LanguageHighlighter {
         // Highlight indentation
         result = result.replace(/^(\s+)/gm, match => `<span class="indentation">${match}</span>`);
 
-        console.log("Output CSS code:", result);
         return result;
     }
 
@@ -492,11 +475,9 @@ export default class MarkdownRenderer extends ZephyrJS {
 
     connectedCallback() {
         super.connectedCallback();
-        console.log('MarkdownRenderer component connected');
     }
 
     componentDidMount() {
-        console.log('MarkdownRenderer component did mount');
         this.parseMarkdown();
     }
 

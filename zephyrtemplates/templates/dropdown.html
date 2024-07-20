@@ -7,21 +7,21 @@
         }
         select {
             width: 100%;
-            padding: var(--dropdown-padding, 10px);
-            border: var(--dropdown-border, 1px solid var(--neutral-color));
-            border-radius: var(--dropdown-border-radius, 4px);
-            font-size: var(--dropdown-font-size, 1rem);
+            padding: var(--dropdown-padding);
+            border: var(--dropdown-border);
+            border-radius: var(--dropdown-border-radius);
+            font-size: var(--dropdown-font-size);
             appearance: none;
-            background: var(--dropdown-background, var(--background-color));
+            background: var(--dropdown-background);
             color: var(--primary-color);
-            background-image: var(--dropdown-arrow, url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%232A4858;"/></svg>'));
+            background-image: var(--dropdown-arrow);
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 12px;
             transition: border-color 0.3s ease;
         }
         select:focus {
-            border-color: var(--dropdown-focus-border-color, var(--secondary-color));
+            border-color: var(--dropdown-focus-border-color);
             outline: none;
             box-shadow: 0 0 0 2px rgba(126, 189, 194, 0.2);
         }

@@ -1,0 +1,55 @@
+/* Top, Right, Bottom, Left */
+.top-0 { top: 0 !important; }
+.right-0 { right: 0 !important; }
+.bottom-0 { bottom: 0 !important; }
+.left-0 { left: 0 !important; }
+
+.top-50 { top: 50% !important; }
+.right-50 { right: 50% !important; }
+.bottom-50 { bottom: 50% !important; }
+.left-50 { left: 50% !important; }
+
+.top-100 { top: 100% !important; }
+.right-100 { right: 100% !important; }
+.bottom-100 { bottom: 100% !important; }
+.left-100 { left: 100% !important; }
+
+/* Translate for positioning */
+.translate-middle { transform: translate(-50%, -50%) !important; }
+.translate-middle-x { transform: translateX(-50%) !important; }
+.translate-middle-y { transform: translateY(-50%) !important; }
+
+/* Z-index */
+.z-index-1 { z-index: 1 !important; }
+.z-index-10 { z-index: 10 !important; }
+.z-index-50 { z-index: 50 !important; }
+.z-index-100 { z-index: 100 !important; }
+
+/* Responsive Positioning */
+@media (min-width: 576px) {
+    .top-sm-0 { top: 0 !important; }
+    .right-sm-0 { right: 0 !important; }
+    .bottom-sm-0 { bottom: 0 !important; }
+    .left-sm-0 { left: 0 !important; }
+}
+
+@media (min-width: 768px) {
+    .top-md-0 { top: 0 !important; }
+    .right-md-0 { right: 0 !important; }
+    .bottom-md-0 { bottom: 0 !important; }
+    .left-md-0 { left: 0 !important; }
+}
+
+@media (min-width: 992px) {
+    .top-lg-0 { top: 0 !important; }
+    .right-lg-0 { right: 0 !important; }
+    .bottom-lg-0 { bottom: 0 !important; }
+    .left-lg-0 { left: 0 !important; }
+}
+
+@media (min-width: 1200px) {
+    .top-xl-0 { top: 0 !important; }
+    .right-xl-0 { right: 0 !important; }
+    .bottom-xl-0 { bottom: 0 !important; }
+    .left-xl-0 { left: 0 !important; }
+}

@@ -1,3 +1,34 @@
-/* zephyr.css */
-@import url('variables.css');
-@import url('utilities.css');
+/* Alignment */
+@import './alignment.css';
+/* Animations */
+@import './animations.css';
+/* Borders */
+@import './borders.css';
+/* Buttons */
+@import './buttons.css';
+/* Centering */
+@import './centering.css';
+/* Colors */
+@import './colors.css';
+/* Display */
+@import './display.css';
+/* Layout */
+@import './layout.css';
+/* Margin */
+@import './margin.css';
+/* Padding */
+@import './padding.css';
+/* Positioning */
+@import './positioning.css';
+/* Reset */
+@import './reset.css';
+/* Spacing */
+@import './spacing.css';
+/* Typography */
+@import './typography.css';
+/* Utilities */
+@import './utilities.css';
+/* Variables */
+@import './variables.css';
+/* Visibility */
+@import './visibility.css';
