@@ -1,0 +1,46 @@
+<template id="markdown-editor">
+    <style>
+        .markdown-container {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+        pre {
+            background-color: #272822;
+            color: #F8F8F2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .keyword { color: #F92672; }
+        .string { color: #E6DB74; }
+        .number { color: #AE81FF; }
+        .function { color: #A6E22E; }
+        .comment { color: #75715E; }
+        .method { color: #66D9EF; }
+        .tag { color: #00f; }
+        .attribute { color: #f00; }
+        .comment { color: #008000; }
+        .at-rule { color: #AF00DB; }
+        .punctuation { color: #000000; }
+        .property { color: #FF0000; }
+        .value { color: #0000FF; }
+        .selector { color: #800000; }
+        .indentation { color: #CCCCCC; }
+    </style>
+    <div class="markdown-container">
+        <textarea id="markdown-input" bind="{{markdownInput}}" on="input:{{updateMarkdownInput}}"></textarea>
+        <div id="output"></div>
+    </div>
+</template>

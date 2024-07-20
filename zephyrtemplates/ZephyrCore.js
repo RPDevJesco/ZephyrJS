@@ -6,3 +6,4 @@ import Input from "../zephyrtemplates/Input.js";
 import Dropdown from "../zephyrtemplates/Dropdown.js";
 import Upload from "../zephyrtemplates/UserProfile.js";
 import MarkdownRenderer from "../zephyrtemplates/MarkdownRenderer.js";
+import MarkdownEditor from "../zephyrtemplates/MarkdownEditor.js";
