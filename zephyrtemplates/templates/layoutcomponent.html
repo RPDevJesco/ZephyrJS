@@ -3,41 +3,79 @@
         :host {
             display: grid;
             grid-template-areas:
-                        "header header header"
-                        "sidebar main main"
-                        "footer footer footer";
+                        "top top top"
+                        "left sidebar right"
+                        "bottom bottom bottom";
             grid-template-rows: auto 1fr auto;
-            grid-template-columns: auto 1fr;
+            grid-template-columns: auto 1fr auto;
             height: 100vh;
         }
 
-        ::slotted([slot="header"]) {
-            grid-area: header;
+        ::slotted([slot="top"]) {
+            grid-area: top;
             background-color: var(--primary-color, #007bff);
             color: var(--light-text, #fff);
         }
 
-        ::slotted([slot="sidebar"]) {
-            grid-area: sidebar;
+        ::slotted([slot="left"]) {
+            grid-area: left;
             background-color: var(--accent-color, #ccc);
             color: var(--dark-text, #333);
         }
 
-        ::slotted([slot="main"]) {
-            grid-area: main;
+        ::slotted([slot="sidebar"]) {
+            grid-area: sidebar;
+            background-color: var(--accent-color, #ddd);
+            color: var(--dark-text, #333);
+        }
+
+        ::slotted([slot="right"]) {
+            grid-area: right;
+            background-color: var(--accent-color, #ccc);
+            color: var(--dark-text, #333);
+        }
+
+        ::slotted([slot="bottom"]) {
+            grid-area: bottom;
+            background-color: var(--primary-color, #007bff);
+            color: var(--light-text, #fff);
+        }
+
+        ::slotted([slot="center"]) {
+            grid-area: sidebar / left / span 2 / span 2;
             background-color: var(--body-color, #f8f9fa);
             color: var(--dark-text, #333);
             overflow-y: auto;
         }
 
-        ::slotted([slot="footer"]) {
-            grid-area: footer;
-            background-color: var(--primary-color, #007bff);
-            color: var(--light-text, #fff);
+        /* Fine-grained controls for nested areas */
+        .top-left {
+            grid-area: top-left;
+        }
+        .top-right {
+            grid-area: top-right;
+        }
+        .bottom-left {
+            grid-area: bottom-left;
+        }
+        .bottom-right {
+            grid-area: bottom-right;
+        }
+
+        /* Default styles */
+        .top, .left, .sidebar, .right, .bottom, .center {
+            padding: 1rem;
         }
     </style>
-    <slot name="header"></slot>
+    <slot name="top"></slot>
+    <slot name="left"></slot>
     <slot name="sidebar"></slot>
-    <slot name="main"></slot>
-    <slot name="footer"></slot>
+    <slot name="right"></slot>
+    <slot name="bottom"></slot>
+    <slot name="center"></slot>
+    <!-- Nested areas -->
+    <slot name="top-left" class="top-left"></slot>
+    <slot name="top-right" class="top-right"></slot>
+    <slot name="bottom-left" class="bottom-left"></slot>
+    <slot name="bottom-right" class="bottom-right"></slot>
 </template>

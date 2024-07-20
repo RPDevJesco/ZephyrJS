@@ -8,13 +8,7 @@
     </head>
     <body style="background: var(--body-color)">
     <layout-component>
-        <div slot="header" class="header">
-            <accordion-component class="d-block mt-3"
-                                                               items='[
-                                {"header": "Section 1", "content": "Content for section 1"},
-                                {"header": "Section 2", "content": "Content for section 2"},
-                                {"header": "Section 3", "content": "Content for section 3"}]'>
-        </accordion-component>
+        <div slot="top" class="top">
             <notification-box
                     type="success"
                     auto-dismiss="3000"
@@ -33,8 +27,20 @@
                 >This is an error notification.</span
                 >
             </notification-box>
+            <accordion-component class="d-block mt-3"
+                                 items='[
+                                {"header": "Section 1", "content": "Content for section 1"},
+                                {"header": "Section 2", "content": "Content for section 2"},
+                                {"header": "Section 3", "content": "Content for section 3"}]'>
+            </accordion-component>
+        </div>
+        <div slot="left" class="left">
+
         </div>
         <div slot="sidebar" class="sidebar">
+
+        </div>
+        <div slot="right" class="right">R
             <kanban-board class="d-block mt-3"
                           columns='[
                       {"name": "To Do", "cards": ["Task 1", "Task 2"]},
@@ -42,7 +48,8 @@
                       {"name": "Done", "cards": ["Task 4"]}]'>
             </kanban-board>
         </div>
-        <div slot="main" class="main">
+        <div slot="bottom" class="bottom">Bottom Area</div>
+        <div slot="center" class="center">
             <data-table class="d-block mt-3"
                         columns='[
                         {"label": "Name", "field": "name"},
@@ -91,8 +98,6 @@
                 <option value="option3">Option 3</option>
             </custom-dropdown>
             <markdown-editor class="d-block mt-3"></markdown-editor>
-        </div>
-        <div slot="footer" class="footer">
             <markdown-renderer
                     markdown-content="This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~"
             ></markdown-renderer>
@@ -223,8 +228,11 @@ timer.start()
             >
             </markdown-renderer>
         </div>
+        <div slot="top-left" class="top-left">Top Left Nested Area</div>
+        <div slot="top-right" class="top-right">Top Right Nested Area</div>
+        <div slot="bottom-left" class="bottom-left">Bottom Left Nested Area</div>
+        <div slot="bottom-right" class="bottom-right">Bottom Right Nested Area</div>
     </layout-component>
-
       <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
       <script>
           document.addEventListener("DOMContentLoaded", () => {
