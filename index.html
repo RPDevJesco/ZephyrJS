@@ -1,52 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZephyrJS Components</title>
-    <link rel="stylesheet" href="./zephyrcss/zephyr.css">
-</head>
-<body style="background: var(--body-color)">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ZephyrJS Components</title>
+        <link rel="stylesheet" href="./zephyrcss/zephyr.css" />
+    </head>
+    <body style="background: var(--body-color)">
+        <basic-card>
+            <div slot="header">My Card Title</div>
+            <div slot="content">This is the card content.</div>
+        </basic-card>
 
-<basic-card>
-    <div slot="header">My Card Title</div>
-    <div slot="content">This is the card content.</div>
-</basic-card>
+        <modal-dialog>
+            <div slot="header">Dialog Header</div>
+            <div slot="body">Dialog Body</div>
+        </modal-dialog>
 
-<modal-dialog>
-    <div slot="header">Dialog Header</div>
-    <div slot="body">Dialog Body</div>
-</modal-dialog>
+        <notification-box
+            type="success"
+            auto-dismiss="3000"
+            class="d-block mt-3"
+        >
+            <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
+            <span slot="header" class="text-primary">Success</span>
+            <span slot="body" class="text-dark"
+                >This is a success notification.</span
+            >
+        </notification-box>
 
-<notification-box type="success" auto-dismiss="3000" class="d-block mt-3">
-    <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
-    <span slot="header" class="text-primary">Success</span>
-    <span slot="body" class="text-dark">This is a success notification.</span>
-</notification-box>
+        <notification-box type="error" class="d-block mt-3">
+            <span slot="icon" class="icon">&#10060;</span>
+            <span slot="header" class="text-danger">Error</span>
+            <span slot="body" class="text-dark"
+                >This is an error notification.</span
+            >
+        </notification-box>
 
-<notification-box type="error" class="d-block mt-3">
-    <span slot="icon" class="icon">&#10060;</span>
-    <span slot="header" class="text-danger">Error</span>
-    <span slot="body" class="text-dark">This is an error notification.</span>
-</notification-box>
+        <custom-button class="d-block mt-3">Click Me</custom-button>
 
-<custom-button class="d-block mt-3">Click Me</custom-button>
+        <custom-input class="d-block mt-3"></custom-input>
 
-<custom-input class="d-block mt-3"></custom-input>
+        <custom-dropdown class="d-block mt-3">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+        </custom-dropdown>
 
-<custom-dropdown class="d-block mt-3">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
-</custom-dropdown>
+        <user-profile class="d-block mt-3"></user-profile>
 
-<user-profile class="d-block mt-3"></user-profile>
+        <markdown-editor class="d-block mt-3"></markdown-editor>
 
-<markdown-editor class="d-block mt-3"></markdown-editor>
-
-<markdown-renderer markdown-content="
-This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~
-
+        <markdown-renderer
+            markdown-content="This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~"
+        ></markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```c
 #include <stdio.h>
 
@@ -54,8 +63,11 @@ int main() {
     printf('Hello, World!\\n');
     return 0;
 }
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```css
 body {
 background-color: lightblue;
@@ -65,8 +77,11 @@ h1 {
 color: navy;
 margin-left: 20px;
 }
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```cpp
 #include <iostream>
 
@@ -74,8 +89,11 @@ int main() {
 std::cout << 'Hello World!//n';
 return 0;
 }
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```html
 <!DOCTYPE html>
 <html>
@@ -87,8 +105,11 @@ return 0;
     <p>This is a test page.</p>
 </body>
 </html>
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```java
 import java.util.Scanner;
 
@@ -101,8 +122,11 @@ public class ScannerAndKeyboard {
         System.out.println('Hello ' + name + '!');
     }
 }
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```js
 class CountdownTimer {
     constructor(timeSec) {
@@ -128,8 +152,11 @@ class CountdownTimer {
 // Example usage
 const timer = new CountdownTimer(5);
 timer.start();
-```
-
+```"
+        >
+        </markdown-renderer>
+        <markdown-renderer
+            markdown-content="
 ```py
 import time
 
@@ -150,10 +177,10 @@ class CountdownTimer:
 # Example usage
 timer = CountdownTimer(5)
 timer.start()
-```
-"></markdown-renderer>
+```"
+        >
+        </markdown-renderer>
 
-
-<script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
-</body>
+        <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
+    </body>
 </html>
