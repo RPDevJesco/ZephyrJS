@@ -9,6 +9,14 @@
     <body style="background: var(--body-color)">
     <layout-component>
         <div slot="top" class="top">
+            <accordion-component class="d-block mt-3"
+                                 items='[
+                                {"header": "Section 1", "content": "Content for section 1"},
+                                {"header": "Section 2", "content": "Content for section 2"},
+                                {"header": "Section 3", "content": "Content for section 3"}]'>
+            </accordion-component>
+        </div>
+        <div slot="left" class="left">
             <notification-box
                     type="success"
                     auto-dismiss="3000"
@@ -20,6 +28,8 @@
                 >This is a success notification.</span
                 >
             </notification-box>
+        </div>
+        <div slot="sidebar" class="sidebar">
             <notification-box type="error" class="d-block mt-3">
                 <span slot="icon" class="icon">&#10060;</span>
                 <span slot="header" class="text-danger">Error</span>
@@ -27,20 +37,8 @@
                 >This is an error notification.</span
                 >
             </notification-box>
-            <accordion-component class="d-block mt-3"
-                                 items='[
-                                {"header": "Section 1", "content": "Content for section 1"},
-                                {"header": "Section 2", "content": "Content for section 2"},
-                                {"header": "Section 3", "content": "Content for section 3"}]'>
-            </accordion-component>
         </div>
-        <div slot="left" class="left">
-
-        </div>
-        <div slot="sidebar" class="sidebar">
-
-        </div>
-        <div slot="right" class="right">R
+        <div slot="right" class="right">
             <kanban-board class="d-block mt-3"
                           columns='[
                       {"name": "To Do", "cards": ["Task 1", "Task 2"]},
