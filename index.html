@@ -12,6 +12,35 @@
             <div slot="content">This is the card content.</div>
         </basic-card>
 
+        <accordion-component class="d-block mt-3"
+                             items='[
+                                {"header": "Section 1", "content": "Content for section 1"},
+                                {"header": "Section 2", "content": "Content for section 2"},
+                                {"header": "Section 3", "content": "Content for section 3"}]'>
+        </accordion-component>
+
+        <accordion-table class="d-block mt-3"
+                         columns='[
+                            {"label": "Name", "field": "name"},
+                            {"label": "Age", "field": "age"},
+                            {"label": "Email", "field": "email"}]'
+                         data='[
+                            {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "details": "<p>Details about John Doe.</p>"},
+                            {"id": 2, "name": "Jane Smith", "age": 25, "email": "jane@example.com", "details": "<p>Details about Jane Smith.</p>"},
+                            {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com", "details": "<p>Details about Mike Johnson.</p>"}]'>
+        </accordion-table>
+
+        <data-table class="d-block mt-3"
+                    columns='[
+                        {"label": "Name", "field": "name"},
+                        {"label": "Age", "field": "age"},
+                        {"label": "Email", "field": "email"}]'
+                    data='[
+                        {"name": "John Doe", "age": 30, "email": "john@example.com"},
+                        {"name": "Jane Smith", "age": 25, "email": "jane@example.com"},
+                        {"name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
+        </data-table>
+
         <modal-dialog>
             <div slot="header">Dialog Header</div>
             <div slot="body">Dialog Body</div>
@@ -46,6 +75,25 @@
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
         </custom-dropdown>
+
+        <tree-table class="d-block mt-3"
+                    columns='[
+                        {"label": "Name", "field": "name"},
+                        {"label": "Age", "field": "age"},
+                        {"label": "Email", "field": "email"}]'
+                    data='[
+                        {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "children": [
+                            {"id": 2, "name": "Jane Doe", "age": 25, "email": "jane@example.com"}
+                        ]},
+                        {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
+        </tree-table>
+
+        <kanban-board class="d-block mt-3"
+                      columns='[
+                        {"name": "To Do", "cards": ["Task 1", "Task 2"]},
+                        {"name": "In Progress", "cards": ["Task 3"]},
+                        {"name": "Done", "cards": ["Task 4"]}]'>
+        </kanban-board>
 
         <user-profile class="d-block mt-3"></user-profile>
 
@@ -182,5 +230,16 @@ timer.start()
         </markdown-renderer>
 
         <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const kanbanBoard = document.querySelector('kanban-board');
+                const newColumns = [
+                    { name: "To Do", cards: ["New Task 1", "New Task 2"] },
+                    { name: "In Progress", cards: ["New Task 3"] },
+                    { name: "Done", cards: ["New Task 4"] }
+                ];
+                kanbanBoard.setColumns(newColumns);
+            });
+    </script>
     </body>
 </html>

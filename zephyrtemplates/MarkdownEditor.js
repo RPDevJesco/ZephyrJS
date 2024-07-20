@@ -1,4 +1,4 @@
-import { ZephyrJS, defineCustomElement } from '../zephyrcore/zephyr.js';
+import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 import JSTOKENS from '../zephyrcore/CSPSHJS.js';
 import CPPTOKENS from '../zephyrcore/CSPSHCPP.js';

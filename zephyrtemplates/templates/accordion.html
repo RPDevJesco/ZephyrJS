@@ -1,0 +1,25 @@
+<template id="accordion-template">
+    <style>
+        .accordion-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .accordion-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .accordion-header {
+            background-color: var(--card-bg);
+            padding: 10px;
+            cursor: pointer;
+        }
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            background-color: var(--card-bg);
+        }
+    </style>
+    <div class="accordion-container"></div>
+</template>

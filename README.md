@@ -74,6 +74,11 @@ ZephyrJS comes with several pre-built components:
 <user-profile>
 <markdown-editor>
 <markdown-renderer>
+<kanban-board>
+<accordion-component>
+<accordion-table>
+<data-table>
+<tree-table>
 ```
 
 ### Customization
@@ -96,7 +101,6 @@ For support, please open an issue on our GitHub repository.
 Built with ❤️
 
 ### ToDO:
-- Accordion: A component for collapsible content panels, allowing users to expand and collapse sections of content.
 - Tabs: A component for creating tabbed navigation interfaces, useful for organizing content into separate sections within a single page.
 - Tooltip: A component for displaying additional information when users hover over or focus on an element.
 - Carousel: A component for creating image or content sliders, commonly used for showcasing multiple items in a slideshow format.
@@ -118,10 +122,7 @@ Built with ❤️
 - Stepper: A component to guide users through a multi-step process, often used for forms or workflows.
 - Snackbar/Toast: A component for displaying brief messages at the bottom or top of the screen, typically for non-intrusive notifications.
 - Rich Text Editor: A component that provides WYSIWYG (What You See Is What You Get) editing capabilities, allowing users to format text with various styles, links, and media.
-- Data Table: An advanced table component with features like sorting, filtering, pagination, and inline editing.
 - Chart/Graph: A component for rendering different types of charts and graphs (e.g., bar, line, pie) using a library like Chart.js or D3.js.
-- Kanban Board: A component for creating task boards similar to Trello, with draggable cards and columns.
-- Tree Table: A combination of a tree view and a table, allowing hierarchical data to be displayed in a tabular format.
 - Split Pane: A component for creating resizable split views, allowing users to adjust the size of adjacent content areas.
 - Infinite Scroll: A component for loading content dynamically as the user scrolls, often used in social media feeds or long lists.
 - Color Picker: A component for selecting colors, often used in design and customization tools.
@@ -133,5 +134,4 @@ Built with ❤️
 - Notification Center: A component for managing and displaying a list of notifications, with features like dismissing and marking as read.
 - Map Viewer: A component for displaying interactive maps, possibly integrating with libraries like Leaflet or Google Maps API.
 - Rating/Review: A component for capturing and displaying user ratings and reviews, often used in e-commerce and feedback systems.
-- Accordion Table: A combination of accordion and table components, allowing expandable rows within a table.
 - Timeline: A component for displaying chronological events or activities in a visually appealing timeline format.

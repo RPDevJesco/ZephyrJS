@@ -7,3 +7,8 @@ import Dropdown from "../zephyrtemplates/Dropdown.js";
 import Upload from "../zephyrtemplates/UserProfile.js";
 import MarkdownRenderer from "../zephyrtemplates/MarkdownRenderer.js";
 import MarkdownEditor from "../zephyrtemplates/MarkdownEditor.js";
+import KanbanBoard from "../zephyrtemplates/KanbanBoard.js";
+import Accordion from "../zephyrtemplates/Accordion.js";
+import DataTable from "../zephyrtemplates/DataTable.js";
+import TreeTable from "../zephyrtemplates/TreeTable.js";
+import AccordionTable from "../zephyrtemplates/AccordionTable.js";
