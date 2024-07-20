@@ -5,21 +5,21 @@
             border-collapse: collapse;
         }
         .data-table th, .data-table td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 1px solid var(--neutral-color);
+            padding: var(--spacing-small, 10px);
             text-align: left;
             color: var(--light-text);
         }
         .data-table th {
             cursor: pointer;
-            background-color: #f0f0f0;
-            color: var(--dark-text);
+            background-color: var(--secondary-color-light);
+            color: var(--light-text);
         }
         .pagination-controls {
-            margin-top: 10px;
+            margin-top: var(--spacing-small, 10px);
         }
         .pagination-controls button {
-            margin-right: 5px;
+            margin-right: var(--spacing-small, 5px);
         }
     </style>
     <div class="table-container"></div>

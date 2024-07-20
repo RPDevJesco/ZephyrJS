@@ -1,11 +1,11 @@
-<template id="pagination-component-template">
+<template id="pagination-component">
     <style>
         .pagination-container {
             display: flex;
-            gap: 5px;
+            gap: var(--spacing-small, 5px);
         }
         .pagination-container button {
-            padding: 5px 10px;
+            padding: var(--spacing-extra-small, 5px) var(--spacing-small, 10px);
             cursor: pointer;
         }
         .pagination-container button:disabled {

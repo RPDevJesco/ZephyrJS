@@ -5,12 +5,12 @@
             padding: var(--notification-padding);
             background: var(--notification-background);
             border-left: 5px solid var(--notification-border-color);
-            margin-bottom: 16px;
+            margin-bottom: var(--spacing-medium, 16px);
             position: relative;
             transition: opacity 0.3s ease, transform 0.3s ease;
             font-family: var(--font-family-sans-serif);
             color: var(--light-text);
-            box-shadow: 0 2px 4px rgba(42, 72, 88, 0.1);
+            box-shadow: var(--shadow-light);
         }
         :host([hidden]) {
             display: none;
@@ -29,7 +29,7 @@
         }
         .header {
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: var(--spacing-small, 8px);
             color: var(--primary-color);
         }
         .body {
@@ -37,8 +37,8 @@
         }
         .close-button {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: var(--spacing-small, 8px);
+            right: var(--spacing-small, 8px);
             background: none;
             border: none;
             font-size: 1.5em;
@@ -50,7 +50,7 @@
             color: var(--accent-color);
         }
         .icon {
-            margin-right: 8px;
+            margin-right: var(--spacing-small, 8px);
         }
     </style>
     <button class="close-button" aria-label="Close">&times;</button>

@@ -3,23 +3,23 @@
         .accordion-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: var(--spacing-small, 10px);
         }
         .accordion-item {
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 1px solid var(--neutral-color);
+            border-radius: var(--border-radius);
             overflow: hidden;
             color: var(--dark-text);
         }
         .accordion-header {
             background-color: var(--card-bg);
-            padding: 10px;
+            padding: var(--spacing-small, 10px);
             cursor: pointer;
             color: var(--dark-text);
         }
         .accordion-content {
             display: none;
-            padding: 10px;
+            padding: var(--spacing-small, 10px);
             background-color: var(--card-bg);
             color: var(--dark-text);
         }

@@ -4,19 +4,19 @@
             font-family: var(--font-family-sans-serif);
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: var(--spacing-large, 20px);
         }
         #output {
             border: 1px solid var(--neutral-color);
             color: var(--markdown-text);
-            padding: 10px;
+            padding: var(--spacing-small, 10px);
             white-space: pre-wrap;
         }
         pre {
             background-color: var(--markdown-bg);
             color: var(--markdown-color);
-            padding: 10px;
-            border-radius: 5px;
+            padding: var(--spacing-small, 10px);
+            border-radius: var(--border-radius);
             overflow-x: auto;
         }
         .keyword { color: var(--markdown-keyword); }

@@ -2,13 +2,13 @@
     <style>
         .kanban-board {
             display: flex;
-            gap: 10px;
+            gap: var(--spacing-small, 10px);
         }
         .column {
             flex: 1;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-            padding: 10px;
+            background-color: var(--secondary-color-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-small, 10px);
         }
         .column h2 {
             text-align: center;
@@ -17,11 +17,11 @@
             min-height: 100px;
         }
         .card {
-            background-color: white;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background-color: var(--card-bg);
+            margin: var(--spacing-extra-small, 5px) 0;
+            padding: var(--spacing-small, 10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
             cursor: move;
         }
         .card.dragging {

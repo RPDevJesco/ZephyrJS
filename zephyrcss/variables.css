@@ -5,6 +5,7 @@
     --accent-color: #A88FAC;     /* Soft purple */
     --background-color: #F4F7F9; /* Very light blue-gray */
     --neutral-color: #D4B2D8;    /* Light grayish purple */
+    --secondary-color-light: #e0e1ff; /* Light shade of secondary color */
 
     /* Semantic colors */
     --info-color: #17a2b8;       /* Standard blue for info */
@@ -57,9 +58,9 @@
     --button-disabled-background: var(--neutral-color);
 
     /* Card specific variables */
-    --card-border-radius: 8px;
-    --card-padding: 16px;
     --card-box-shadow: var(--shadow-light);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
     --card-header-font-size: 1.5em;
     --card-header-margin-bottom: 12px;
     --card-content-margin-top: 8px;
@@ -126,4 +127,11 @@
     --markdown-selector: #800000;
     --markdown-indentation: #CCCCCC;
     --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+    --border-radius: 5px;
 }

@@ -6,6 +6,18 @@
         .inline-editing-container input {
             width: 100%;
             box-sizing: border-box;
+            padding: var(--input-padding);
+            border: var(--input-border);
+            border-radius: var(--input-border-radius);
+            font-size: var(--input-font-size);
+            background-color: var(--background-color);
+            color: var(--body-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .inline-editing-container input:focus {
+            border-color: var(--input-focus-border-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(126, 189, 194, 0.2);
         }
     </style>
     <div class="inline-editing-container"></div>

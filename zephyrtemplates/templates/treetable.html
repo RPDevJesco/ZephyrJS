@@ -5,20 +5,21 @@
             border-collapse: collapse;
         }
         .tree-table th, .tree-table td {
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 1px solid var(--neutral-color);
+            padding: var(--spacing-small, 10px);
             text-align: left;
         }
         .tree-table th {
-            background-color: #f0f0f0;
+            background-color: var(--secondary-color-light);
+            color: var(--dark-text);
         }
         .tree-table .toggle-icon {
             cursor: pointer;
-            margin-right: 5px;
+            margin-right: var(--spacing-extra-small, 5px);
             color: var(--light-text);
         }
         .tree-table-row {
-            padding-left: 0;
+            padding-left: var(--spacing-none, 0);
             color: var(--light-text);
         }
     </style>
