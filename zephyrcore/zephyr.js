@@ -39,11 +39,7 @@ export default class ZephyrJS extends HTMLElement {
         });
 
         const className = this.constructor.name.toLowerCase();
-        if (this.constructor.isCoreTemplate) {
-            this.templateUrl = `${ZephyrJS.baseUrl}/zephyrtemplates/templates/${className}.html`;
-        } else {
-            this.templateUrl = `./templates/${className}.html`;
-        }
+        this.templateUrl = `${ZephyrJS.baseUrl}/zephyrtemplates/templates/${className}.html`;
 
         this.renderBlocking = this.constructor.renderBlocking || false;
     }
