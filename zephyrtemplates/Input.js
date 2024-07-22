@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class Input extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
 
@@ -63,5 +67,4 @@ export default class Input extends ZephyrJS {
     }
 }
 
-Input.isCoreTemplate = true;
 defineCustomElement('custom-input', Input);

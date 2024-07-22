@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class PaginationComponent extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
         this.state = {
@@ -52,5 +56,4 @@ export default class PaginationComponent extends ZephyrJS {
     }
 }
 
-PaginationComponent.isCoreTemplate = true;
 defineCustomElement('pagination-component', PaginationComponent);

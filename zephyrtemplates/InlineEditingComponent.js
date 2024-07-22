@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class InlineEditingComponent extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
         this.state = {
@@ -63,5 +67,4 @@ export default class InlineEditingComponent extends ZephyrJS {
     }
 }
 
-InlineEditingComponent.isCoreTemplate = true;
 defineCustomElement('inline-editing-component', InlineEditingComponent);

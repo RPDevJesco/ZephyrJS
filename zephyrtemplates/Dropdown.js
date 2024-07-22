@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class Dropdown extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
 
@@ -80,5 +84,4 @@ export default class Dropdown extends ZephyrJS {
     }
 }
 
-Dropdown.isCoreTemplate = true;
 defineCustomElement('custom-dropdown', Dropdown);

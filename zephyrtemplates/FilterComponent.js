@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class FilterComponent extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
         this.state = {
@@ -55,5 +59,4 @@ export default class FilterComponent extends ZephyrJS {
     }
 }
 
-FilterComponent.isCoreTemplate = true;
 defineCustomElement('filter-component', FilterComponent);

@@ -462,6 +462,10 @@ class CSSHighlighter extends LanguageHighlighter {
 }
 
 export default class MarkdownEditor extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     static get renderBlocking() {
         return false;
     }
@@ -567,5 +571,4 @@ export default class MarkdownEditor extends ZephyrJS {
     }
 }
 
-MarkdownEditor.isCoreTemplate = true;
 defineCustomElement('markdown-editor', MarkdownEditor);

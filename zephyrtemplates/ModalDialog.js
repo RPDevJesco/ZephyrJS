@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class ModalDialog extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
     }
@@ -14,5 +18,4 @@ export default class ModalDialog extends ZephyrJS {
     }
 }
 
-ModalDialog.isCoreTemplate = true;
 defineCustomElement('modal-dialog', ModalDialog);

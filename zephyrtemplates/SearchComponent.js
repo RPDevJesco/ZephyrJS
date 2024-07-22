@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class SearchComponent extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
         this.state = {
@@ -40,5 +44,4 @@ export default class SearchComponent extends ZephyrJS {
     }
 }
 
-SearchComponent.isCoreTemplate = true;
 defineCustomElement('search-component', SearchComponent);

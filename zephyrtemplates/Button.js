@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class Button extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
     }
@@ -31,5 +35,4 @@ export default class Button extends ZephyrJS {
     }
 }
 
-Button.isCoreTemplate = true;
 defineCustomElement('custom-button', Button);

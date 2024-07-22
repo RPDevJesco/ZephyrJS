@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class UserProfile extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     static get renderBlocking() {
         return true;
     }
@@ -60,5 +64,4 @@ export default class UserProfile extends ZephyrJS {
     }
 }
 
-UserProfile.isCoreTemplate = true;
 defineCustomElement('user-profile', UserProfile);

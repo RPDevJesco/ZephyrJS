@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class Notification extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
         this.autoDismissTimeout = null;
@@ -40,5 +44,4 @@ export default class Notification extends ZephyrJS {
     }
 }
 
-Notification.isCoreTemplate = true;
 defineCustomElement('notification-box', Notification);

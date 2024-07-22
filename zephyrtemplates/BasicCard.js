@@ -1,6 +1,10 @@
 import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 
 export default class BasicCard extends ZephyrJS {
+    static get isCoreTemplate() {
+        return true;
+    }
+
     constructor() {
         super();
     }
@@ -13,5 +17,4 @@ export default class BasicCard extends ZephyrJS {
     }
 }
 
-BasicCard.isCoreTemplate = true; // Indicate this is a core template
 defineCustomElement('basic-card', BasicCard);
