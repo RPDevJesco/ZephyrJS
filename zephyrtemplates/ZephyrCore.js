@@ -18,3 +18,4 @@ import SearchComponent from "../zephyrtemplates/SearchComponent.js";
 import InlineEditingComponent from "../zephyrtemplates/InlineEditingComponent.js";
 import LayoutComponent from "../zephyrtemplates/LayoutComponent.js";
 import CardGroup from "../zephyrtemplates/CardGroup.js";
+import Carousel from "../zephyrtemplates/Carousel.js";

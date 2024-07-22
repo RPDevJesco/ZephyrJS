@@ -1,249 +1,267 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ZephyrJS Components</title>
-        <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
-        <link rel="stylesheet" href="./zephyrcss/variables.css" />
-        <link rel="stylesheet" href="./zephyrcss/zephyr.css" />
-    </head>
-    <body style="background: var(--body-color)">
-    <layout-component>
-        <div slot="top" class="top">
-            <accordion-component class="d-block mt-3"
-                                 items='[
-                                {"header": "Section 1", "content": "Content for section 1"},
-                                {"header": "Section 2", "content": "Content for section 2"},
-                                {"header": "Section 3", "content": "Content for section 3"}]'>
-            </accordion-component>
-        </div>
-        <div slot="left" class="left">
-            <notification-box
-                    type="success"
-                    auto-dismiss="3000"
-                    class="d-block mt-3"
-            >
-                <span slot="icon" class="icon">&#10004;&#xFE0F;</span>
-                <span slot="header" class="text-primary">Success</span>
-                <span slot="body" class="text-dark"
-                >This is a success notification.</span
-                >
-            </notification-box>
-        </div>
-        <div slot="sidebar" class="sidebar">
-            <notification-box type="error" class="d-block mt-3">
-                <span slot="icon" class="icon">&#10060;</span>
-                <span slot="header" class="text-danger">Error</span>
-                <span slot="body" class="text-dark"
-                >This is an error notification.</span
-                >
-            </notification-box>
-        </div>
-        <div slot="right" class="right">
-            <kanban-board class="d-block mt-3"
-                          columns='[
-                      {"name": "To Do", "cards": ["Task 1", "Task 2"]},
-                      {"name": "In Progress", "cards": ["Task 3"]},
-                      {"name": "Done", "cards": ["Task 4"]}]'>
-            </kanban-board>
-        </div>
-        <div slot="bottom" class="bottom">Bottom Area</div>
-        <div slot="center" class="center">
-            <data-table class="d-block mt-3"
-                        columns='[
-                        {"label": "Name", "field": "name"},
-                        {"label": "Age", "field": "age"},
-                        {"label": "Email", "field": "email"}]'
-                        data='[
-                        {"name": "John Doe", "age": 30, "email": "john@example.com"},
-                        {"name": "Jane Smith", "age": 25, "email": "jane@example.com"},
-                        {"name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
-            </data-table>
-            <modal-dialog>
-                <div slot="header">Dialog Header</div>
-                <div slot="body">Dialog Body</div>
-            </modal-dialog>
-            <accordion-table class="d-block mt-3"
-                             columns='[
-                            {"label": "Name", "field": "name"},
-                            {"label": "Age", "field": "age"},
-                            {"label": "Email", "field": "email"}]'
-                             data='[
-                            {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "details": "<p>Details about John Doe.</p>"},
-                            {"id": 2, "name": "Jane Smith", "age": 25, "email": "jane@example.com", "details": "<p>Details about Jane Smith.</p>"},
-                            {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com", "details": "<p>Details about Mike Johnson.</p>"}]'>
-            </accordion-table>
-            <user-profile class="d-block mt-3"></user-profile>
-            <tree-table class="d-block mt-3"
-                        columns='[
-                      {"label": "Name", "field": "name"},
-                      {"label": "Age", "field": "age"},
-                      {"label": "Email", "field": "email"}]'
-                        data='[
-                      {"id": 1, "name": "John Doe", "age": 30, "email": "john@example.com", "children": [
-                          {"id": 2, "name": "Jane Doe", "age": 25, "email": "jane@example.com"}
-                      ]},
-                      {"id": 3, "name": "Mike Johnson", "age": 35, "email": "mike@example.com"}]'>
-            </tree-table>
-            <basic-card>
-                <div slot="header">My Card Title</div>
-                <div slot="content">This is the card content.</div>
-            </basic-card>
-            <custom-button class="d-block mt-3">Click Me</custom-button>
-            <custom-input class="d-block mt-3"></custom-input>
-            <custom-dropdown class="d-block mt-3">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </custom-dropdown>
-            <markdown-editor class="d-block mt-3"></markdown-editor>
-            <markdown-renderer
-                    markdown-content="This is a **bold** text and this is *italic*. ~~This text will be strikethrough.~~"
-            ></markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```c
-#include <stdio.h>
-
-int main() {
-  printf('Hello, World!\\n');
-  return 0;
-}
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```css
-body {
-background-color: lightblue;
-}
-
-h1 {
-color: navy;
-margin-left: 20px;
-}
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```cpp
-#include <iostream>
-
-int main() {
-std::cout << 'Hello World!//n';
-return 0;
-}
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane Doe - Junior Developer Portfolio</title>
+    <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
+    <link rel="stylesheet" href="./zephyrcss/variables.css">
+    <link rel="stylesheet" href="./zephyrcss/zephyr.css">
+    <style>
+        body {
+            font-family: var(--font-family-sans-serif);
+            background-color: var(--background-color);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        zephyr-carousel {
+            width: 100%;
+            height: 400px;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is a test page.</p>
-</body>
-</html>
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```java
-import java.util.Scanner;
-
-public class ScannerAndKeyboard {
-
-  public static void main(String[] args) {
-      Scanner s = new Scanner(System.in);
-      System.out.print('Enter your name: ');
-      String name = s.nextLine();
-      System.out.println('Hello ' + name + '!');
-  }
-}
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```js
-class CountdownTimer {
-  constructor(timeSec) {
-      this.timeSec = timeSec;
-  }
-
-  start() {
-      const timer = setInterval(() => {
-          if (this.timeSec <= 0) {
-              clearInterval(timer);
-              console.log('stop');
-              return;
-          }
-          let mins = Math.floor(this.timeSec / 60);
-          let secs = this.timeSec % 60;
-          let timeformat = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-          console.log(timeformat);
-          this.timeSec -= 1;
-      }, 1000);
-  }
-}
-
-// Example usage
-const timer = new CountdownTimer(5);
-timer.start();
-```"
-            >
-            </markdown-renderer>
-            <markdown-renderer
-                    markdown-content="
-```py
-import time
-
-class CountdownTimer:
-  def __init__(self, time_sec):
-      self.time_sec = time_sec
-
-  def start(self):
-      while self.time_sec:
-          mins, secs = divmod(self.time_sec, 60)
-          timeformat = '{:02d}:{:02d}'.format(mins, secs)
-          print(timeformat, end='\r')
-          time.sleep(1)
-          self.time_sec -= 1
-
-      print('stop')
-
-# Example usage
-timer = CountdownTimer(5)
-timer.start()
-```"
-            >
-            </markdown-renderer>
+<zephyr-carousel id="myCarousel"
+                 orientation="horizontal"
+                 autoplay="true"
+                 autoplay-interval="3000"
+                 transition-duration="300">
+    <div slot="items">
+        <div>
+            <img src="https://img.stablecog.com/insecure/256w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vNGIyY2VmNDgtNDkyYi00YTAxLThhM2MtM2UyZDU2ZjNkYTgwLmpwZWc.webp" alt="Kitten 1">
+            <h2>Cute Kitten 1</h2>
+            <p>This is a description of the first kitten.</p>
         </div>
-        <div slot="top-left" class="top-left">Top Left Nested Area</div>
-        <div slot="top-right" class="top-right">Top Right Nested Area</div>
-        <div slot="bottom-left" class="bottom-left">Bottom Left Nested Area</div>
-        <div slot="bottom-right" class="bottom-right">Bottom Right Nested Area</div>
-    </layout-component>
+        <div>
+            <img src="https://ih1.redbubble.net/image.4813038159.8421/flat,750x,075,f-pad,750x1000,f8f8f8.u1.jpg" alt="Kitten 2">
+            <h2>Adorable Kitten 2</h2>
+            <p>Here's some information about the second kitten.</p>
+            <button>Learn More</button>
+        </div>
+        <div>
+            <img src="https://ih1.redbubble.net/image.4483124138.8998/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Kitten 3">
+            <h2>Kittens in Action</h2>
+            <p>Watch these kittens play!</p>
+        </div>
+    </div>
+</zephyr-carousel>
+<layout-component>
+    <header slot="top">
+        <h1>Jane Doe</h1>
+        <p>Junior Full Stack Developer | Recent CS Graduate</p>
+    </header>
 
-      <script>
-          document.addEventListener("DOMContentLoaded", () => {
-              const kanbanBoard = document.querySelector('kanban-board');
-              const newColumns = [
-                  { name: "To Do", cards: ["New Task 1", "New Task 2"] },
-                  { name: "In Progress", cards: ["New Task 3"] },
-                  { name: "Done", cards: ["New Task 4"] }
-              ];
-              kanbanBoard.setColumns(newColumns);
-          });
-  </script>
-  </body>
+    <nav slot="left">
+        <custom-button onclick="scrollToSection('about')">About Me</custom-button>
+        <custom-button onclick="scrollToSection('skills')">Skills</custom-button>
+        <custom-button onclick="scrollToSection('projects')">Projects</custom-button>
+        <custom-button onclick="scrollToSection('contact')">Contact</custom-button>
+    </nav>
+
+    <main slot="center">
+        <section id="about" class="section">
+            <basic-card>
+                <h2 slot="header">About Me</h2>
+                <div slot="content">
+                    <markdown-renderer markdown-content="
+                            Hello! I'm Jane Doe, a recent Computer Science graduate with a passion for web development and problem-solving. I'm eager to apply my skills in a professional setting and contribute to innovative projects.
+
+                            - 🎓 BSc in Computer Science from Tech University
+                            - 💻 Proficient in full-stack development
+                            - 🌱 Always learning and exploring new technologies
+                        "></markdown-renderer>
+                </div>
+            </basic-card>
+        </section>
+
+        <section id="skills" class="section">
+            <h2>Skills</h2>
+            <accordion-component id="skillsAccordion"></accordion-component>
+        </section>
+
+        <section id="projects" class="section">
+            <h2>Projects</h2>
+            <accordion-component id="projectsAccordion"></accordion-component>
+        </section>
+
+        <section id="contact" class="section">
+            <basic-card>
+                <h2 slot="header">Contact Me</h2>
+                <div slot="content">
+                    <markdown-renderer markdown-content="
+                            I'm excited about new opportunities and collaborations. Feel free to reach out:
+
+                            - 📧 Email: [jane.doe@example.com](mailto:jane.doe@example.com)
+                            - 🔗 LinkedIn: [linkedin.com/in/janedoe](https://www.linkedin.com/in/janedoe)
+                            - 💻 GitHub: [github.com/janedoe](https://github.com/janedoe)
+                        "></markdown-renderer>
+                </div>
+            </basic-card>
+        </section>
+    </main>
+
+    <footer slot="bottom">
+        <p>&copy; 2024 Jane Doe. All rights reserved.</p>
+    </footer>
+</layout-component>
+
+<script>
+    // If you need to change settings dynamically, you can do so like this:
+    const carousel = document.getElementById('myCarousel');
+
+    // Change orientation
+    carousel.setAttribute('orientation', 'vertical');
+
+    // Turn off autoplay
+    carousel.setAttribute('autoplay', 'false');
+
+    // Change autoplay interval
+    carousel.setAttribute('autoplay-interval', '5000');
+
+    // Change transition duration
+    carousel.setAttribute('transition-duration', '500');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Set up skills accordion
+        const skillsAccordion = document.getElementById('skillsAccordion');
+        skillsAccordion.setItems([
+            {
+                header: 'Programming Languages',
+                content: 'JavaScript (ES6+), Python, Java, HTML5, CSS3'
+            },
+            {
+                header: 'Frameworks & Libraries',
+                content: 'React.js, Node.js, Express.js, Django, Bootstrap'
+            },
+            {
+                header: 'Databases',
+                content: 'MongoDB, MySQL, PostgreSQL'
+            },
+            {
+                header: 'Tools & Technologies',
+                content: 'Git, Docker, AWS (basic), RESTful APIs, Agile methodologies'
+            }
+        ]);
+
+        // Set up projects accordion
+        const projectsAccordion = document.getElementById('projectsAccordion');
+        projectsAccordion.setItems([
+            {
+                header: 'E-commerce Website (Capstone Project)',
+                content: `
+                        <markdown-renderer markdown-content="
+                            Built a full-stack e-commerce website as part of my capstone project.
+
+                            **Technologies used:** React.js, Node.js, Express.js, MongoDB
+
+                            **Key features:**
+                            - User authentication
+                            - Product catalog with search and filter
+                            - Shopping cart and checkout process
+                            - Admin panel for product management
+
+                            **Sample Code (React component for product display):**
+                            \`\`\`js
+                            import React from 'react';
+
+                            const ProductCard = ({ product }) => {
+                                return (
+                                    <div className='product-card'>
+                                        <img src={product.image} alt={product.name} />
+                                        <h3>{product.name}</h3>
+                                        <p>{product.price}</p>
+                                        <button>Add to Cart</button>
+                                    </div>
+                                );
+                            };
+
+                            export default ProductCard;
+                            \`\`\`
+                        "></markdown-renderer>
+                    `
+            },
+            {
+                header: 'Weather App',
+                content: `
+                        <markdown-renderer markdown-content="
+                            Developed a weather application that fetches and displays weather data from an API.
+
+                            **Technologies used:** JavaScript, HTML5, CSS3, OpenWeatherMap API
+
+                            **Key features:**
+                            - Current weather display
+                            - 5-day forecast
+                            - Geolocation support
+                            - Responsive design
+
+                            **Sample Code (Fetch weather data):**
+                            \`\`\`js
+                            async function getWeatherData(city) {
+                                const API_KEY = 'your_api_key_here';
+                                const URL = \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`;
+
+                                try {
+                                    const response = await fetch(URL);
+                                    const data = await response.json();
+                                    return data;
+                                } catch (error) {
+                                    console.error('Error fetching weather data:', error);
+                                }
+                            }
+                            \`\`\`
+                        "></markdown-renderer>
+                    `
+            },
+            {
+                header: 'Task Management CLI (Python)',
+                content: `
+                        <markdown-renderer markdown-content="
+                            Created a command-line interface for managing tasks and to-do lists.
+
+                            **Technologies used:** Python, SQLite
+
+                            **Key features:**
+                            - Add, view, update, and delete tasks
+                            - Set due dates and priorities
+                            - Data persistence using SQLite
+                            - Command-line argument parsing
+
+                            **Sample Code (Task addition):**
+
+                            \`\`\`py
+                            import sqlite3
+                            from datetime import datetime
+
+                            def add_task(conn, title, due_date=None, priority='medium'):
+                                cur = conn.cursor()
+                                created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                                cur.execute('''
+                                    INSERT INTO tasks (title, due_date, priority, created_at)
+                                    VALUES (?, ?, ?, ?)
+                                ''', (title, due_date, priority, created_at))
+                                conn.commit()
+                                print(f'Task '{title}' added successfully.')
+
+                            # Usage
+                            conn = sqlite3.connect('tasks.db')
+                            add_task(conn, 'Complete portfolio website', '2024-08-01', 'high')
+                            conn.close()
+                            \`\`\`
+                        "></markdown-renderer>
+                    `
+            }
+        ]);
+    });
+
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
 </html>
