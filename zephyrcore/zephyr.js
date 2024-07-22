@@ -32,18 +32,12 @@ export default class ZephyrJS extends HTMLElement {
             }
         });
 
-        // Determine the template URL based on the class name if not explicitly set
-        if (!this.constructor.templateUrl) {
-            const className = this.constructor.name.toLowerCase();
-            this.constructor.templateUrl = /templates/${className}.html;
-        }
-
         // Check if it's a core template or user-defined
         if (this.constructor.isCoreTemplate) {
             const className = this.constructor.name.toLowerCase();
             this.templateUrl = `https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@main/zephyrtemplates/templates/${className}.html`;
         } else {
-            this.templateUrl = this.constructor.templateUrl;
+            this.templateUrl = /templates/${className}.html;
         }
 
         // Determine if render blocking is enabled
