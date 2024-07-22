@@ -244,7 +244,6 @@ Built with ❤️
 - Spinner/Loader: A component to indicate loading states or background processing.
 - Alert: A component for displaying contextual feedback messages, such as warnings, errors, or success messages.
 - Breadcrumbs: A component to display the navigation path and help users understand their location within a web application.
-- Card Group: A component for displaying multiple cards in a grid or list layout.
 - Search Component: A component for searching through data that exists in a Data Table or Tree Table to navigate to the specified item.
 - Form: A component for creating and managing user input forms, including validation and submission handling.
 - Datepicker: A component for selecting dates from a calendar interface.

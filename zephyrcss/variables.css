@@ -65,6 +65,14 @@
     --card-header-margin-bottom: 12px;
     --card-content-margin-top: 8px;
 
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #e0e0e0;
+    --card-header-color: #333333;
+    --card-content-color: #666666;
+    --card-content-font-size: 1rem;
+
     /* Input specific variables */
     --input-margin: 10px 0;
     --input-padding: 10px;
