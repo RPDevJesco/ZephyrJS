@@ -37,8 +37,10 @@ export default class ZephyrJS extends HTMLElement {
             const className = this.constructor.name.toLowerCase();
             this.templateUrl = `https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@main/zephyrtemplates/templates/${className}.html`;
         } else {
-            this.templateUrl = /templates/${className}.html;
+            const className = this.constructor.name.toLowerCase();
+            this.templateUrl = `https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@main/templates/${className}.html`;
         }
+
 
         // Determine if render blocking is enabled
         this.renderBlocking = this.constructor.renderBlocking || false;
