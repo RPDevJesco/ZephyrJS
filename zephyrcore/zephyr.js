@@ -3,6 +3,12 @@
  * and data binding capabilities.
  */
 export default class ZephyrJS extends HTMLElement {
+    static baseUrl = '';
+
+    static setBaseUrl(url) {
+        ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
+    }
+
     /**
      * Initializes the custom element, sets up shadow DOM, state management, and data bindings.
      */
@@ -32,17 +38,13 @@ export default class ZephyrJS extends HTMLElement {
             }
         });
 
-        // Check if it's a core template or user-defined
+        const className = this.constructor.name.toLowerCase();
         if (this.constructor.isCoreTemplate) {
-            const className = this.constructor.name.toLowerCase();
-            this.templateUrl = `https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@main/zephyrtemplates/templates/${className}.html`;
+            this.templateUrl = `${ZephyrJS.baseUrl}zephyrtemplates/templates/${className}.html`;
         } else {
-            const className = this.constructor.name.toLowerCase();
-            this.templateUrl = `https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@main/templates/${className}.html`;
+            this.templateUrl = `${ZephyrJS.baseUrl}templates/${className}.html`;
         }
 
-
-        // Determine if render blocking is enabled
         this.renderBlocking = this.constructor.renderBlocking || false;
     }
 
@@ -101,10 +103,9 @@ export default class ZephyrJS extends HTMLElement {
      */
     async loadTemplate() {
         try {
-            const templateUrl = this.templateUrl;
-            if (!templateUrl) return null;
+            if (!this.templateUrl) return null;
 
-            const response = await fetch(templateUrl);
+            const response = await fetch(this.templateUrl);
             if (!response.ok) throw new Error(`Failed to load template: ${response.statusText}`);
             const text = await response.text();
             const parser = new DOMParser();
