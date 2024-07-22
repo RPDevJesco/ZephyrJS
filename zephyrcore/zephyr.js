@@ -3,7 +3,8 @@
  * and data binding capabilities.
  */
 export default class ZephyrJS extends HTMLElement {
-    static baseUrl = '';
+    static versionNumber ='';
+    static baseUrl = 'https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@releases/tag/0.01/';
 
     static setBaseUrl(url) {
         ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
@@ -40,9 +41,9 @@ export default class ZephyrJS extends HTMLElement {
 
         const className = this.constructor.name.toLowerCase();
         if (this.constructor.isCoreTemplate) {
-            this.templateUrl = `${ZephyrJS.baseUrl}zephyrtemplates/templates/${className}.html`;
+            this.templateUrl = `${ZephyrJS.baseUrl} + ${ZephyrJS.versionNumber} + zephyrtemplates/templates/${className}.html`;
         } else {
-            this.templateUrl = `${ZephyrJS.baseUrl}templates/${className}.html`;
+            this.templateUrl = `/templates/${className}.html`;
         }
 
         this.renderBlocking = this.constructor.renderBlocking || false;
