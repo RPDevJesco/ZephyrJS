@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcore/zephyr.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrtemplates/ZephyrCore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane Doe - Junior Developer Portfolio</title>
-    <script type="module" src="./zephyrtemplates/ZephyrCore.js"></script>
-    <link rel="stylesheet" href="./zephyrcss/variables.css">
-    <link rel="stylesheet" href="./zephyrcss/zephyr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcss/variables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcss/zephyr.css">
     <style>
         body {
             font-family: var(--font-family-sans-serif);
@@ -18,39 +19,9 @@
         .section {
             margin-bottom: 2rem;
         }
-        zephyr-carousel {
-            width: 100%;
-            height: 400px;
-            display: block;
-            margin: 20px auto;
-        }
     </style>
 </head>
 <body>
-<zephyr-carousel id="myCarousel"
-                 orientation="horizontal"
-                 autoplay="true"
-                 autoplay-interval="3000"
-                 transition-duration="300">
-    <div slot="items">
-        <div>
-            <img src="https://img.stablecog.com/insecure/256w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vNGIyY2VmNDgtNDkyYi00YTAxLThhM2MtM2UyZDU2ZjNkYTgwLmpwZWc.webp" alt="Kitten 1">
-            <h2>Cute Kitten 1</h2>
-            <p>This is a description of the first kitten.</p>
-        </div>
-        <div>
-            <img src="https://ih1.redbubble.net/image.4813038159.8421/flat,750x,075,f-pad,750x1000,f8f8f8.u1.jpg" alt="Kitten 2">
-            <h2>Adorable Kitten 2</h2>
-            <p>Here's some information about the second kitten.</p>
-            <button>Learn More</button>
-        </div>
-        <div>
-            <img src="https://ih1.redbubble.net/image.4483124138.8998/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Kitten 3">
-            <h2>Kittens in Action</h2>
-            <p>Watch these kittens play!</p>
-        </div>
-    </div>
-</zephyr-carousel>
 <layout-component>
     <header slot="top">
         <h1>Jane Doe</h1>
@@ -112,21 +83,6 @@
 </layout-component>
 
 <script>
-    // If you need to change settings dynamically, you can do so like this:
-    const carousel = document.getElementById('myCarousel');
-
-    // Change orientation
-    carousel.setAttribute('orientation', 'vertical');
-
-    // Turn off autoplay
-    carousel.setAttribute('autoplay', 'false');
-
-    // Change autoplay interval
-    carousel.setAttribute('autoplay-interval', '5000');
-
-    // Change transition duration
-    carousel.setAttribute('transition-duration', '500');
-
     document.addEventListener('DOMContentLoaded', () => {
         // Set up skills accordion
         const skillsAccordion = document.getElementById('skillsAccordion');
