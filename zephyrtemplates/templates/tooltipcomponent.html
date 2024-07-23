@@ -1,0 +1,85 @@
+<template id="zephyr-tooltip">
+    <style>
+        .tooltip {
+            position: absolute;
+            background-color: var(--gray, #333);
+            color: var(--light-text, #fff);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.4;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            visibility: hidden;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 100px;
+            text-align: center;
+        }
+        .tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            border-style: solid;
+            border-width: 6px;
+            border-color: transparent;
+        }
+        .tooltip.top {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 10px;
+        }
+        .tooltip.top::after {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top-color: var(--gray, #333);
+        }
+        .tooltip.bottom {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px;
+        }
+        .tooltip.bottom::after {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-color: var(--gray, #333);
+        }
+        .tooltip.left {
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-right: 10px;
+        }
+        .tooltip.left::after {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left-color: var(--gray, #333);
+        }
+        .tooltip.right {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 10px;
+        }
+        .tooltip.right::after {
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-right-color: var(--gray, #333);
+        }
+    </style>
+    <slot></slot>
+    <div class="tooltip">
+        <span class="tooltip-content"></span>
+    </div>
+</template>

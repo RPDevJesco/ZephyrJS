@@ -82,6 +82,7 @@ ZephyrJS comes with several pre-built components:
 <layout-component>
 <timeline-component>
 <zephyr-tabs>
+<zephyr-tooltip>
 ```
 
 ### Customization
@@ -238,8 +239,6 @@ For support, please open an issue on our GitHub repository.
 Built with ❤️
 
 ### ToDO:
-- Tabs: A component for creating tabbed navigation interfaces, useful for organizing content into separate sections within a single page.
-- Tooltip: A component for displaying additional information when users hover over or focus on an element.
 - Carousel: A component for creating image or content sliders, commonly used for showcasing multiple items in a slideshow format.
 - Progress Bar: A component to visually indicate the progress of a task or process.
 - Spinner/Loader: A component to indicate loading states or background processing.

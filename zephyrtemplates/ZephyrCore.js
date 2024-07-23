@@ -20,3 +20,4 @@ import LayoutComponent from "../zephyrtemplates/LayoutComponent.js";
 import CardGroup from "../zephyrtemplates/CardGroup.js";
 import Carousel from "../zephyrtemplates/Carousel.js";
 import TabsComponent from "../zephyrtemplates/TabsComponent.js";
+import TooltipComponent from "../zephyrtemplates/TooltipComponent.js";
