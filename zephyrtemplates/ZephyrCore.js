@@ -1,4 +1,3 @@
-import ZephyrJS, { defineCustomElement } from "../zephyrcore/zephyr.js";
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import ModalDialog from "../zephyrtemplates/ModalDialog.js";
 import Notification from "../zephyrtemplates/Notification.js";
