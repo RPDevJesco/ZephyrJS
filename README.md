@@ -81,6 +81,7 @@ ZephyrJS comes with several pre-built components:
 <tree-table>
 <layout-component>
 <timeline-component>
+<zephyr-tabs>
 ```
 
 ### Customization

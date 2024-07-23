@@ -1,0 +1,42 @@
+<template id="zephyr-tabs">
+    <style>
+        :host {
+            display: block;
+            font-family: var(--font-family-sans-serif, Arial, sans-serif);
+        }
+        .tab-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-list {
+            display: flex;
+            border-bottom: 1px solid var(--tab-border-color, #ccc);
+        }
+        .tab-button {
+            padding: 10px 15px;
+            background-color: var(--tab-bg-color, #f1f1f1);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .tab-button:hover {
+            background-color: var(--tab-hover-bg-color, #ddd);
+        }
+        .tab-button.active {
+            background-color: var(--tab-active-bg-color, #fff);
+            border-bottom: 2px solid var(--tab-active-border-color, #007bff);
+        }
+        .tab-content {
+            padding: 15px;
+            background-color: var(--tab-content-bg-color, #fff);
+        }
+    </style>
+    <div class="tab-container">
+        <div class="tab-list">
+            <!-- Tab buttons will be dynamically inserted here -->
+        </div>
+        <div class="tab-content">
+            <!-- Active tab content will be dynamically inserted here -->
+        </div>
+    </div>
+</template>
