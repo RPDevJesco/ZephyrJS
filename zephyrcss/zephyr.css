@@ -30,3 +30,19 @@
 @import './utilities.css';
 /* Visibility */
 @import './visibility.css';
+
+@import './themes/dark-theme.css';
+@import './themes/high-contrast-theme.css';
+@import './themes/elegant-theme.css';
+@import './themes/cool-winter-theme.css';
+@import './themes/fantasy-theme.css';
+@import './themes/high-tech-theme.css';
+@import './themes/neon-theme.css';
+@import './themes/pastel-theme.css';
+@import './themes/vintage-theme.css';
+@import './themes/warm-autumn-theme.css';
+@import './themes/minimalist-theme.css';
+@import './themes/retro-futurism-theme.css';
+@import './themes/light-theme.css';
+@import './themes/heaven-theme.css';
+@import './themes/hellfire-theme.css';

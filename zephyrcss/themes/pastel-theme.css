@@ -1,0 +1,146 @@
+[data-theme="pastel"] {
+    /* Main palette colors */
+    --primary-color: #F8BBD0;    /* Light pink */
+    --secondary-color: #B2EBF2;  /* Light blue */
+    --accent-color: #FFCCBC;     /* Light orange */
+    --background-color: #FFF8E1; /* Light yellow */
+    --neutral-color: #C5CAE9;    /* Light purple */
+    --secondary-color-light: #E1F5FE; /* Very light blue */
+
+    /* Semantic colors */
+    --info-color: #4FC3F7;       /* Light sky blue */
+    --info-background: #E1F5FE;  /* Very light sky blue */
+    --success-color: #81C784;    /* Light green */
+    --success-background: #E8F5E9; /* Very light green */
+    --danger-color: #E57373;     /* Light red */
+    --danger-background: #FFEBEE; /* Very light red */
+    --warning-color: #FFD54F;    /* Light yellow */
+    --warning-background: #FFF8E1; /* Very light yellow */
+
+    /* Text colors */
+    --light-text: #FAFAFA;       /* Very light gray */
+    --dark-text: #37474F;        /* Dark gray */
+
+    /* Component-specific colors */
+    --button-hover-bg: #FFAB91;  /* Light coral */
+    --input-focus-border: #B2EBF2; /* Adjusted to match the secondary color */
+    --button-click-bg: #FF7043;  /* Dark coral */
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #37474F;       /* Dark gray for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
+    --link-decoration: none;
+    --link-hover-color: #FFAB91; /* Light coral */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--neutral-color);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--primary-color);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: white;
+    --card-bg: white;
+    --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-box-shadow: var(--shadow-light);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #C5CAE9;
+    --card-header-color: #37474F;
+    --card-content-color: #5C6BC0; /* Light indigo */
+    --card-content-font-size: 1rem;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--secondary-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23C5CAE9;"/></svg>');
+    --dropdown-focus-border-color: var(--secondary-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: var(--shadow-dark);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--light-text);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-background);
+    --notification-error-background: var(--danger-background);
+    --notification-warning-background: var(--warning-background);
+    --notification-success-text: var(--success-color);
+    --notification-error-text: var(--danger-color);
+    --notification-warning-text: var(--warning-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #F8BBD0;
+    --markdown-color: #F8F8F2;
+    --markdown-keyword: #FFCCBC;
+    --markdown-string: #81C784;
+    --markdown-number: #FFD54F;
+    --markdown-function: #E57373;
+    --markdown-comment: #75715E;
+    --markdown-method: #66D9EF;
+    --markdown-tag: #B2EBF2;
+    --markdown-attribute: #E57373;
+    --markdown-at-rule: #AF00DB;
+    --markdown-punctuation: #000000;
+    --markdown-property: #E57373;
+    --markdown-value: #B2EBF2;
+    --markdown-selector: #37474F;
+    --markdown-indentation: #CCCCCC;
+    --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+
+    --border-radius: 5px;
+}

@@ -1,0 +1,146 @@
+[data-theme="high-contrast"] {
+    /* Main palette colors */
+    --primary-color: #000000;    /* Black */
+    --secondary-color: #333333;  /* Dark gray */
+    --accent-color: #FFFF00;     /* Bright yellow */
+    --background-color: #FFFFFF; /* White */
+    --neutral-color: #777777;    /* Medium gray */
+    --secondary-color-light: #CCCCCC; /* Light gray */
+
+    /* Semantic colors */
+    --info-color: #0000FF;       /* Bright blue for info */
+    --info-background: #E0E0FF;  /* Light blue for info background */
+    --success-color: #00FF00;    /* Bright green */
+    --success-background: #E0FFE0; /* Light green for success background */
+    --danger-color: #FF0000;     /* Bright red */
+    --danger-background: #FFE0E0; /* Light red for danger background */
+    --warning-color: #FFA500;    /* Bright orange */
+    --warning-background: #FFF3E0; /* Light orange for warning background */
+
+    /* Text colors */
+    --light-text: #FFFFFF;       /* White for text on dark backgrounds */
+    --dark-text: #000000;        /* Black for main text */
+
+    /* Component-specific colors */
+    --button-hover-bg: #0055FF;  /* Bright blue for button hover */
+    --input-focus-border: #FFFF00; /* Adjusted to match the accent color */
+    --button-click-bg: #0000FF;
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #000000;       /* Black for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
+    --link-decoration: none;
+    --link-hover-color: #FF0000; /* Bright red for hover */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--accent-color);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--accent-color);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: black;
+    --card-bg: #FFFFFF; /* White for card background */
+    --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #000000;
+    --card-header-color: #000000;
+    --card-content-color: #333333;
+    --card-content-font-size: 1rem;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--accent-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23000000;"/></svg>');
+    --dropdown-focus-border-color: var(--accent-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--background-color);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-background);
+    --notification-error-background: var(--danger-background);
+    --notification-warning-background: var(--warning-background);
+    --notification-success-text: var(--success-color);
+    --notification-error-text: var(--danger-color);
+    --notification-warning-text: var(--warning-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #000000;
+    --markdown-color: #FFFFFF;
+    --markdown-keyword: #FFFF00;
+    --markdown-string: #00FF00;
+    --markdown-number: #00FFFF;
+    --markdown-function: #FF00FF;
+    --markdown-comment: #999999;
+    --markdown-method: #FF00FF;
+    --markdown-tag: #00FFFF;
+    --markdown-attribute: #FF0000;
+    --markdown-at-rule: #FF00FF;
+    --markdown-punctuation: #FFFFFF;
+    --markdown-property: #FF0000;
+    --markdown-value: #0000FF;
+    --markdown-selector: #00FF00;
+    --markdown-indentation: #CCCCCC;
+    --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+
+    --border-radius: 5px;
+}

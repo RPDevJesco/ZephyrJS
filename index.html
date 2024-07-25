@@ -18,12 +18,6 @@
         .section {
             margin-bottom: 2rem;
         }
-        .zephyr-carousel {
-            width: 100%;
-            height: 400px;
-            display: block;
-            margin: 20px auto;
-        }
     </style>
 </head>
 <body>
@@ -61,64 +55,15 @@
             <accordion-component id="skillsAccordion"></accordion-component>
         </section>
 
-        <section id="projects" class="section">
-            <h2>Projects</h2>
-            <accordion-component id="projectsAccordion"></accordion-component>
-        </section>
-
-        <section id="contact" class="section">
-            <basic-card>
-                <h2 slot="header">Contact Me</h2>
-                <div slot="content">
-                    <markdown-renderer markdown-content="
-                            I'm excited about new opportunities and collaborations. Feel free to reach out:
-
-                            - 📧 Email: [jane.doe@example.com](mailto:jane.doe@example.com)
-                            - 🔗 LinkedIn: [linkedin.com/in/janedoe](https://www.linkedin.com/in/janedoe)
-                            - 💻 GitHub: [github.com/janedoe](https://github.com/janedoe)
-                        "></markdown-renderer>
-                </div>
-            </basic-card>
-        </section>
-    </main>
-
-    <footer slot="bottom">
-        <p>&copy; 2024 Jane Doe. All rights reserved.</p>
-    </footer>
-</layout-component>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Set up skills accordion
-        const skillsAccordion = document.getElementById('skillsAccordion');
-        skillsAccordion.setItems([
-            {
-                header: 'Programming Languages',
-                content: 'JavaScript (ES6+), Python, Java, HTML5, CSS3'
-            },
-            {
-                header: 'Frameworks & Libraries',
-                content: 'React.js, Node.js, Express.js, Django, Bootstrap'
-            },
-            {
-                header: 'Databases',
-                content: 'MongoDB, MySQL, PostgreSQL'
-            },
-            {
-                header: 'Tools & Technologies',
-                content: 'Git, Docker, AWS (basic), RESTful APIs, Agile methodologies'
-            }
-        ]);
-
-        // Set up projects accordion
-        const projectsAccordion = document.getElementById('projectsAccordion');
-        projectsAccordion.setItems([
-            {
-                header: 'E-commerce Website (Capstone Project)',
-                content: `
+        <section id="zephyr-timeline" class="section">
+            <h2>Projects Timeline</h2>
+            <zephyr-timeline-view>
+                <zephyr-timeline-item>
+                    <span slot="date">2017</span>
+                    <span slot="title">E-commerce Website</span>
+                    <span slot="description">Capstone Project</span>
+                    <div slot="content">
                         <markdown-renderer markdown-content="
-                            Built a full-stack e-commerce website as part of my capstone project.
-
                             **Technologies used:** React.js, Node.js, Express.js, MongoDB
 
                             **Key features:**
@@ -145,14 +90,14 @@
                             export default ProductCard;
                             \`\`\`
                         "></markdown-renderer>
-                    `
-            },
-            {
-                header: 'Weather App',
-                content: `
+                    </div>
+                </zephyr-timeline-item>
+                <zephyr-timeline-item>
+                    <span slot="date">2018</span>
+                    <span slot="title">Weather App</span>
+                    <span slot="description">Developed a weather application that fetches and displays weather data from an API.</span>
+                    <div slot="content">
                         <markdown-renderer markdown-content="
-                            Developed a weather application that fetches and displays weather data from an API.
-
                             **Technologies used:** JavaScript, HTML5, CSS3, OpenWeatherMap API
 
                             **Key features:**
@@ -177,14 +122,14 @@
                             }
                             \`\`\`
                         "></markdown-renderer>
-                    `
-            },
-            {
-                header: 'Task Management CLI (Python)',
-                content: `
+                    </div>
+                </zephyr-timeline-item>
+                <zephyr-timeline-item>
+                    <span slot="date">2019</span>
+                    <span slot="title">Task Management CLI (Python)</span>
+                    <span slot="description">Created a command-line interface for managing tasks and to-do lists.</span>
+                    <div slot="content">
                         <markdown-renderer markdown-content="
-                            Created a command-line interface for managing tasks and to-do lists.
-
                             **Technologies used:** Python, SQLite
 
                             **Key features:**
@@ -194,28 +139,74 @@
                             - Command-line argument parsing
 
                             **Sample Code (Task addition):**
-
                             \`\`\`py
                             import sqlite3
                             from datetime import datetime
 
-                            def add_task(conn, title, due_date=None, priority='medium'):
-                                cur = conn.cursor()
-                                created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                            def add_task(conn, title, due_date=None, priority='medium'){
+                                cur = conn.cursor();
+                                created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S');
                                 cur.execute('''
                                     INSERT INTO tasks (title, due_date, priority, created_at)
                                     VALUES (?, ?, ?, ?)
-                                ''', (title, due_date, priority, created_at))
-                                conn.commit()
-                                print(f'Task '{title}' added successfully.')
+                                ''', (title, due_date, priority, created_at));
+                                conn.commit();
+                                print(f'Task "{title}" added successfully.');
+                        }
 
-                            # Usage
-                            conn = sqlite3.connect('tasks.db')
-                            add_task(conn, 'Complete portfolio website', '2024-08-01', 'high')
-                            conn.close()
-                            \`\`\`
+                        # Usage
+                        conn = sqlite3.connect('tasks.db');
+                        add_task(conn, 'Complete portfolio website', '2024-08-01', 'high');
+                        conn.close();
+                        \`\`\`
                         "></markdown-renderer>
-                    `
+                    </div>
+                </zephyr-timeline-item>
+            </zephyr-timeline-view>
+        </section>
+
+        <section id="contact" class="section">
+            <basic-card>
+                <h2 slot="header">Contact Me</h2>
+                <div slot="content">
+                    <markdown-renderer markdown-content="
+                            I'm excited about new opportunities and collaborations. Feel free to reach out:
+
+                            - 📧 Email: [jane.doe@example.com](mailto:jane.doe@example.com)
+                            - 🔗 LinkedIn: [linkedin.com/in/janedoe](https://www.linkedin.com/in/janedoe)
+                            - 💻 GitHub: [github.com/janedoe](https://github.com/janedoe)
+                        "></markdown-renderer>
+                </div>
+            </basic-card>
+        </section>
+    </main>
+
+    <footer slot="bottom">
+        <p>&copy; 2024 Jane Doe. All rights reserved.</p>
+    </footer>
+</layout-component>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        setTheme('hellfire');
+        // Set up skills accordion
+        const skillsAccordion = document.getElementById('skillsAccordion');
+        skillsAccordion.setItems([
+            {
+                header: 'Programming Languages',
+                content: 'JavaScript (ES6+), Python, Java, HTML5, CSS3'
+            },
+            {
+                header: 'Frameworks & Libraries',
+                content: 'React.js, Node.js, Express.js, Django, Bootstrap'
+            },
+            {
+                header: 'Databases',
+                content: 'MongoDB, MySQL, PostgreSQL'
+            },
+            {
+                header: 'Tools & Technologies',
+                content: 'Git, Docker, AWS (basic), RESTful APIs, Agile methodologies'
             }
         ]);
     });

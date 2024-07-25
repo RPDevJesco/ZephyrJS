@@ -1,0 +1,146 @@
+[data-theme="heaven"] {
+    /* Main palette colors */
+    --primary-color: #FFFFFF;    /* Pure white */
+    --secondary-color: #E3F2FD;  /* Light sky blue */
+    --accent-color: #90CAF9;     /* Soft blue */
+    --background-color: #E8F5E9; /* Light green */
+    --neutral-color: #C8E6C9;    /* Soft green */
+    --secondary-color-light: #BBDEFB; /* Light blue */
+
+    /* Semantic colors */
+    --info-color: #64B5F6;       /* Light blue */
+    --info-background: #E3F2FD;  /* Light sky blue */
+    --success-color: #81C784;    /* Light green */
+    --success-background: #E8F5E9; /* Light green */
+    --danger-color: #E57373;     /* Light red */
+    --danger-background: #FFEBEE; /* Light red */
+    --warning-color: #FFD54F;    /* Light yellow */
+    --warning-background: #FFF9C4; /* Light yellow */
+
+    /* Text colors */
+    --light-text: #FFFFFF;       /* White */
+    --dark-text: #1E88E5;        /* Bright blue */
+
+    /* Component-specific colors */
+    --button-hover-bg: #42A5F5;  /* Medium blue */
+    --input-focus-border: #90CAF9; /* Adjusted to match the accent color */
+    --button-click-bg: #2196F3;  /* Bright blue */
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #1E88E5;       /* Bright blue for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
+    --link-decoration: none;
+    --link-hover-color: #42A5F5; /* Medium blue */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--dark-text);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--dark-text);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: white;
+    --card-bg: white;
+    --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-box-shadow: var(--shadow-light);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #C8E6C9;
+    --card-header-color: #1E88E5;
+    --card-content-color: #42A5F5;
+    --card-content-font-size: 1rem;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--accent-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23C8E6C9;"/></svg>');
+    --dropdown-focus-border-color: var(--accent-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: var(--shadow-dark);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--dark-text);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-background);
+    --notification-error-background: var(--danger-background);
+    --notification-warning-background: var(--warning-background);
+    --notification-success-text: var(--success-color);
+    --notification-error-text: var(--danger-color);
+    --notification-warning-text: var(--warning-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #FFFFFF;
+    --markdown-color: #1E88E5;
+    --markdown-keyword: #42A5F5;
+    --markdown-string: #81C784;
+    --markdown-number: #FFD54F;
+    --markdown-function: #E57373;
+    --markdown-comment: #90A4AE;
+    --markdown-method: #17A2B8;
+    --markdown-tag: #BBDEFB;
+    --markdown-attribute: #E57373;
+    --markdown-at-rule: #42A5F5;
+    --markdown-punctuation: #000000;
+    --markdown-property: #E57373;
+    --markdown-value: #90CAF9;
+    --markdown-selector: #1E88E5;
+    --markdown-indentation: #E0E0E0;
+    --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+
+    --border-radius: 5px;
+}

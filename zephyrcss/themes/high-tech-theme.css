@@ -1,0 +1,146 @@
+[data-theme="high-tech"] {
+    /* Main palette colors */
+    --primary-color: #1B1B1B;    /* Very dark gray */
+    --secondary-color: #3C3F41;  /* Dark gray */
+    --accent-color: #00D8FF;     /* Bright cyan */
+    --background-color: #121212; /* Very dark gray */
+    --neutral-color: #606060;    /* Medium gray */
+    --secondary-color-light: #707070; /* Lighter gray */
+
+    /* Semantic colors */
+    --info-color: #00BFFF;       /* Deep sky blue */
+    --info-background: #E0FFFF;  /* Light cyan */
+    --success-color: #32CD32;    /* Lime green */
+    --success-background: #F0FFF0; /* Honeydew */
+    --danger-color: #FF4500;     /* Orange red */
+    --danger-background: #FFE4E1; /* Misty rose */
+    --warning-color: #FFD700;    /* Gold */
+    --warning-background: #FFF8DC; /* Cornsilk */
+
+    /* Text colors */
+    --light-text: #E0E0E0;       /* Light gray */
+    --dark-text: #FFFFFF;        /* White */
+
+    /* Component-specific colors */
+    --button-hover-bg: #008080;  /* Teal */
+    --input-focus-border: #00D8FF; /* Adjusted to match the accent color */
+    --button-click-bg: #00CED1;  /* Dark turquoise */
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Body styles */
+    --body-bg: var(--background-color);
+    --body-color: #FFFFFF;       /* White for main text */
+
+    /* Link styles */
+    --link-color: var(--accent-color);
+    --link-decoration: none;
+    --link-hover-color: #00BFFF; /* Deep sky blue */
+
+    /* Additional theme-specific variables */
+    --header-bg: var(--primary-color);
+    --header-color: var(--neutral-color);
+    --footer-bg: var(--secondary-color);
+    --footer-color: var(--primary-color);
+    --button-primary-bg: var(--accent-color);
+    --button-primary-color: black;
+    --card-bg: #1B1B1B; /* Very dark gray for card background */
+    --card-border: var(--neutral-color);
+
+    /* Button specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+    --button-primary-bg-color: var(--accent-color);
+    --button-disabled-background: var(--neutral-color);
+
+    /* Card specific variables */
+    --card-box-shadow: var(--shadow-light);
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #606060;
+    --card-header-color: #E0E0E0;
+    --card-content-color: #808080;
+    --card-content-font-size: 1rem;
+
+    /* Input specific variables */
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border: 1px solid var(--neutral-color);
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-focus-border-color: var(--accent-color);
+
+    /* Dropdown specific variables */
+    --dropdown-padding: 10px;
+    --dropdown-border: 1px solid var(--neutral-color);
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background: var(--background-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23606060;"/></svg>');
+    --dropdown-focus-border-color: var(--accent-color);
+
+    /* Modal specific variables */
+    --modal-background: var(--background-color);
+    --modal-border-radius: 10px;
+    --modal-box-shadow: var(--shadow-dark);
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-background: var(--primary-color);
+    --modal-header-border-color: var(--neutral-color);
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+    --modal-footer-background: var(--neutral-color);
+    --modal-footer-border-color: var(--neutral-color);
+
+    /* Notification specific variables */
+    --notification-padding: 16px;
+    --notification-background: var(--dark-text);
+    --notification-border-color: var(--primary-color);
+    --notification-font-size: 1em;
+    --notification-success-background: var(--success-background);
+    --notification-error-background: var(--danger-background);
+    --notification-warning-background: var(--warning-background);
+    --notification-success-text: var(--success-color);
+    --notification-error-text: var(--danger-color);
+    --notification-warning-text: var(--warning-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #1B1B1B;
+    --markdown-color: #E0E0E0;
+    --markdown-keyword: #00D8FF;
+    --markdown-string: #32CD32;
+    --markdown-number: #FFD700;
+    --markdown-function: #FF4500;
+    --markdown-comment: #75715E;
+    --markdown-method: #66D9EF;
+    --markdown-tag: #3C3F41;
+    --markdown-attribute: #FF4500;
+    --markdown-at-rule: #AF00DB;
+    --markdown-punctuation: #000000;
+    --markdown-property: #FF4500;
+    --markdown-value: #3C3F41;
+    --markdown-selector: #FFFFFF;
+    --markdown-indentation: #CCCCCC;
+    --markdown-text: var(--markdown-indentation);
+
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+
+    --border-radius: 5px;
+}
