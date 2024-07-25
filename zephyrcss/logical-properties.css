@@ -1,0 +1,29 @@
+/* CSS Logical Properties */
+
+/* Margin */
+.m-inline-start-1 { margin-inline-start: 0.25rem; }
+.m-inline-end-1 { margin-inline-end: 0.25rem; }
+.m-block-start-1 { margin-block-start: 0.25rem; }
+.m-block-end-1 { margin-block-end: 0.25rem; }
+
+/* Padding */
+.p-inline-start-1 { padding-inline-start: 0.25rem; }
+.p-inline-end-1 { padding-inline-end: 0.25rem; }
+.p-block-start-1 { padding-block-start: 0.25rem; }
+.p-block-end-1 { padding-block-end: 0.25rem; }
+
+/* Border */
+.border-inline-start { border-inline-start: 1px solid; }
+.border-inline-end { border-inline-end: 1px solid; }
+.border-block-start { border-block-start: 1px solid; }
+.border-block-end { border-block-end: 1px solid; }
+
+/* Text Alignment */
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+
+/* Position */
+.inset-inline-start-0 { inset-inline-start: 0; }
+.inset-inline-end-0 { inset-inline-end: 0; }
+.inset-block-start-0 { inset-block-start: 0; }
+.inset-block-end-0 { inset-block-end: 0; }

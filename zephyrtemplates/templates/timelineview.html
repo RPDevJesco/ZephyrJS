@@ -1,0 +1,32 @@
+<template id="zephyr-timeline-view">
+    <style>
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+        .timeline-item {
+            position: relative;
+            cursor: pointer;
+        }
+        .circle {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color, #007bff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px;
+        }
+    </style>
+    <div class="timeline">
+        <slot></slot>
+    </div>
+    <zephyr-modal></zephyr-modal>
+</template>

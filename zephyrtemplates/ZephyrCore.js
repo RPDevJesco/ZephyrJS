@@ -1,7 +1,6 @@
 export default function setTheme(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
 }
-import Modal from "../zephyrtemplates/Modal.js";
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import ModalDialog from "../zephyrtemplates/ModalDialog.js";
 import Notification from "../zephyrtemplates/Notification.js";
@@ -25,7 +24,9 @@ import CardGroup from "../zephyrtemplates/CardGroup.js";
 import Carousel from "../zephyrtemplates/Carousel.js";
 import TabsComponent from "../zephyrtemplates/TabsComponent.js";
 import TooltipComponent from "../zephyrtemplates/TooltipComponent.js";
-import TimelineItem from "../zephyrtemplates/TimelineItem.js";
+import MarkdownShowcase from "../zephyrtemplates/MarkdownShowcase.js";
 import TimelineView from "../zephyrtemplates/TimelineView.js";
+import TimelineItem from "../zephyrtemplates/TimelineItem.js";
+import Modal from "../zephyrtemplates/Modal.js";
 // Expose setTheme to the global scope
 window.setTheme = setTheme;

@@ -1,0 +1,45 @@
+/* Focus Visible */
+.focus-visible:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Skip to Main Content */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: var(--light-text);
+    padding: 8px;
+    z-index: 100;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+    .high-contrast-border {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .reduce-motion {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* ARIA Attributes */
+[aria-hidden="true"] {
+    display: none !important;
+}
+
+[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

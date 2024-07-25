@@ -1,0 +1,33 @@
+<template id="zephyr-markdown-showcase">
+    <style>
+        .showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+        .markdown-section h3 {
+            margin-top: 0;
+        }
+        .showcase-nav {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        .showcase-prev, .showcase-next {
+            background-color: #007bff;
+            color: var(--light-text, #fff);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+    <div class="showcase-container"></div>
+    <div class="showcase-nav">
+        <button class="showcase-prev">Previous</button>
+        <button class="showcase-next">Next</button>
+    </div>
+</template>

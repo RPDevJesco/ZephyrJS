@@ -1,3 +1,5 @@
+/* Accessibility */
+@import './accessibility.css';
 /* Alignment */
 @import './alignment.css';
 /* Animations */
@@ -12,8 +14,12 @@
 @import './colors.css';
 /* Display */
 @import './display.css';
+/* Flexbox-Grid */
+@import './flexbox-grid.css';
 /* Layout */
 @import './layout.css';
+/* Logical Properties */
+@import './logical-properties.css';
 /* Margin */
 @import './margin.css';
 /* Padding */
@@ -31,6 +37,7 @@
 /* Visibility */
 @import './visibility.css';
 
+/* Themes */
 @import './themes/dark-theme.css';
 @import './themes/high-contrast-theme.css';
 @import './themes/elegant-theme.css';

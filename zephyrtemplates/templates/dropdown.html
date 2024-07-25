@@ -8,12 +8,12 @@
         select {
             width: 100%;
             padding: var(--dropdown-padding);
-            border: var(--dropdown-border);
+            border: var(--dropdown-border-radius);
             border-radius: var(--dropdown-border-radius);
             font-size: var(--dropdown-font-size);
             appearance: none;
             background: var(--dropdown-background);
-            color: var(--primary-color);
+            color: var(--light-text);
             background-image: var(--dropdown-arrow);
             background-repeat: no-repeat;
             background-position: right 10px center;
@@ -21,7 +21,7 @@
             transition: border-color 0.3s ease;
         }
         select:focus {
-            border-color: var(--dropdown-focus-border-color);
+            border-color: var(--dropdown-border-radius);
             outline: none;
             box-shadow: 0 0 0 2px rgba(126, 189, 194, 0.2);
         }
