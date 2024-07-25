@@ -1,6 +1,29 @@
-export default function setTheme(themeName) {
-    document.documentElement.setAttribute('data-theme', themeName);
+export const Themes = Object.freeze({
+    COOL_WINTER: Symbol('cool-winter'),
+    DARK: Symbol('dark'),
+    ELEGANT: Symbol('elegant'),
+    FANTASY: Symbol('fantasy'),
+    HEAVEN: Symbol('heaven'),
+    HELLFIRE: Symbol('hellfire'),
+    HIGH_CONTRAST: Symbol('high-contrast'),
+    HIGH_TECH: Symbol('high-tech'),
+    LIGHT: Symbol('light'),
+    MINIMALIST: Symbol('minimalist'),
+    NEON: Symbol('neon'),
+    PASTEL: Symbol('pastel'),
+    RETRO_FUTURISM: Symbol('retro-futurism'),
+    VINTAGE: Symbol('vintage'),
+    WARM_AUTUMN: Symbol('warm-autumn')
+});
+
+export function setTheme(themeName) {
+    if (Object.values(Themes).includes(themeName)) {
+        document.documentElement.setAttribute('data-theme', themeName.description);
+    } else {
+        console.warn(`Theme ${themeName.description} is not defined.`);
+    }
 }
+
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import ModalDialog from "../zephyrtemplates/ModalDialog.js";
 import Notification from "../zephyrtemplates/Notification.js";
@@ -29,4 +52,5 @@ import TimelineView from "../zephyrtemplates/TimelineView.js";
 import TimelineItem from "../zephyrtemplates/TimelineItem.js";
 import Modal from "../zephyrtemplates/Modal.js";
 // Expose setTheme to the global scope
+window.Themes = Themes;
 window.setTheme = setTheme;
