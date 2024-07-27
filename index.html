@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcore/zephyr.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrtemplates/ZephyrCore.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcore/zephyr.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrtemplates/ZephyrCore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane Doe - Junior Developer Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcss/variables.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.03/zephyrcss/zephyr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcss/variables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcss/zephyr.css">
     <style>
-        body {
-            font-family: var(--font-family-sans-serif);
-            background-color: var(--background-color);
-            color: var(--dark-text);
-            margin: 0;
-            padding: 0;
-        }
         .section {
             margin-bottom: 2rem;
+        }
+        .theme-selector {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
         }
     </style>
 </head>
@@ -26,6 +24,27 @@
     <header slot="top">
         <h1>Jane Doe</h1>
         <p>Junior Full Stack Developer | Recent CS Graduate</p>
+        <div class="theme-selector">
+            <label for="theme">Select Theme:</label>
+            <select id="theme" onchange="changeTheme(this.value)">
+                <option value="default">Default</option>
+                <option value="COOL_WINTER">Cool Winter</option>
+                <option value="DARK">Dark</option>
+                <option value="ELEGANT">Elegant</option>
+                <option value="FANTASY">Fantasy</option>
+                <option value="HEAVEN">Heaven</option>
+                <option value="HELLFIRE">Hellfire</option>
+                <option value="HIGH_CONTRAST">High Contrast</option>
+                <option value="HIGH_TECH">High Tech</option>
+                <option value="LIGHT">Light</option>
+                <option value="MINIMALIST">Minimalist</option>
+                <option value="NEON">Neon</option>
+                <option value="PASTEL">Pastel</option>
+                <option value="RETRO_FUTURISM">Retro Futurism</option>
+                <option value="VINTAGE">Vintage</option>
+                <option value="WARM_AUTUMN">Warm Autumn</option>
+            </select>
+        </div>
     </header>
 
     <nav slot="left">
@@ -76,11 +95,9 @@
             </basic-card>
         </section>
     </main>
-
-    <footer slot="bottom">
-        <p>&copy; 2024 Jane Doe. All rights reserved.</p>
-    </footer>
 </layout-component>
+
+<zephyr-modal></zephyr-modal>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -111,112 +128,120 @@
             {
                 header: 'E-commerce Website (Capstone Project)',
                 content: `
-                        <markdown-renderer markdown-content="
-                            Built a full-stack e-commerce website as part of my capstone project.
+                    <markdown-renderer markdown-content="
+                        Built a full-stack e-commerce website as part of my capstone project.
 
-                            **Technologies used:** React.js, Node.js, Express.js, MongoDB
+                        **Technologies used:** React.js, Node.js, Express.js, MongoDB
 
-                            **Key features:**
-                            - User authentication
-                            - Product catalog with search and filter
-                            - Shopping cart and checkout process
-                            - Admin panel for product management
+                        **Key features:**
+                        - User authentication
+                        - Product catalog with search and filter
+                        - Shopping cart and checkout process
+                        - Admin panel for product management
 
-                            **Sample Code (React component for product display):**
-                            \`\`\`js
-                            import React from 'react';
+                        **Sample Code (React component for product display):**
+                        \`\`\`js
+                        import React from 'react';
 
-                            const ProductCard = ({ product }) => {
-                                return (
-                                    <div className='product-card'>
-                                        <img src={product.image} alt={product.name} />
-                                        <h3>{product.name}</h3>
-                                        <p>{product.price}</p>
-                                        <button>Add to Cart</button>
-                                    </div>
-                                );
-                            };
+                        const ProductCard = ({ product }) => {
+                            return (
+                                <div className='product-card'>
+                                    <img src={product.image} alt={product.name} />
+                                    <h3>{product.name}</h3>
+                                    <p>{product.price}</p>
+                                    <button>Add to Cart</button>
+                                </div>
+                            );
+                        };
 
-                            export default ProductCard;
-                            \`\`\`
-                        "></markdown-renderer>
-                    `
+                        export default ProductCard;
+                        \`\`\`
+                    "></markdown-renderer>
+                `
             },
             {
                 header: 'Weather App',
                 content: `
-                        <markdown-renderer markdown-content="
-                            Developed a weather application that fetches and displays weather data from an API.
+                    <markdown-renderer markdown-content="
+                        Developed a weather application that fetches and displays weather data from an API.
 
-                            **Technologies used:** JavaScript, HTML5, CSS3, OpenWeatherMap API
+                        **Technologies used:** JavaScript, HTML5, CSS3, OpenWeatherMap API
 
-                            **Key features:**
-                            - Current weather display
-                            - 5-day forecast
-                            - Geolocation support
-                            - Responsive design
+                        **Key features:**
+                        - Current weather display
+                        - 5-day forecast
+                        - Geolocation support
+                        - Responsive design
 
-                            **Sample Code (Fetch weather data):**
-                            \`\`\`js
-                            async function getWeatherData(city) {
-                                const API_KEY = 'your_api_key_here';
-                                const URL = \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`;
+                        **Sample Code (Fetch weather data):**
+                        \`\`\`js
+                        async function getWeatherData(city) {
+                            const API_KEY = 'your_api_key_here';
+                            const URL = \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`;
 
-                                try {
-                                    const response = await fetch(URL);
-                                    const data = await response.json();
-                                    return data;
-                                } catch (error) {
-                                    console.error('Error fetching weather data:', error);
-                                }
+                            try {
+                                const response = await fetch(URL);
+                                const data = await response.json();
+                                return data;
+                            } catch (error) {
+                                console.error('Error fetching weather data:', error);
                             }
-                            \`\`\`
-                        "></markdown-renderer>
-                    `
+                        }
+                        \`\`\`
+                    "></markdown-renderer>
+                `
             },
             {
                 header: 'Task Management CLI (Python)',
                 content: `
-                        <markdown-renderer markdown-content="
-                            Created a command-line interface for managing tasks and to-do lists.
+                    <markdown-renderer markdown-content="
+                        Created a command-line interface for managing tasks and to-do lists.
 
-                            **Technologies used:** Python, SQLite
+                        **Technologies used:** Python, SQLite
 
-                            **Key features:**
-                            - Add, view, update, and delete tasks
-                            - Set due dates and priorities
-                            - Data persistence using SQLite
-                            - Command-line argument parsing
+                        **Key features:**
+                        - Add, view, update, and delete tasks
+                        - Set due dates and priorities
+                        - Data persistence using SQLite
+                        - Command-line argument parsing
 
-                            **Sample Code (Task addition):**
+                        **Sample Code (Task addition):**
 
-                            \`\`\`py
-                            import sqlite3
-                            from datetime import datetime
+                        \`\`\`py
+                        import sqlite3
+                        from datetime import datetime
 
-                            def add_task(conn, title, due_date=None, priority='medium'):
-                                cur = conn.cursor()
-                                created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                                cur.execute('''
-                                    INSERT INTO tasks (title, due_date, priority, created_at)
-                                    VALUES (?, ?, ?, ?)
-                                ''', (title, due_date, priority, created_at))
-                                conn.commit()
-                                print(f'Task '{title}' added successfully.')
+                        def add_task(conn, title, due_date=None, priority='medium'){
+                            cur = conn.cursor();
+                            created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S');
+                            cur.execute('''
+                                INSERT INTO tasks (title, due_date, priority, created_at)
+                                VALUES (?, ?, ?, ?)
+                            ''', (title, due_date, priority, created_at));
+                            conn.commit();
+                            print(f'Task '{title}' added successfully.');
+                        }
 
-                            # Usage
-                            conn = sqlite3.connect('tasks.db')
-                            add_task(conn, 'Complete portfolio website', '2024-08-01', 'high')
-                            conn.close()
-                            \`\`\`
-                        "></markdown-renderer>
-                    `
+                        # Usage
+                        conn = sqlite3.connect('tasks.db');
+                        add_task(conn, 'Complete portfolio website', '2024-08-01', 'high');
+                        conn.close();
+                        \`\`\`
+                    "></markdown-renderer>
+                `
             }
         ]);
     });
 
     function scrollToSection(sectionId) {
         document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+    function changeTheme(theme) {
+        if (theme) {
+            setTheme(Themes[theme]);
+        } else {
+            setTheme(Themes.LIGHT);  // Assuming LIGHT is the default theme
+        }
     }
 </script>
 </body>
