@@ -119,7 +119,27 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        setTheme(Themes.ELEGANT);
+        setTheme(Themes.COOL_WINTER);
+        // Set up skills accordion
+        const skillsAccordion = document.getElementById('skillsAccordion');
+        skillsAccordion.setItems([
+            {
+                header: 'Programming Languages',
+                content: 'JavaScript (ES6+), Python, Java, HTML5, CSS3'
+            },
+            {
+                header: 'Frameworks & Libraries',
+                content: 'React.js, Node.js, Express.js, Django, Bootstrap'
+            },
+            {
+                header: 'Databases',
+                content: 'MongoDB, MySQL, PostgreSQL'
+            },
+            {
+                header: 'Tools & Technologies',
+                content: 'Git, Docker, AWS (basic), RESTful APIs, Agile methodologies'
+            }
+        ]);
     });
 
     function scrollToSection(sectionId) {
