@@ -24,6 +24,10 @@ export function setTheme(themeName) {
     }
 }
 
+// Expose setTheme to the global scope
+window.Themes = Themes;
+window.setTheme = setTheme;
+
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import ModalDialog from "../zephyrtemplates/ModalDialog.js";
 import Notification from "../zephyrtemplates/Notification.js";
@@ -51,6 +55,3 @@ import MarkdownShowcase from "../zephyrtemplates/MarkdownShowcase.js";
 import TimelineView from "../zephyrtemplates/TimelineView.js";
 import TimelineItem from "../zephyrtemplates/TimelineItem.js";
 import Modal from "../zephyrtemplates/Modal.js";
-// Expose setTheme to the global scope
-window.Themes = Themes;
-window.setTheme = setTheme;

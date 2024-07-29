@@ -67,7 +67,7 @@ ZephyrJS comes with several pre-built components:
 ```
 <basic-card>
 <custom-button>
-<custom-dropdown>
+<zephyr-dropdown>
 <custom-input>
 <modal-dialog>
 <notification-box>

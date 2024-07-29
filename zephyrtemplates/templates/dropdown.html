@@ -1,32 +1,50 @@
-<template id="dropdown">
+<template id="dropdown-template">
     <style>
         :host {
             display: inline-block;
+        }
+        .dropdown-container {
             position: relative;
-            font-family: var(--font-family-sans-serif);
+            width: 200px;
+            font-family: Arial, sans-serif;
         }
-        select {
-            width: 100%;
-            padding: var(--dropdown-padding);
-            border: var(--dropdown-border-radius);
-            border-radius: var(--dropdown-border-radius);
-            font-size: var(--dropdown-font-size);
-            appearance: none;
-            background: var(--dropdown-background);
-            color: var(--light-text);
-            background-image: var(--dropdown-arrow);
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 12px;
-            transition: border-color 0.3s ease;
+        .dropdown-toggle {
+            padding: 10px;
+            border: 1px solid var(--neutral-color, #ccc);
+            background-color: var(--light-color, #fff);
+            color: var(--dark-text, #333);
+            cursor: pointer;
+            user-select: none;
         }
-        select:focus {
-            border-color: var(--dropdown-border-radius);
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(126, 189, 194, 0.2);
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--light-color, #fff);
+            border: 1px solid var(--neutral-color, #ccc);
+            border-top: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .dropdown-options.open {
+            display: block;
+        }
+        .dropdown-option {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown-option:hover {
+            background-color: var(--secondary-color, #f0f0f0);
         }
     </style>
-    <select>
-        <slot></slot>
-    </select>
+    <div class="dropdown-container">
+        <div class="dropdown-toggle"></div>
+        <ul class="dropdown-options"></ul>
+    </div>
 </template>
