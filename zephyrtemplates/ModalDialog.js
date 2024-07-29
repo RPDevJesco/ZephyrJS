@@ -18,4 +18,4 @@ export default class ModalDialog extends ZephyrJS {
     }
 }
 
-defineCustomElement('modal-dialog', ModalDialog);
+defineCustomElement('zephyr-modal-dialog', ModalDialog);

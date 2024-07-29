@@ -87,4 +87,4 @@ export default class CardGroup extends ZephyrJS {
     }
 }
 
-defineCustomElement('card-group', CardGroup);
+defineCustomElement('zephyr-card-group', CardGroup);

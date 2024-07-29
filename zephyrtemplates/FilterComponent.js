@@ -59,4 +59,4 @@ export default class FilterComponent extends ZephyrJS {
     }
 }
 
-defineCustomElement('filter-component', FilterComponent);
+defineCustomElement('zephyr-filter-component', FilterComponent);

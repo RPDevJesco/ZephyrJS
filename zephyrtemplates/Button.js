@@ -35,4 +35,4 @@ export default class Button extends ZephyrJS {
     }
 }
 
-defineCustomElement('custom-button', Button);
+defineCustomElement('zephyr-button', Button);

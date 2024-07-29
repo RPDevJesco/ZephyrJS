@@ -17,4 +17,4 @@ export default class BasicCard extends ZephyrJS {
     }
 }
 
-defineCustomElement('basic-card', BasicCard);
+defineCustomElement('zephyr-card', BasicCard);

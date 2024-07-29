@@ -571,4 +571,4 @@ export default class MarkdownEditor extends ZephyrJS {
     }
 }
 
-defineCustomElement('markdown-editor', MarkdownEditor);
+defineCustomElement('zephyr-markdown-editor', MarkdownEditor);

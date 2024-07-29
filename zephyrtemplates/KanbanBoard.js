@@ -109,4 +109,4 @@ export default class KanbanBoard extends ZephyrJS {
     }
 }
 
-defineCustomElement('kanban-board', KanbanBoard);
+defineCustomElement('zephyr-kanban-board', KanbanBoard);

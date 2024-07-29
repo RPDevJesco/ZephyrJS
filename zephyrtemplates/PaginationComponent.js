@@ -56,4 +56,4 @@ export default class PaginationComponent extends ZephyrJS {
     }
 }
 
-defineCustomElement('pagination-component', PaginationComponent);
+defineCustomElement('zephyr-pagination', PaginationComponent);

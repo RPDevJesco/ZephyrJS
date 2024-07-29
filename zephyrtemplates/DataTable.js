@@ -175,4 +175,4 @@ export default class DataTable extends ZephyrJS {
     }
 }
 
-defineCustomElement('data-table', DataTable);
+defineCustomElement('zephyr-data-table', DataTable);

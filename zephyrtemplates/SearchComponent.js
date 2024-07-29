@@ -44,4 +44,4 @@ export default class SearchComponent extends ZephyrJS {
     }
 }
 
-defineCustomElement('search-component', SearchComponent);
+defineCustomElement('zephyr-search', SearchComponent);

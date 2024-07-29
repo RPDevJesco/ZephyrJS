@@ -20,4 +20,4 @@ export default class LayoutComponent extends ZephyrJS {
     }
 }
 
-defineCustomElement('layout-component', LayoutComponent);
+defineCustomElement('zephyr-layout-component', LayoutComponent);

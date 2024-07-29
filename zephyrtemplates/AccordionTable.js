@@ -113,4 +113,4 @@ export default class AccordionTable extends ZephyrJS {
     }
 }
 
-defineCustomElement('accordion-table', AccordionTable);
+defineCustomElement('zephyr-accordion-table', AccordionTable);

@@ -67,4 +67,4 @@ export default class InlineEditingComponent extends ZephyrJS {
     }
 }
 
-defineCustomElement('inline-editing-component', InlineEditingComponent);
+defineCustomElement('zephyr-inline-editing', InlineEditingComponent);

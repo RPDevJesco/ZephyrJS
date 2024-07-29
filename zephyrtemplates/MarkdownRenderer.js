@@ -577,4 +577,4 @@ export default class MarkdownRenderer extends ZephyrJS {
     }
 }
 
-defineCustomElement('markdown-renderer', MarkdownRenderer);
+defineCustomElement('zephyr-markdown-renderer', MarkdownRenderer);

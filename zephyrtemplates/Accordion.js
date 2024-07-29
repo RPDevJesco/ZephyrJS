@@ -79,4 +79,4 @@ export default class Accordion extends ZephyrJS {
     }
 }
 
-defineCustomElement('accordion-component', Accordion);
+defineCustomElement('zephyr-accordion', Accordion);

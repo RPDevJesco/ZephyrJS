@@ -44,4 +44,4 @@ export default class Notification extends ZephyrJS {
     }
 }
 
-defineCustomElement('notification-box', Notification);
+defineCustomElement('zephyr-notification-box', Notification);

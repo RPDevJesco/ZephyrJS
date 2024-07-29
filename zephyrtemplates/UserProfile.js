@@ -64,4 +64,4 @@ export default class UserProfile extends ZephyrJS {
     }
 }
 
-defineCustomElement('user-profile', UserProfile);
+defineCustomElement('zephyr-user-profile', UserProfile);

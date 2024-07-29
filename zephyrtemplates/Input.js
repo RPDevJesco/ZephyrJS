@@ -67,4 +67,4 @@ export default class Input extends ZephyrJS {
     }
 }
 
-defineCustomElement('custom-input', Input);
+defineCustomElement('zephyr-input', Input);

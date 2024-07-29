@@ -65,22 +65,22 @@ defineCustomElement('my-component', MyComponent);
 ### Core Components
 ZephyrJS comes with several pre-built components:
 ```
-<basic-card>
-<custom-button>
+<zephyr-card>
+<zephyr-button>
 <zephyr-dropdown>
-<custom-input>
-<modal-dialog>
-<notification-box>
-<user-profile>
-<markdown-editor>
-<markdown-renderer>
-<kanban-board>
-<accordion-component>
-<accordion-table>
-<data-table>
-<tree-table>
-<layout-component>
-<timeline-component>
+<zephyr-input>
+<zephyr-modal-dialog>
+<zephyr-notification-box>
+<zephyr-user-profile>
+<zephyr-markdown-editor>
+<zephyr-markdown-renderer>
+<zephyr-kanban-board>
+<zephyr-accordion>
+<zephyr-accordion-table>
+<zephyr-data-table>
+<zephyr-tree-table>
+<zephyr-layout-component>
+<zephyr-timeline-component>
 <zephyr-tabs>
 <zephyr-tooltip>
 ```

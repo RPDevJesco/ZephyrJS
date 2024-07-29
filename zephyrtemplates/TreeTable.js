@@ -116,4 +116,4 @@ export default class TreeTable extends ZephyrJS {
     }
 }
 
-defineCustomElement('tree-table', TreeTable);
+defineCustomElement('zephyr-tree-table', TreeTable);
