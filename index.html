@@ -1,50 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcore/zephyr.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrtemplates/ZephyrCore.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcore/zephyr.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrtemplates/ZephyrCore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jane Doe - Junior Software Developer Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcss/variables.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.04/zephyrcss/zephyr.css">
+    <title>Jane Doe - Junior Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/variables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/zephyr.css">
     <style>
         .section {
             margin-bottom: 2rem;
         }
-        .theme-selector {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-        }
     </style>
 </head>
 <body>
-<layout-component>
+<zephyr-layout-component>
     <header slot="top">
         <h1>Jane Doe</h1>
         <p>Junior Full Stack Developer | Recent CS Graduate</p>
-        <div class="theme-selector">
-            <label for="theme">Select Theme:</label>
-            <select id="theme" onchange="changeTheme(this.value)">
-                <option value="default">Default</option>
-                <option value="COOL_WINTER">Cool Winter</option>
-                <option value="DARK">Dark</option>
-                <option value="ELEGANT">Elegant</option>
-                <option value="FANTASY">Fantasy</option>
-                <option value="HEAVEN">Heaven</option>
-                <option value="HELLFIRE">Hellfire</option>
-                <option value="HIGH_CONTRAST">High Contrast</option>
-                <option value="HIGH_TECH">High Tech</option>
-                <option value="LIGHT">Light</option>
-                <option value="MINIMALIST">Minimalist</option>
-                <option value="NEON">Neon</option>
-                <option value="PASTEL">Pastel</option>
-                <option value="RETRO_FUTURISM">Retro Futurism</option>
-                <option value="VINTAGE">Vintage</option>
-                <option value="WARM_AUTUMN">Warm Autumn</option>
-            </select>
-        </div>
+        <zephyr-dropdown
+                id="theme"
+                options='[
+                    {"value": "default", "label": "Default"},
+                    {"value": "COOL_WINTER", "label": "Cool Winter"},
+                    {"value": "DARK", "label": "Dark"},
+                    {"value": "ELEGANT", "label": "Elegant"},
+                    {"value": "FANTASY", "label": "Fantasy"},
+                    {"value": "HEAVEN", "label": "Heaven"},
+                    {"value": "HELLFIRE", "label": "Hellfire"},
+                    {"value": "HIGH_CONTRAST", "label": "High Contrast"},
+                    {"value": "HIGH_TECH", "label": "High Tech"},
+                    {"value": "LIGHT", "label": "Light"},
+                    {"value": "MINIMALIST", "label": "Minimalist"},
+                    {"value": "NEON", "label": "Neon"},
+                    {"value": "PASTEL", "label": "Pastel"},
+                    {"value": "RETRO_FUTURISM", "label": "Retro Futurism"},
+                    {"value": "VINTAGE", "label": "Vintage"},
+                    {"value": "WARM_AUTUMN", "label": "Warm Autumn"}
+                ]'
+                selected="default">
+        </zephyr-dropdown>
     </header>
 
     <nav slot="left">
@@ -56,49 +52,46 @@
 
     <main slot="center">
         <section id="about" class="section">
-            <basic-card>
+            <zephyr-card>
                 <h2 slot="header">About Me</h2>
                 <div slot="content">
-                    <markdown-renderer markdown-content="
+                    <zephyr-markdown-renderer markdown-content="
                             Hello! I'm Jane Doe, a recent Computer Science graduate with a passion for web development and problem-solving. I'm eager to apply my skills in a professional setting and contribute to innovative projects.
 
                             - 🎓 BSc in Computer Science from Tech University
                             - 💻 Proficient in full-stack development
                             - 🌱 Always learning and exploring new technologies
-                        "></markdown-renderer>
+                        "></zephyr-markdown-renderer>
                 </div>
-            </basic-card>
+            </zephyr-card>
         </section>
 
         <section id="skills" class="section">
             <h2>Skills</h2>
-            <accordion-component id="skillsAccordion"></accordion-component>
+            <zephyr-accordion id="skillsAccordion"></zephyr-accordion>
         </section>
 
         <section id="projects" class="section">
             <h2>Projects</h2>
-            <accordion-component id="projectsAccordion"></accordion-component>
+            <zephyr-accordion id="projectsAccordion"></zephyr-accordion>
         </section>
 
         <section id="contact" class="section">
-            <basic-card>
+            <zephyr-card>
                 <h2 slot="header">Contact Me</h2>
                 <div slot="content">
-                    <markdown-renderer markdown-content="
+                    <zephyr-markdown-renderer markdown-content="
                             I'm excited about new opportunities and collaborations. Feel free to reach out:
 
                             - 📧 Email: [jane.doe@example.com](mailto:jane.doe@example.com)
                             - 🔗 LinkedIn: [linkedin.com/in/janedoe](https://www.linkedin.com/in/janedoe)
                             - 💻 GitHub: [github.com/janedoe](https://github.com/janedoe)
-                        "></markdown-renderer>
+                        "></zephyr-markdown-renderer>
                 </div>
-            </basic-card>
+            </zephyr-card>
         </section>
     </main>
-</layout-component>
-
-<zephyr-modal></zephyr-modal>
-
+</zephyr-layout-component>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Set up skills accordion
@@ -128,7 +121,7 @@
             {
                 header: 'E-commerce Website (Capstone Project)',
                 content: `
-                    <markdown-renderer markdown-content="
+                    <zephyr-markdown-renderer markdown-content="
                         Built a full-stack e-commerce website as part of my capstone project.
 
                         **Technologies used:** React.js, Node.js, Express.js, MongoDB
@@ -156,13 +149,13 @@
 
                         export default ProductCard;
                         \`\`\`
-                    "></markdown-renderer>
+                    "></zephyr-markdown-renderer>
                 `
             },
             {
                 header: 'Weather App',
                 content: `
-                    <markdown-renderer markdown-content="
+                    <zephyr-markdown-renderer markdown-content="
                         Developed a weather application that fetches and displays weather data from an API.
 
                         **Technologies used:** JavaScript, HTML5, CSS3, OpenWeatherMap API
@@ -188,13 +181,13 @@
                             }
                         }
                         \`\`\`
-                    "></markdown-renderer>
+                    "></zephyr-markdown-renderer>
                 `
             },
             {
                 header: 'Task Management CLI (Python)',
                 content: `
-                    <markdown-renderer markdown-content="
+                    <zephyr-markdown-renderer markdown-content="
                         Created a command-line interface for managing tasks and to-do lists.
 
                         **Technologies used:** Python, SQLite
@@ -227,7 +220,7 @@
                         add_task(conn, 'Complete portfolio website', '2024-08-01', 'high');
                         conn.close();
                         \`\`\`
-                    "></markdown-renderer>
+                    "></zephyr-markdown-renderer>
                 `
             }
         ]);
@@ -236,6 +229,11 @@
     function scrollToSection(sectionId) {
         document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
     }
+
+    document.getElementById('theme').addEventListener('optionSelected', function(event) {
+        changeTheme(event.detail.option);
+    });
+
     function changeTheme(theme) {
         if (theme) {
             setTheme(Themes[theme]);
