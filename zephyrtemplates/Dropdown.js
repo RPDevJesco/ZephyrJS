@@ -10,8 +10,10 @@ export default class Dropdown extends ZephyrJS {
         this.state = {
             options: [],
             selectedOption: null,
+            isOpen: false,
             placeholder: 'Select an option'
         };
+        console.log('Dropdown constructor called');
     }
 
     async connectedCallback() {
@@ -24,9 +26,22 @@ export default class Dropdown extends ZephyrJS {
         await this.renderAndAddListeners();
     }
 
+    setState(newState) {
+        super.setState(newState);
+        this.render();
+    }
+
     setOptions(options) {
         this.setState({ options });
-        this.renderAndAddListeners();
+    }
+
+    toggleDropdown() {
+        this.setState({ isOpen: !this.state.isOpen });
+    }
+
+    selectOption(option) {
+        this.setState({ selectedOption: option, isOpen: false });
+        this.dispatchCustomEvent('optionSelected', { option });
     }
 
     async renderAndAddListeners() {
@@ -40,58 +55,68 @@ export default class Dropdown extends ZephyrJS {
             return;
         }
 
-        let select = this.shadowRoot.querySelector('select');
-        if (!select) {
+        let dropdownContainer = this.shadowRoot.querySelector('.dropdown-container');
+        if (!dropdownContainer) {
             if (this.template && this.template.content) {
                 const templateContent = this.template.content.cloneNode(true);
                 this.shadowRoot.appendChild(templateContent);
-                select = this.shadowRoot.querySelector('select');
+                dropdownContainer = this.shadowRoot.querySelector('.dropdown-container');
             } else {
                 console.error('Template content not available');
                 return;
             }
         }
 
-        if (!select) {
-            console.error('Select element still not found after inserting template');
-            console.log('Shadow root content:', this.shadowRoot.innerHTML);
+        if (!dropdownContainer) {
+            console.error('Dropdown container still not found after inserting template');
             return;
         }
 
-        // Clear existing options
-        select.innerHTML = '';
+        const dropdownToggle = dropdownContainer.querySelector('.dropdown-toggle');
+        const dropdownOptions = dropdownContainer.querySelector('.dropdown-options');
 
-        // Add placeholder option if needed
-        if (this.state.placeholder) {
-            const placeholderOption = document.createElement('option');
-            placeholderOption.value = '';
-            placeholderOption.textContent = this.state.placeholder;
-            placeholderOption.disabled = true;
-            placeholderOption.selected = !this.state.selectedOption;
-            select.appendChild(placeholderOption);
-        }
+        const selectedOption = this.state.options.find(opt => opt.value === this.state.selectedOption);
+        dropdownToggle.textContent = selectedOption ? selectedOption.label : this.state.placeholder;
 
-        // Add options
-        this.state.options.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option.value;
-            optionElement.textContent = option.label;
-            optionElement.selected = option.value === this.state.selectedOption;
-            select.appendChild(optionElement);
-        });
+        dropdownOptions.innerHTML = this.state.options.map(option => `
+            <li class="dropdown-option" data-value="${option.value}">${option.label}</li>
+        `).join('');
+
+        dropdownOptions.style.display = this.state.isOpen ? 'block' : 'none';
+        // Set background color using CSS variable
+        dropdownOptions.style.backgroundColor = 'var(--primary-color)';
     }
 
     addEventListeners() {
-        const select = this.shadowRoot.querySelector('select');
+        const dropdownToggle = this.shadowRoot.querySelector('.dropdown-toggle');
+        const optionsList = this.shadowRoot.querySelector('.dropdown-options');
 
-        if (select) {
-            select.addEventListener('change', (e) => {
-                this.state.selectedOption = e.target.value;
-                this.dispatchCustomEvent('optionSelected', { option: this.state.selectedOption });
+        if (dropdownToggle) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleDropdown();
             });
         } else {
-            console.error('Select element not found');
+            console.error('Dropdown toggle not found');
         }
+
+        if (optionsList) {
+            optionsList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('dropdown-option')) {
+                    const selectedValue = e.target.dataset.value;
+                    this.selectOption(selectedValue);
+                }
+            });
+        } else {
+            console.error('Options list not found');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            if (this.state.isOpen) {
+                this.setState({ isOpen: false });
+            }
+        });
     }
 
     disconnectedCallback() {
