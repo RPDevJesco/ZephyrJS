@@ -305,47 +305,54 @@ For support, please open an issue on our GitHub repository.
 Built with ❤️
 
 ### ToDO:
-Form-Related Components
-    <zephyr-form>: A wrapper component for handling form submissions, validation, and data management.
-    <zephyr-checkbox>: A customizable checkbox input element with clear styling options.
-    <zephyr-radio>: Similar to <zephyr-Checkbox, but for radio button groups.
-    <zephyr-switch>: A toggle switch component for binary options.
-    <zephyr-select>: A styled dropdown selection component.
-    <zephyr-datepicker>: A calendar component for date input.
-    <zephyr-timepicker>: A component for selecting time.
-    <zephyr-calendar>: A full calendar component for scheduling and events
-    <zephyr-range-slider>: An input slider for selecting a value within a range.
-    <zephyr-file-upload>: A component for handling file uploads.
-    <zephyr-multi-form>: Guides users through multi-step processes, such as checkout processes.
-Authentication Components
-    <zephyr-login-form>: A pre-built login form component
-    <zephyr-signup-form>: A registration form component
-    <zephyr-password-strength>: A password strength indicator
-Utility Components
-    <zephyr-scroll-to-top>: A button to scroll back to the top of the page
-    <zephyr-infinite-scroll>: A component to handle infinite scrolling
-    <zephyr-lazy-load>: A component for lazy loading images or other content
-Navigation & Layout Components
-    Popover/Popover Menu: Similar to tooltips but more complex, allowing for interaction within the content.
-    <zephyr-navbar>: A top-level navigation bar component.
-    <zephyr-sidebar>: A collapsible side navigation menu.
-    <zephyr-breadcrumb>: A navigational aid that shows the user's path within a website or application.
-    <zephyr-grid>: A flexible grid system for creating responsive layouts (could integrate with a popular CSS grid library).
-    <zephyr-carousel>: A slideshow component for displaying images or content.
-    <zephyr-masonry>: A masonry layout component for dynamic content arrangement
-    <zephyr-pagination>: A component to help users navigate through large sets of data.
-Data Visualization Components
-    <zephyr-chart>: A generic chart component that can be configured for various chart types (line, bar, pie, etc.). Could potentially integrate with a charting library like Chart.js or D3.js.
-    <zephyr-progress>: A progress bar or circle component for visualizing progress.
-    <zephyr-timeline>: A component to display events or data points in chronological order.
-Interactive Components
-    <zephyr-drawer>: A sliding panel that emerges from the side of the screen.
-    <zephyr-snackbar>: A brief notification that appears at the bottom of the screen.
-    <zephyr-rating>: A component for displaying and collecting user ratings (e.g., star ratings).
-Additional Ideas
-    <zephyr-avatar>: A circular image component for displaying user profile pictures.
-    <zephyr-badge>: A small label or tag to highlight a piece of information.
-    <zephyr-loader/spinner>: Animated loading indicators to provide feedback during asynchronous operations.
-    <zephyr-audio-player>: A component for playing audio files.
-    <zephyr-video-player>: A component for playing video files.
-    <zephyr-sortable-list>: Allows users to reorder list items via drag and drop.
+
+#### Form-Related Components
+- `<zephyr-form>`: A wrapper component for handling form submissions, validation, and data management.
+- `<zephyr-checkbox>`: A customizable checkbox input element with clear styling options.
+- `<zephyr-radio>`: Similar to `<zephyr-checkbox>`, but for radio button groups.
+- `<zephyr-switch>`: A toggle switch component for binary options.
+- `<zephyr-select>`: A styled dropdown selection component.
+- `<zephyr-datepicker>`: A calendar component for date input.
+- `<zephyr-timepicker>`: A component for selecting time.
+- `<zephyr-calendar>`: A full calendar component for scheduling and events.
+- `<zephyr-range-slider>`: An input slider for selecting a value within a range.
+- `<zephyr-file-upload>`: A component for handling file uploads.
+- `<zephyr-multi-form>`: Guides users through multi-step processes, such as checkout processes.
+
+#### Authentication Components
+- `<zephyr-login-form>`: A pre-built login form component.
+- `<zephyr-signup-form>`: A registration form component.
+- `<zephyr-password-strength>`: A password strength indicator.
+
+#### Utility Components
+- `<zephyr-scroll-to-top>`: A button to scroll back to the top of the page.
+- `<zephyr-infinite-scroll>`: A component to handle infinite scrolling.
+- `<zephyr-lazy-load>`: A component for lazy loading images or other content.
+
+#### Navigation & Layout Components
+- `Popover/Popover Menu`: Similar to tooltips but more complex, allowing for interaction within the content.
+- `<zephyr-navbar>`: A top-level navigation bar component.
+- `<zephyr-sidebar>`: A collapsible side navigation menu.
+- `<zephyr-breadcrumb>`: A navigational aid that shows the user's path within a website or application.
+- `<zephyr-grid>`: A flexible grid system for creating responsive layouts (could integrate with a popular CSS grid library).
+- `<zephyr-carousel>`: A slideshow component for displaying images or content.
+- `<zephyr-masonry>`: A masonry layout component for dynamic content arrangement.
+- `<zephyr-pagination>`: A component to help users navigate through large sets of data.
+
+#### Data Visualization Components
+- `<zephyr-chart>`: A generic chart component that can be configured for various chart types (line, bar, pie, etc.). Could potentially integrate with a charting library like Chart.js or D3.js.
+- `<zephyr-progress>`: A progress bar or circle component for visualizing progress.
+- `<zephyr-timeline>`: A component to display events or data points in chronological order.
+
+#### Interactive Components
+- `<zephyr-drawer>`: A sliding panel that emerges from the side of the screen.
+- `<zephyr-snackbar>`: A brief notification that appears at the bottom of the screen.
+- `<zephyr-rating>`: A component for displaying and collecting user ratings (e.g., star ratings).
+
+#### Additional Ideas
+- `<zephyr-avatar>`: A circular image component for displaying user profile pictures.
+- `<zephyr-badge>`: A small label or tag to highlight a piece of information.
+- `<zephyr-loader/spinner>`: Animated loading indicators to provide feedback during asynchronous operations.
+- `<zephyr-audio-player>`: A component for playing audio files.
+- `<zephyr-video-player>`: A component for playing video files.
+- `<zephyr-sortable-list>`: Allows users to reorder list items via drag and drop.
