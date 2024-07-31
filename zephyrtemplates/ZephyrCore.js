@@ -1,4 +1,5 @@
 export const Themes = Object.freeze({
+    DEFAULT: Symbol('default'),
     COOL_WINTER: Symbol('cool-winter'),
     DARK: Symbol('dark'),
     ELEGANT: Symbol('elegant'),

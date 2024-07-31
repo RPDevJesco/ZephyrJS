@@ -1,0 +1,86 @@
+[data-theme="default"] {
+    /* Base colors */
+    --primary-color: #5D4E60;
+    --secondary-color: #826C7F;
+    --accent-color: #A88FAC;
+    --neutral-color: #D4B2D8;
+
+    /* Semantic colors */
+    --info-color: #17a2b8;
+    --success-color: #2ECC71;
+    --danger-color: #E74C3C;
+    --warning-color: #F39C12;
+
+    /* Typography */
+    --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    --font-family-serif: "Merriweather", Georgia, serif;
+    --font-family-monospace: "Fira Code", "Courier New", monospace;
+
+    /* Spacing */
+    --spacing-none: 0;
+    --spacing-extra-small: 5px;
+    --spacing-small: 10px;
+    --spacing-medium: 16px;
+    --spacing-large: 20px;
+
+    /* Border */
+    --border-radius: 5px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+
+    /* Component-specific variables */
+    --button-padding: 10px 20px;
+    --button-border-radius: 5px;
+    --button-font-size: 1em;
+
+    --card-padding: 16px;
+    --card-border-radius: 8px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 12px;
+    --card-content-margin-top: 8px;
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-content-font-size: 1rem;
+
+    --input-margin: 10px 0;
+    --input-padding: 10px;
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+
+    --dropdown-padding: 10px;
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+
+    --modal-border-radius: 10px;
+    --modal-width: 300px;
+    --modal-z-index: 1000;
+    --modal-header-padding: 16px;
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 16px;
+    --modal-footer-padding: 16px;
+
+    --notification-padding: 16px;
+    --notification-font-size: 1em;
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #272822;
+    --markdown-color: #F8F8F2;
+    --markdown-keyword: #F92672;
+    --markdown-string: #E6DB74;
+    --markdown-number: #AE81FF;
+    --markdown-function: #A6E22E;
+    --markdown-comment: #75715E;
+    --markdown-method: #66D9EF;
+    --markdown-tag: #0000FF;
+    --markdown-attribute: #FF0000;
+    --markdown-at-rule: #AF00DB;
+    --markdown-punctuation: #000000;
+    --markdown-property: #FF0000;
+    --markdown-value: #0000FF;
+    --markdown-selector: #800000;
+    --markdown-indentation: #CCCCCC;
+    --markdown-text: var(--markdown-indentation);
+}

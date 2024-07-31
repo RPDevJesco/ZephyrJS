@@ -3,7 +3,7 @@
     --primary-color: #FFFFFF;    /* Pure white */
     --secondary-color: #E3F2FD;  /* Light sky blue */
     --accent-color: #90CAF9;     /* Soft blue */
-    --background-color: #E8F5E9; /* Light green */
+    --background-color: #90CAF9; /* Light green */
     --neutral-color: #C8E6C9;    /* Soft green */
     --secondary-color-light: #BBDEFB; /* Light blue */
 
@@ -18,7 +18,7 @@
     --warning-background: #FFF9C4; /* Light yellow */
 
     /* Text colors */
-    --light-text: #FFFFFF;       /* White */
+    --light-text: #90CAF9;       /* White */
     --dark-text: #1E88E5;        /* Bright blue */
 
     /* Component-specific colors */
