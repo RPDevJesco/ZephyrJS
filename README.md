@@ -89,33 +89,33 @@ ZephyrJS comes with several pre-built components:
 Customize components using CSS variables:
 
 ```css
-:root {
+[data-theme="custom"] {
     /* Main palette colors */
-    --primary-color: #5D4E60;    /* Muted dark purple */
-    --secondary-color: #826C7F;  /* Muted medium purple */
-    --accent-color: #A88FAC;     /* Soft purple */
-    --background-color: #F4F7F9; /* Very light blue-gray */
-    --neutral-color: #D4B2D8;    /* Light grayish purple */
-    --secondary-color-light: #e0e1ff; /* Light shade of secondary color */
+    --primary-color: #2C2C2C;    /* Dark gray */
+    --secondary-color: #4B0000;  /* Dark red */
+    --accent-color: #FF4500;     /* Bright orange-red */
+    --background-color: #1A1A1A; /* Almost black */
+    --neutral-color: #808080;    /* Medium gray */
+    --secondary-color-light: #8B0000; /* Dark red */
 
     /* Semantic colors */
-    --info-color: #17a2b8;       /* Standard blue for info */
-    --info-background: #d1ecf1;  /* Light blue for info background */
-    --success-color: #2ECC71;    /* Soft green */
-    --success-background: #d4edda; /* Light green for success background */
-    --danger-color: #E74C3C;     /* Soft red */
-    --danger-background: #f8d7da; /* Light red for danger background */
-    --warning-color: #F39C12;    /* Amber */
-    --warning-background: #fff3cd; /* Light amber for warning background */
+    --info-color: #FF6347;       /* Tomato */
+    --info-background: #FFE4E1;  /* Light red */
+    --success-color: #32CD32;    /* Lime green */
+    --success-background: #F0FFF0; /* Honeydew */
+    --danger-color: #DC143C;     /* Crimson */
+    --danger-background: #FFE4E1; /* Light red */
+    --warning-color: #FFD700;    /* Gold */
+    --warning-background: #FFF8DC; /* Light yellow */
 
     /* Text colors */
-    --light-text: var(--white);      /* White for text on dark backgrounds */
-    --dark-text: #2C3E50;       /* Dark blue-gray for main text */
+    --light-text: #FFFFFF;       /* White */
+    --dark-text: #FF4500;        /* Bright orange-red */
 
     /* Component-specific colors */
-    --button-hover-bg: #2980B9;  /* Darker blue for button hover */
-    --input-focus-border: #826C7F; /* Adjusted to match the secondary color */
-    --button-click-bg: #1190B9;
+    --button-hover-bg: #CD5C5C;  /* Indian red */
+    --input-focus-border: #FF4500; /* Adjusted to match the accent color */
+    --button-click-bg: #B22222;  /* Firebrick */
 
     /* Typography */
     --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;
@@ -124,12 +124,12 @@ Customize components using CSS variables:
 
     /* Body styles */
     --body-bg: var(--background-color);
-    --body-color: #2C3E50;       /* Dark blue-gray for main text */
+    --body-color: #FF4500;       /* Bright orange-red for main text */
 
     /* Link styles */
     --link-color: var(--accent-color);
     --link-decoration: none;
-    --link-hover-color: #d54644; /* Darker shade of coral for hover */
+    --link-hover-color: #FF6347; /* Tomato */
 
     /* Additional theme-specific variables */
     --header-bg: var(--primary-color);
@@ -138,7 +138,7 @@ Customize components using CSS variables:
     --footer-color: var(--primary-color);
     --button-primary-bg: var(--accent-color);
     --button-primary-color: white;
-    --card-bg: white;
+    --card-bg: #2C2C2C; /* Dark gray for card background */
     --card-border: var(--neutral-color);
 
     /* Button specific variables */
@@ -156,13 +156,21 @@ Customize components using CSS variables:
     --card-header-margin-bottom: 12px;
     --card-content-margin-top: 8px;
 
+    /* CardGroup Component Variables */
+    --card-group-gap: 1rem;
+    --card-min-width: 250px;
+    --card-border-color: #808080;
+    --card-header-color: #FF4500;
+    --card-content-color: #CD5C5C; /* Indian red */
+    --card-content-font-size: 1rem;
+
     /* Input specific variables */
     --input-margin: 10px 0;
     --input-padding: 10px;
     --input-border: 1px solid var(--neutral-color);
     --input-border-radius: 4px;
     --input-font-size: 1rem;
-    --input-focus-border-color: var(--secondary-color);
+    --input-focus-border-color: var(--accent-color);
 
     /* Dropdown specific variables */
     --dropdown-padding: 10px;
@@ -170,8 +178,8 @@ Customize components using CSS variables:
     --dropdown-border-radius: 4px;
     --dropdown-font-size: 1rem;
     --dropdown-background: var(--background-color);
-    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%232A4858;"/></svg>');
-    --dropdown-focus-border-color: var(--secondary-color);
+    --dropdown-arrow: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 140,0 70,70" style="fill:%23808080;"/></svg>');
+    --dropdown-focus-border-color: var(--accent-color);
 
     /* Modal specific variables */
     --modal-background: var(--background-color);
@@ -190,7 +198,7 @@ Customize components using CSS variables:
 
     /* Notification specific variables */
     --notification-padding: 16px;
-    --notification-background: var(--light-text);
+    --notification-background: var(--dark-text);
     --notification-border-color: var(--primary-color);
     --notification-font-size: 1em;
     --notification-success-background: var(--success-background);
@@ -201,21 +209,21 @@ Customize components using CSS variables:
     --notification-warning-text: var(--warning-color);
 
     /* Markdown Editor and Renderer Colors */
-    --markdown-bg: #272822;
-    --markdown-color: #F8F8F2;
-    --markdown-keyword: #F92672;
-    --markdown-string: #E6DB74;
-    --markdown-number: #AE81FF;
-    --markdown-function: #A6E22E;
+    --markdown-bg: #2C2C2C;
+    --markdown-color: #FF4500;
+    --markdown-keyword: #DC143C;
+    --markdown-string: #32CD32;
+    --markdown-number: #FFD700;
+    --markdown-function: #FF6347;
     --markdown-comment: #75715E;
-    --markdown-method: #66D9EF;
-    --markdown-tag: #0000FF;
-    --markdown-attribute: #FF0000;
+    --markdown-method: #FF4500;
+    --markdown-tag: #4B0000;
+    --markdown-attribute: #FF6347;
     --markdown-at-rule: #AF00DB;
     --markdown-punctuation: #000000;
-    --markdown-property: #FF0000;
-    --markdown-value: #0000FF;
-    --markdown-selector: #800000;
+    --markdown-property: #FF6347;
+    --markdown-value: #4B0000;
+    --markdown-selector: #FF4500;
     --markdown-indentation: #CCCCCC;
     --markdown-text: var(--markdown-indentation);
 
@@ -224,11 +232,12 @@ Customize components using CSS variables:
     --spacing-small: 10px;
     --spacing-medium: 16px;
     --spacing-large: 20px;
+
     --border-radius: 5px;
 }
 ```
 
-You can create your own variables.css to change the values to what suits your project over the defaults.
+You can create your own theme to change the values to what suits your project over the defaults.
 
 ### License
 ZephyrJS is MIT licensed.
@@ -239,33 +248,47 @@ For support, please open an issue on our GitHub repository.
 Built with ❤️
 
 ### ToDO:
-- Carousel: A component for creating image or content sliders, commonly used for showcasing multiple items in a slideshow format.
-- Progress Bar: A component to visually indicate the progress of a task or process.
-- Spinner/Loader: A component to indicate loading states or background processing.
-- Alert: A component for displaying contextual feedback messages, such as warnings, errors, or success messages.
-- Breadcrumbs: A component to display the navigation path and help users understand their location within a web application.
-- Search Component: A component for searching through data that exists in a Data Table or Tree Table to navigate to the specified item.
-- Form: A component for creating and managing user input forms, including validation and submission handling.
-- Datepicker: A component for selecting dates from a calendar interface.
-- Timepicker: A component for selecting times, often used alongside a datepicker.
-- Slider/Range Input: A component for selecting a value or range of values from a predefined range.
-- Tree View: A component for displaying hierarchical data in a tree structure, allowing for expanding and collapsing of nodes.
-- File Upload: A component for handling file uploads, including drag-and-drop support and progress indicators.
-- Menu: A component for creating dropdown or context menus for additional actions or navigation options.
-- Modal Form: A modal dialog specifically designed to handle form inputs and submissions within a modal context.
-- Stepper: A component to guide users through a multi-step process, often used for forms or workflows.
-- Snackbar/Toast: A component for displaying brief messages at the bottom or top of the screen, typically for non-intrusive notifications.
-- Rich Text Editor: A component that provides WYSIWYG (What You See Is What You Get) editing capabilities, allowing users to format text with various styles, links, and media.
-- Chart/Graph: A component for rendering different types of charts and graphs (e.g., bar, line, pie) using a library like Chart.js or D3.js.
-- Split Pane: A component for creating resizable split views, allowing users to adjust the size of adjacent content areas.
-- Infinite Scroll: A component for loading content dynamically as the user scrolls, often used in social media feeds or long lists.
-- Color Picker: A component for selecting colors, often used in design and customization tools.
-- Stepper Wizard: A more advanced stepper component that guides users through multi-step processes, with validation and navigation controls.
-- Image Gallery: A component for displaying image collections with features like lightbox viewing, thumbnails, and captions.
-- Video Player: A component for embedding and controlling video playback, including custom controls and responsive design.
-- Audio Player: A component for embedding and controlling audio playback, similar to the video player.
-- Virtual List: A component for rendering large lists efficiently by only rendering the visible items and recycling DOM elements.
-- Notification Center: A component for managing and displaying a list of notifications, with features like dismissing and marking as read.
-- Map Viewer: A component for displaying interactive maps, possibly integrating with libraries like Leaflet or Google Maps API.
-- Rating/Review: A component for capturing and displaying user ratings and reviews, often used in e-commerce and feedback systems.
-- Timeline: A component for displaying chronological events or activities in a visually appealing timeline format.
+Form-Related Components
+    <zephyr-form>: A wrapper component for handling form submissions, validation, and data management.
+    <zephyr-checkbox>: A customizable checkbox input element with clear styling options.
+    <zephyr-radio>: Similar to <zephyr-Checkbox, but for radio button groups.
+    <zephyr-switch>: A toggle switch component for binary options.
+    <zephyr-select>: A styled dropdown selection component.
+    <zephyr-datepicker>: A calendar component for date input.
+    <zephyr-timepicker>: A component for selecting time.
+    <zephyr-calendar>: A full calendar component for scheduling and events
+    <zephyr-range-slider>: An input slider for selecting a value within a range.
+    <zephyr-file-upload>: A component for handling file uploads.
+    <zephyr-multi-form>: Guides users through multi-step processes, such as checkout processes.
+Authentication Components
+    <zephyr-login-form>: A pre-built login form component
+    <zephyr-signup-form>: A registration form component
+    <zephyr-password-strength>: A password strength indicator
+Utility Components
+    <zephyr-scroll-to-top>: A button to scroll back to the top of the page
+    <zephyr-infinite-scroll>: A component to handle infinite scrolling
+    <zephyr-lazy-load>: A component for lazy loading images or other content
+Navigation & Layout Components
+    Popover/Popover Menu: Similar to tooltips but more complex, allowing for interaction within the content.
+    <zephyr-navbar>: A top-level navigation bar component.
+    <zephyr-sidebar>: A collapsible side navigation menu.
+    <zephyr-breadcrumb>: A navigational aid that shows the user's path within a website or application.
+    <zephyr-grid>: A flexible grid system for creating responsive layouts (could integrate with a popular CSS grid library).
+    <zephyr-carousel>: A slideshow component for displaying images or content.
+    <zephyr-masonry>: A masonry layout component for dynamic content arrangement
+    <zephyr-pagination>: A component to help users navigate through large sets of data.
+Data Visualization Components
+    <zephyr-chart>: A generic chart component that can be configured for various chart types (line, bar, pie, etc.). Could potentially integrate with a charting library like Chart.js or D3.js.
+    <zephyr-progress>: A progress bar or circle component for visualizing progress.
+    <zephyr-timeline>: A component to display events or data points in chronological order.
+Interactive Components
+    <zephyr-drawer>: A sliding panel that emerges from the side of the screen.
+    <zephyr-snackbar>: A brief notification that appears at the bottom of the screen.
+    <zephyr-rating>: A component for displaying and collecting user ratings (e.g., star ratings).
+Additional Ideas
+    <zephyr-avatar>: A circular image component for displaying user profile pictures.
+    <zephyr-badge>: A small label or tag to highlight a piece of information.
+    <zephyr-loader/spinner>: Animated loading indicators to provide feedback during asynchronous operations.
+    <zephyr-audio-player>: A component for playing audio files.
+    <zephyr-video-player>: A component for playing video files.
+    <zephyr-sortable-list>: Allows users to reorder list items via drag and drop.
