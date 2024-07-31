@@ -64,25 +64,82 @@ defineCustomElement('my-component', MyComponent);
 
 ### Core Components
 ZephyrJS comes with several pre-built components:
-```
-<zephyr-card>
-<zephyr-button>
-<zephyr-dropdown>
-<zephyr-input>
-<zephyr-modal-dialog>
-<zephyr-notification-box>
-<zephyr-user-profile>
-<zephyr-markdown-editor>
-<zephyr-markdown-renderer>
-<zephyr-kanban-board>
+```html
 <zephyr-accordion>
+  <zephyr-accordion-item header="Section 1">
+    Content for section 1.
+  </zephyr-accordion-item>
+  <zephyr-accordion-item header="Section 2">
+    Content for section 2.
+  </zephyr-accordion-item>
+</zephyr-accordion>
+
 <zephyr-accordion-table>
+  <!-- Define your table structure here -->
+</zephyr-accordion-table>
+
+<zephyr-basic-card title="Card Title" content="This is a simple card."></zephyr-basic-card>
+
+<zephyr-button label="Click Me"></zephyr-button>
+
+<zephyr-card-group>
+  <zephyr-basic-card title="Card 1" content="Content 1"></zephyr-basic-card>
+  <zephyr-basic-card title="Card 2" content="Content 2"></zephyr-basic-card>
+</zephyr-card-group>
+
 <zephyr-data-table>
-<zephyr-tree-table>
+  <!-- Define your table structure here -->
+</zephyr-data-table>
+
+<zephyr-dropdown>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+</zephyr-dropdown>
+
+<zephyr-input type="text" placeholder="Enter text"></zephyr-input>
+
+<zephyr-kanban-board>
+  <!-- Define your Kanban board structure here -->
+</zephyr-kanban-board>
+
 <zephyr-layout-component>
-<zephyr-timeline-component>
+  <header slot="top"></header>
+  <nav slot="left"></nav>
+  <main slot="center"></main>
+</zephyr-layout-component>
+
+<zephyr-markdown-editor></zephyr-markdown-editor>
+
+<zephyr-markdown-renderer content='
+  # Markdown Content
+  This is some **markdown** content to render.'
+>
+</zephyr-markdown-renderer>
+
+<zephyr-modal>
+  <p>This is a modal content.</p>
+</zephyr-modal>
+
+<zephyr-notification>
+  <p>This is a notification message.</p>
+</zephyr-notification>
+
 <zephyr-tabs>
-<zephyr-tooltip>
+  <zephyr-tab name="Tab 1">
+    Content for tab 1.
+  </zephyr-tab>
+  <zephyr-tab name="Tab 2">
+    Content for tab 2.
+  </zephyr-tab>
+</zephyr-tabs>
+
+<zephyr-tooltip content="This is a tooltip">
+  Hover over me
+</zephyr-tooltip>
+
+<zephyr-tree-table>
+  <!-- Define your tree table structure here -->
+</zephyr-tree-table>
 ```
 
 ### Customization
