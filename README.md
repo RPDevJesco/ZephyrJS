@@ -296,6 +296,21 @@ Customize components using CSS variables:
 
 You can create your own theme to change the values to what suits your project over the defaults.
 
+### Using ZephyrJS in HTML Project
+Import the latest version from jsdelivr into your project as depicted below.
+From there, you will be able to make full usage of ZephyrJS.
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title of project</title>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcore/zephyr.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrtemplates/ZephyrCore.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/variables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/zephyr.css">
+</head>
+```
+
 ### License
 ZephyrJS is MIT licensed.
 
