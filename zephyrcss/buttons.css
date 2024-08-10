@@ -24,5 +24,3 @@
     background-color: darken(var(--primary-color), 10%);
     border-color: darken(var(--primary-color), 10%);
 }
-
-/* Additional button styles for secondary, success, danger, warning, info, light, and dark */

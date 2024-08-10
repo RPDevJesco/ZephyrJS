@@ -269,6 +269,11 @@
     50% { transform: rotateX(10deg); opacity: 1; }
     to { transform: rotateX(100deg); opacity: 0; }
 }
+/* Scrolling */
+@keyframes scrolling {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
+}
 
 .fade-in {
     animation: fadeIn 1s ease-in-out;
@@ -354,4 +359,52 @@
 }
 .elastic-scale {
     animation: elasticScale 0.5s ease-in-out;
+}
+.marquee-container {
+    --marquee-elements: 4;  /* Number of elements in your marquee */
+    --marquee-elements-displayed: 3;  /* Number of elements you want displayed at a time */
+    --marquee-element-width: calc(100% / var(--marquee-elements-displayed));
+    --marquee-animation-duration: calc(var(--marquee-elements) * 5s);
+
+    width: 100%;
+    overflow: hidden;
+    background: var(--background-color);
+    padding: 20px 0;
+    position: relative;
+}
+.marquee-content {
+    display: flex;
+    width: calc(var(--marquee-element-width) * var(--marquee-elements));
+    animation: scrolling var(--marquee-animation-duration) linear infinite;
+}
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+.marquee-content li {
+    flex: 0 0 var(--marquee-element-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+    font-size: calc(15px + (20 - 15) * ((100vw - 300px) / (1600 - 300)));  /* Responsive font size */
+    white-space: nowrap;
+}
+.marquee-content:hover .marquee-item {
+    animation-play-state: paused;
+}
+.marquee-content::before,
+.marquee-content::after {
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 10%;
+    z-index: 1;
+}
+.marquee-content::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background-color) 0%, transparent 100%);
+}
+.marquee-content::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background-color) 0%, transparent 100%);
 }

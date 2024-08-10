@@ -311,6 +311,358 @@ From there, you will be able to make full usage of ZephyrJS.
 </head>
 ```
 
+ZephyrJS also boasts a CSS Framework which houses utility classes and animations.
+
+### Available Utilities
+#### Available Color Categories
+
+#### Basic Colors: Standard colors like blue, red, green, etc.
+
+- --blue, 
+- --red, 
+- --green
+
+
+#### Extended Colors: Additional named colors for more variety.
+
+- --lime, 
+- --gold, 
+- --navy
+
+#### Light Shades: Lighter versions of basic colors.
+
+- --blue-light, 
+- --red-light, 
+- --green-light
+
+
+#### Dark Shades: Darker versions of basic colors.
+
+- --blue-dark, 
+- --red-dark, 
+- --green-dark
+
+
+#### Pastel Shades: Soft, muted colors.
+
+- --pastel-blue, 
+- --pastel-green, 
+- --pastel-pink
+
+
+#### Additional Shades: Extra light variations of colors.
+
+- --light-blue, 
+- --light-coral, 
+- --light-sea-green
+
+
+#### Custom Shades: Specific color variations for your project.
+
+- --custom-blue, 
+- --custom-green, 
+- --custom-red
+
+
+#### Semantic Colors: Colors with specific meanings or uses.
+
+- --info-color, 
+- --success-color, 
+- --danger-color
+
+
+#### Gradient Colors: Predefined gradient backgrounds.
+
+- --gradient-primary, 
+- --gradient-secondary
+
+
+#### Shadows: Predefined shadow styles.
+
+- --shadow-light, 
+- --shadow-dark
+
+### Layout
+#### Container and Grid System
+
+- .container: Main container class
+- .row: Flex row
+- .col: Flex column
+
+### Display
+
+- .d-none, 
+- .d-inline, 
+- .d-inline-block, 
+- .d-block, 
+- .d-table, 
+- .d-table-row, 
+- .d-table-cell, 
+- .d-flex, 
+- .d-inline-flex
+- Responsive variants: .d-{breakpoint}-{value} (e.g., .d-md-none)
+
+### Flexbox
+
+- Flex container: .d-flex, .d-inline-flex
+- Justify content: .justify-content-start, .justify-content-end, .justify-content-center, .justify-content-between, .justify-content-around
+- Align items: .align-items-start, .align-items-end, .align-items-center, .align-items-baseline, .align-items-stretch
+
+### Positioning
+
+- .position-static, 
+- .position-relative, 
+- .position-absolute, 
+- .position-fixed, 
+- .position-sticky
+- .top-0, 
+- .right-0, 
+- .bottom-0, 
+- .left-0, 
+- .top-50, 
+- .right-50, 
+- .bottom-50, 
+- .left-50, 
+- .top-100, 
+- .right-100, 
+- .bottom-100, 
+- .left-100
+- .translate-middle, 
+- .translate-middle-x, 
+- .translate-middle-y
+
+### Spacing
+#### Margin
+
+- .m-0 to .m-5, 
+- .mt-0 to .mt-5, 
+- .mr-0 to .mr-5, 
+- .mb-0 to .mb-5, 
+- .ml-0 to .ml-5
+- .mx-0 to .mx-5, 
+- .my-0 to .my-5
+- .m-auto, 
+- .mx-auto, 
+- .my-auto
+
+### Padding
+
+- .p-0 to .p-5, 
+- .pt-0 to .pt-5, 
+- .pr-0 to .pr-5, 
+- .pb-0 to .pb-5, 
+- .pl-0 to .pl-5
+- .px-0 to .px-5, 
+- .py-0 to .py-5
+
+### Typography
+#### Font Size
+
+- .text-xs, 
+- .text-sm, 
+- .text-base, 
+- .text-lg, 
+- .text-xl, 
+- .text-2xl, 
+- .text-3xl, 
+- .text-4xl
+
+### Font Weight
+
+- .font-light, 
+- .font-normal, 
+- .font-medium, 
+- .font-semibold, 
+- .font-bold
+
+### Text Alignment
+
+- .text-left, 
+- .text-center, 
+- .text-right, 
+- .text-justify
+
+### Text Decoration
+
+- .underline, 
+- .line-through, 
+- .no-underline
+
+### Text Transform
+
+- .uppercase, 
+- .lowercase, 
+- .capitalize, 
+- .normal-case
+
+### Line Height
+
+- .leading-none, 
+- .leading-tight, 
+- .leading-normal, 
+- .leading-loose
+
+### Letter Spacing
+
+- .tracking-tight, 
+- .tracking-normal, 
+- .tracking-wide
+
+### Colors
+#### Background Colors
+
+- .bg-primary, 
+- .bg-secondary, 
+- .bg-success, 
+- .bg-danger, 
+- .bg-warning, 
+- .bg-info, 
+- .bg-light, 
+- .bg-dark
+
+### Text Colors
+
+- .text-primary, 
+- .text-secondary, 
+- .text-success, 
+- .text-danger, 
+- .text-warning, 
+- .text-info, 
+- .text-light, 
+- .text-dark
+
+### Borders
+
+- .border, 
+- .border-top, 
+- .border-right, 
+- .border-bottom, 
+- .border-left, 
+- .border-0
+- .rounded, 
+- .rounded-top, 
+- .rounded-right, 
+- .rounded-bottom, 
+- .rounded-left, 
+- .rounded-circle, 
+- .rounded-0
+
+### Shadows
+
+- .shadow-sm, 
+- .shadow, 
+- .shadow-lg, 
+- .shadow-none
+
+### Sizing
+#### Width
+
+- .w-25, 
+- .w-50, 
+- .w-75, 
+- .w-100, 
+- .w-auto
+- .max-w-25, 
+- .max-w-50, 
+- .max-w-75, 
+- .max-w-100, 
+- .max-w-none
+
+### Height
+
+- .h-25, 
+- .h-50, 
+- .h-75, 
+- .h-100, 
+- .h-auto
+- .max-h-25, 
+- .max-h-50, 
+- .max-h-75, 
+- .max-h-100, 
+- .max-h-none
+
+### Interactions
+
+- .pointer-events-none, 
+- .pointer-events-auto
+- .user-select-none, 
+- .user-select-auto
+
+### Overflow
+
+- .overflow-auto, 
+- .overflow-hidden, 
+- .overflow-visible, 
+- .overflow-scroll
+- .overflow-x-auto, 
+- .overflow-x-hidden, 
+- .overflow-x-visible, 
+- .overflow-x-scroll
+- .overflow-y-auto, 
+- .overflow-y-hidden, 
+- .overflow-y-visible, 
+- .overflow-y-scroll
+
+### Accessibility
+
+- .focus-visible: Provides a visible outline for keyboard focus
+- .skip-to-main: Allows keyboard users to skip to the main content
+- .high-contrast-border: Adds a border in high contrast mode
+- .reduce-motion: Removes animations and transitions for users who prefer reduced motion
+
+### Logical Properties
+
+- Margin: .m-inline-start-1, .m-inline-end-1, .m-block-start-1, .m-block-end-1
+- Padding: .p-inline-start-1, .p-inline-end-1, .p-block-start-1, .p-block-end-1
+- Border: .border-inline-start, .border-inline-end, .border-block-start, .border-block-end
+- Text alignment: .text-start, .text-end
+- Position: .inset-inline-start-0, .inset-inline-end-0, .inset-block-start-0, .inset-block-end-0
+
+### Responsive Classes
+#### Many utilities include responsive variants that apply at different breakpoints:
+
+- sm: Small screens (≥576px)
+- md: Medium screens (≥768px)
+- lg: Large screens (≥992px)
+- xl: Extra large screens (≥1200px)
+
+### Reset
+- visible - sets item visible
+- invisible - sets item invisible
+
+### Available Animations
+
+- fade-in: Fades in the element
+- swing: Swings the element back and forth
+- slide-in-left: Slides in the element from different directions
+- slide-in-right: Slides in the element from different directions
+- slide-in-up: Slides in the element from different directions 
+- slide-in-down: Slides in the element from different directions
+- slide-in-bottom: Slides in the element from different directions
+- slide-out-top: Slides out the element to the top
+- bounce: Makes the element bounce
+- rotate: Rotates the element 360 degrees
+- zoom-in, zoom-out: Zooms the element in or out
+- flip: Flips the element horizontally
+- pulse: Makes the element pulse
+- shake: Shakes the element
+- wobble: Makes the element wobble
+- text-hide: Hides text by moving it up
+- text-reveal: Reveals text by moving it up
+- typewriter: Creates a typewriter effect
+- floating: Makes the element float up and down
+- blur-in, blur-out: Blurs the element in or out
+- hinge: Creates a hinge effect
+- glitch: Creates a glitch effect
+- ripple: Creates a ripple effect
+- spotlight: Creates a spotlight effect
+- text-shadow-pop: Makes text pop out with a shadow
+- elastic-scale: Scales the element with an elastic effect
+- roll-in, roll-out: Rolls the element in or out
+- flash: Makes the element flash
+- swing-in, swing-out: Swings the element in or out
+
+
 ### License
 ZephyrJS is MIT licensed.
 
