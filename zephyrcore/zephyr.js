@@ -6,21 +6,6 @@ export default class ZephyrJS extends HTMLElement {
     static baseUrl = '';
 
     /**
-     * Sets the base URL for loading templates.
-     * If a CDN link is provided, it is used as is.
-     * If a relative path is provided, it's treated as a local path.
-     */
-    static setBaseUrl(url) {
-        if (url.startsWith('http')) {
-            // CDN or full URL
-            ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
-        } else {
-            // Local relative path
-            ZephyrJS.baseUrl = new URL(url, window.location.origin).href;
-        }
-    }
-
-    /**
      * Initializes the custom element, sets up shadow DOM, state management, and data bindings.
      */
     constructor() {
@@ -324,6 +309,21 @@ export default class ZephyrJS extends HTMLElement {
  */
 function defineCustomElement(name, elementClass) {
     customElements.define(name, elementClass); // Register the custom element with the browser
+}
+
+/**
+ * Sets the base URL for loading templates.
+ * If a CDN link is provided, it is used as is.
+ * If a relative path is provided, it's treated as a local path.
+ */
+export function setBaseURL(url) {
+    if (url.startsWith('http')) {
+        // CDN or full URL
+        ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
+    } else {
+        // Local relative path
+        ZephyrJS.baseUrl = new URL(url, window.location.origin).href;
+    }
 }
 
 export { ZephyrJS, defineCustomElement }; // Export the CustomElement class and defineCustomElement function
