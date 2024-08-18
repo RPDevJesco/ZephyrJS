@@ -3,7 +3,7 @@
  * and data binding capabilities.
  */
 export default class ZephyrJS extends HTMLElement {
-    static baseUrl = 'https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.09';
+    static baseUrl = '';
 
     static setBaseUrl(url) {
         ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';

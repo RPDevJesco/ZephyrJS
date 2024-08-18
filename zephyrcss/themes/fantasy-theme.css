@@ -7,15 +7,15 @@
     --neutral-color: #C5B3CD;    /* Light lavender */
     --secondary-color-light: #CFC3E1; /* Light lavender shade */
 
-    /* Semantic colors */
-    --info-color: #7B68EE;       /* Medium slate blue */
-    --info-background: #E6E6FA;  /* Lavender */
-    --success-color: #32CD32;    /* Lime green */
-    --success-background: #F0FFF0; /* Honeydew */
-    --danger-color: #FF69B4;     /* Hot pink */
-    --danger-background: #FFF0F5; /* Lavender blush */
-    --warning-color: #FFD700;    /* Gold */
-    --warning-background: #FFF8DC; /* Cornsilk */
+    /* Semantic Colors */
+    --info-color: var(--info-color);          /* Dodger blue */
+    --info-background: var(--info-background);/* Alice blue */
+    --success-color: var(--success-color);    /* Lime green */
+    --success-background: var(--success-background); /* Honeydew */
+    --danger-color: var(--danger-color);      /* Tomato */
+    --danger-background: var(--danger-background); /* Misty rose */
+    --warning-color: var(--warning-color);    /* Gold */
+    --warning-background: var(--warning-background); /* Cornsilk */
 
     /* Text colors */
     --light-text: #F9F2FF;       /* Very light lilac */

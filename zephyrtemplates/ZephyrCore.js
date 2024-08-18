@@ -1,5 +1,6 @@
 export const Themes = Object.freeze({
     DEFAULT: Symbol('default'),
+    SHELBY: Symbol('shelby'),
     COOL_WINTER: Symbol('cool-winter'),
     DARK: Symbol('dark'),
     ELEGANT: Symbol('elegant'),
@@ -30,6 +31,7 @@ window.Themes = Themes;
 window.setTheme = setTheme;
 
 import BasicCard from "../zephyrtemplates/BasicCard.js";
+import LayeredCard from "../zephyrtemplates/LayeredCard.js";
 import ModalDialog from "../zephyrtemplates/ModalDialog.js";
 import Notification from "../zephyrtemplates/Notification.js";
 import Button from "../zephyrtemplates/Button.js";
@@ -57,3 +59,4 @@ import TimelineView from "../zephyrtemplates/TimelineView.js";
 import TimelineItem from "../zephyrtemplates/TimelineItem.js";
 import Modal from "../zephyrtemplates/Modal.js";
 import Blog from "../zephyrtemplates/Blog.js";
+import DynamicFocusZone from "../zephyrtemplates/DynamicFocusZone.js";

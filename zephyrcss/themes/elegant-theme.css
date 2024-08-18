@@ -7,15 +7,15 @@
     --neutral-color: #BDC3C7;    /* Medium gray */
     --secondary-color-light: #D3DDE6; /* Light gray */
 
-    /* Semantic colors */
-    --info-color: #3498DB;       /* Bright blue */
-    --info-background: #E0F7FA;  /* Light cyan */
-    --success-color: #2ECC71;    /* Bright green */
-    --success-background: #E8F5E9; /* Very light green */
-    --danger-color: #E74C3C;     /* Bright red */
-    --danger-background: #FDEDEC; /* Light red */
-    --warning-color: #F39C12;    /* Bright yellow-orange */
-    --warning-background: #FEF3E6; /* Light yellow */
+    /* Semantic Colors */
+    --info-color: var(--info-color);          /* Dodger blue */
+    --info-background: var(--info-background);/* Alice blue */
+    --success-color: var(--success-color);    /* Lime green */
+    --success-background: var(--success-background); /* Honeydew */
+    --danger-color: var(--danger-color);      /* Tomato */
+    --danger-background: var(--danger-background); /* Misty rose */
+    --warning-color: var(--warning-color);    /* Gold */
+    --warning-background: var(--warning-background); /* Cornsilk */
 
     /* Text colors */
     --light-text: #FFFFFF;       /* White */

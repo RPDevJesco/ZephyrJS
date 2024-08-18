@@ -5,11 +5,15 @@
     --accent-color: #A88FAC;
     --neutral-color: #D4B2D8;
 
-    /* Semantic colors */
-    --info-color: #17a2b8;
-    --success-color: #2ECC71;
-    --danger-color: #E74C3C;
-    --warning-color: #F39C12;
+    /* Semantic Colors */
+    --info-color: var(--info-color);          /* Dodger blue */
+    --info-background: var(--info-background);/* Alice blue */
+    --success-color: var(--success-color);    /* Lime green */
+    --success-background: var(--success-background); /* Honeydew */
+    --danger-color: var(--danger-color);      /* Tomato */
+    --danger-background: var(--danger-background); /* Misty rose */
+    --warning-color: var(--warning-color);    /* Gold */
+    --warning-background: var(--warning-background); /* Cornsilk */
 
     /* Typography */
     --font-family-sans-serif: "Montserrat", "Helvetica Neue", Arial, sans-serif;

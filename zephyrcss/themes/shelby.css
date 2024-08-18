@@ -1,0 +1,98 @@
+[data-theme="shelby"] {
+    /* Base colors inspired by the classic Shelby GT500 */
+    --primary-color: #B22222; /* Deep Red, representing the car's body */
+    --secondary-color: #FFFFFF; /* White, representing the racing stripes */
+    --accent-color: #D3D3D3; /* Light gray for chrome-like accents */
+    --neutral-color: #000000; /* Black for contrasting details */
+
+    /* Semantic colors */
+    --info-color: #17a2b8; /* Blue-tinted color for informational elements */
+    --success-color: #2ECC71; /* Green for success elements */
+    --danger-color: #E74C3C; /* Red for danger elements */
+    --warning-color: #F39C12; /* Yellow for warning elements */
+
+    /* Typography */
+    --font-family-sans-serif: "Oswald", "Helvetica Neue", Arial, sans-serif; /* Bold and modern font */
+    --font-family-serif: "Playfair Display", Georgia, serif;
+    --font-family-monospace: "Courier Prime", "Courier New", monospace;
+
+    /* Spacing */
+    --spacing-none: 0;
+    --spacing-extra-small: 4px;
+    --spacing-small: 8px;
+    --spacing-medium: 14px;
+    --spacing-large: 20px;
+
+    /* Border */
+    --border-radius: 6px; /* Slightly sharper corners for a more aggressive look */
+
+    /* Transitions */
+    --transition-fast: 100ms ease-in-out;
+    --transition-normal: 250ms ease-in-out;
+    --transition-slow: 400ms ease-in-out;
+
+    /* Component-specific variables */
+    --button-padding: 12px 24px;
+    --button-border-radius: 6px;
+    --button-font-size: 1em;
+    --button-background-color: var(--primary-color);
+    --button-text-color: var(--accent-color);
+
+    --card-padding: 18px;
+    --card-border-radius: 10px;
+    --card-header-font-size: 1.5em;
+    --card-header-margin-bottom: 10px;
+    --card-content-margin-top: 10px;
+    --card-group-gap: 1rem;
+    --card-min-width: 260px;
+    --card-content-font-size: 1rem;
+    --card-background-color: var(--secondary-color);
+    --card-text-color: var(--neutral-color);
+
+    --input-margin: 8px 0;
+    --input-padding: 12px;
+    --input-border-radius: 4px;
+    --input-font-size: 1rem;
+    --input-background-color: var(--primary-color);
+    --input-text-color: var(--neutral-color);
+
+    --dropdown-padding: 12px;
+    --dropdown-border-radius: 4px;
+    --dropdown-font-size: 1rem;
+    --dropdown-background-color: var(--primary-color);
+    --dropdown-text-color: var(--neutral-color);
+
+    --modal-border-radius: 8px;
+    --modal-width: 320px;
+    --modal-z-index: 1050;
+    --modal-header-padding: 18px;
+    --modal-header-font-size: 1.25em;
+    --modal-body-padding: 18px;
+    --modal-footer-padding: 18px;
+    --modal-background-color: var(--secondary-color);
+    --modal-text-color: var(--neutral-color);
+
+    --notification-padding: 18px;
+    --notification-font-size: 1em;
+    --notification-background-color: var(--primary-color);
+    --notification-text-color: var(--accent-color);
+
+    /* Markdown Editor and Renderer Colors */
+    --markdown-bg: #101820; /* Dark background to mimic the car’s interior */
+    --markdown-color: #C5C6C7; /* Light grey for text */
+    --markdown-keyword: #45A29E; /* Cool blue for keywords */
+    --markdown-string: #66FCF1; /* Bright blue for strings */
+    --markdown-number: #A6E22E; /* Green for numbers */
+    --markdown-function: #F39C12; /* Yellow for functions */
+    --markdown-comment: #757575; /* Grey for comments */
+    --markdown-method: #FF5733; /* Orange for methods */
+    --markdown-tag: #FF0000; /* Red for tags */
+    --markdown-attribute: #AF00DB; /* Purple for attributes */
+    --markdown-at-rule: #0000FF; /* Blue for at-rules */
+    --markdown-punctuation: #CCCCCC; /* Light grey for punctuation */
+    --markdown-property: #FF0000; /* Red for properties */
+    --markdown-value: #0000FF; /* Blue for values */
+    --markdown-selector: #800000; /* Maroon for selectors */
+    --markdown-indentation: #1F2833; /* Dark grey for indentation */
+    --markdown-text: var(--markdown-indentation);
+}
