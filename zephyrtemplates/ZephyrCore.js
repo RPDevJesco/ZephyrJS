@@ -1,3 +1,5 @@
+import ZephyrJS from "../zephyrcore/zephyr.js";
+
 export const Themes = Object.freeze({
     DEFAULT: Symbol('default'),
     SHELBY: Symbol('shelby'),
@@ -24,6 +26,10 @@ export function setTheme(themeName) {
     } else {
         console.warn(`Theme ${themeName.description} is not defined.`);
     }
+}
+
+export function setBaseURL(url) {
+    ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
 }
 
 // Expose setTheme to the global scope
