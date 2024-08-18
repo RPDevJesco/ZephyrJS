@@ -28,14 +28,10 @@ export function setTheme(themeName) {
     }
 }
 
-export function setBaseURL(url) {
-    ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
-}
-
 // Expose setTheme to the global scope
 window.Themes = Themes;
 window.setTheme = setTheme;
-window.setBaseURL = setBaseURL;
+window.setBaseURL = ZephyrJS.setBaseURL;
 
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import LayeredCard from "../zephyrtemplates/LayeredCard.js";
