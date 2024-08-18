@@ -5,8 +5,19 @@
 export default class ZephyrJS extends HTMLElement {
     static baseUrl = '';
 
+    /**
+     * Sets the base URL for loading templates.
+     * If a CDN link is provided, it is used as is.
+     * If a relative path is provided, it's treated as a local path.
+     */
     static setBaseUrl(url) {
-        ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
+        if (url.startsWith('http')) {
+            // CDN or full URL
+            ZephyrJS.baseUrl = url.endsWith('/') ? url : url + '/';
+        } else {
+            // Local relative path
+            ZephyrJS.baseUrl = new URL(url, window.location.origin).href;
+        }
     }
 
     /**
