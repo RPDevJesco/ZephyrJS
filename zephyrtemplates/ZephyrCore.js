@@ -35,6 +35,7 @@ export function setBaseURL(url) {
 // Expose setTheme to the global scope
 window.Themes = Themes;
 window.setTheme = setTheme;
+window.setBaseURL = setBaseURL;
 
 import BasicCard from "../zephyrtemplates/BasicCard.js";
 import LayeredCard from "../zephyrtemplates/LayeredCard.js";
