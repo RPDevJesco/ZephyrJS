@@ -61,4 +61,4 @@ import TimelineView from "../zephyrtemplates/TimelineView.js";
 import TimelineItem from "../zephyrtemplates/TimelineItem.js";
 import Modal from "../zephyrtemplates/Modal.js";
 import Blog from "../zephyrtemplates/Blog.js";
-import DynamicFocusZone from "../zephyrtemplates/DynamicFocusZone.js";
+import DynamicFocusZone from "./DynamicFocusCard.js";
