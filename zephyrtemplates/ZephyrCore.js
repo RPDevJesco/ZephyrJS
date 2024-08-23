@@ -62,3 +62,4 @@ import TimelineItem from "../zephyrtemplates/TimelineItem.js";
 import Modal from "../zephyrtemplates/Modal.js";
 import Blog from "../zephyrtemplates/Blog.js";
 import DynamicFocusZone from "./DynamicFocusCard.js";
+import SlideReveal from "./SlideReveal.js";

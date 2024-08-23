@@ -1,0 +1,61 @@
+<template id="slide-reveal">
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .background, .foreground {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .foreground {
+      clip-path: inset(0 100% 0 0);
+      z-index: 2;
+    }
+    .drag-handle {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.7);
+      cursor: ew-resize;
+      z-index: 3;
+      transition: background-color 0.3s ease;
+    }
+    .drag-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .drag-handle:hover {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+    :host([orientation="vertical"]) .drag-handle {
+      cursor: ns-resize;
+    }
+  </style>
+  <div class="container">
+    <div class="background">
+      <slot name="background"></slot>
+    </div>
+    <div class="foreground">
+      <slot name="foreground"></slot>
+    </div>
+    <div class="drag-handle"></div>
+  </div>
+</template>
