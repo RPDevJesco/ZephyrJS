@@ -13,7 +13,6 @@ export default class Dropdown extends ZephyrJS {
             isOpen: false,
             placeholder: 'Select an option'
         };
-        console.log('Dropdown constructor called');
     }
 
     async connectedCallback() {
