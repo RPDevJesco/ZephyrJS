@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcore/zephyr.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrtemplates/ZephyrCore.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.17/zephyrcore/zephyr.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.17/zephyrtemplates/ZephyrCore.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jane Doe - Junior Developer Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/variables.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.08/zephyrcss/zephyr.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.17/zephyrcss/variables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RPDevJesco/ZephyrJS@0.17/zephyrcss/zephyr.css">
     <style>
         .section {
             margin-bottom: 2rem;
@@ -90,11 +90,39 @@
                 </div>
             </zephyr-card>
         </section>
+
+        <section id="timeline" class="section">
+            <dynamic-scrolling-timeline id="myTimeline"></dynamic-scrolling-timeline>
+        </section>
     </main>
 </zephyr-layout-component>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Set up skills accordion
+    document.addEventListener('DOMContentLoaded', async (event) => {
+        const timeline = document.getElementById('myTimeline');
+
+        // Wait for the component to be fully initialized
+        await customElements.whenDefined('dynamic-scrolling-timeline');
+
+        const sampleEvents = [
+            { title: "Project Inception", date: "2023-01-01", description: "ZephyrJS project is conceived with the goal of creating a lightweight, flexible web component library." },
+            { title: "First Commit", date: "2023-01-15", description: "Initial commit of the ZephyrJS core structure and basic functionality." },
+            { title: "v0.1.0 Alpha Release", date: "2023-02-28", description: "First alpha release with foundational components and basic theming support." },
+            { title: "Core Components Added", date: "2023-04-10", description: "Implementation of essential core components like Card, Dropdown, and Layout system." },
+            { title: "Dynamic Theming System", date: "2023-05-20", description: "Introduction of the dynamic theming system, allowing real-time theme switching." },
+            { title: "v0.5.0 Beta Release", date: "2023-07-01", description: "Beta release featuring a comprehensive set of components and improved documentation." },
+            { title: "Performance Optimization", date: "2023-08-15", description: "Major performance improvements and bug fixes, focusing on render speed and memory usage." },
+            { title: "Advanced Components", date: "2023-10-01", description: "Addition of complex components such as data grids, charts, and modal dialogs." },
+            { title: "v1.0.0 Stable Release", date: "2024-01-01", description: "First stable release of ZephyrJS, featuring full documentation, extensive testing, and production-ready components." },
+            { title: "Mobile Enhancements", date: "2024-03-15", description: "Improved mobile responsiveness and touch interactions for better cross-device compatibility." },
+            { title: "Framework Integration", date: "2024-05-01", description: "Release of integration tools and guides for popular frameworks like React, Vue, and Angular." },
+            { title: "v2.0.0 Major Update", date: "2024-07-15", description: "Major update introducing new features, API improvements, and enhanced customization options." }
+        ];
+
+        // Add events one by one
+        for (const event of sampleEvents) {
+            await timeline.addEvent(event);
+        }
+
         const skillsAccordion = document.getElementById('skillsAccordion');
         skillsAccordion.setItems([
             {
