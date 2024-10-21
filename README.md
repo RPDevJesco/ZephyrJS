@@ -1,4 +1,5 @@
-# ZephyrJS
+![ZephyrLogo](https://github.com/user-attachments/assets/0bf39d61-0dfd-420a-9f2d-c3a3acdbcb36)
+
 
 ZephyrJS is a lightweight, customizable web component framework for building modern web applications. It provides a set of reusable, encapsulated UI components and a core library for creating your own custom elements.
 
