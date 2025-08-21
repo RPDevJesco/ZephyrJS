@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Perf Harness</title>
+    <script type="module">
+        import '../src/elements/XButton.js';
+        import '../src/elements/XVirtualList.js';
+    </script>
+    <style>
+        body { font-family: ui-sans-serif, system-ui; margin: 16px; }
+        #stats { margin: 12px 0; }
+    </style>
+</head>
+<body>
+<h1>Performance Harness</h1>
+<div id="stats"></div>
+<x-virtual-list id="v" item-count="30000" item-height="24" style="height: 400px; border:1px solid #ddd"></x-virtual-list>
+
+<script type="module">
+    const R = document.getElementById('v');
+    R.renderer = (el, i) => { el.textContent = `Row ${i}`; };
+
+    // Simple FPS sampler
+    let last = performance.now(), frames = 0, acc = 0;
+    function tick(now){
+        frames++; acc += now - last; last = now;
+        if (acc >= 1000) {
+            const fps = Math.round(frames * 1000 / acc);
+            document.getElementById('stats').textContent = `~${fps} FPS while scrolling`;
+            frames = 0; acc = 0;
+        }
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+</script>
+</body>
+</html>

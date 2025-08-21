@@ -1,0 +1,38 @@
+:root {
+    --x-accent: #4f46e5;
+    --x-radius: 10px;
+    --x-gap: 8px;
+    --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+
+body {
+    font-family: var(--font);
+    margin: 24px;
+}
+
+
+h1, h2 {
+    color: #111827;
+}
+
+
+.row {
+    display: flex;
+    gap: var(--x-gap);
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+
+x-button[variant="primary"] {
+    --bg: var(--x-accent);
+    --fg: white;
+}
+
+
+.virtual-list {
+    height: 300px;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--x-radius);
+}
