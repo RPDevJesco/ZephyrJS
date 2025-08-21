@@ -9,30 +9,177 @@
     </script>
     <style>
         body { font-family: ui-sans-serif, system-ui; margin: 16px; }
-        #stats { margin: 12px 0; }
+        #stats { margin: 12px 0; font-weight: bold; }
+        .controls { margin: 12px 0; }
+        .controls button {
+            margin-right: 8px;
+            padding: 8px 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background: #3730a3;
+        }
+        .debug {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 <h1>Performance Harness</h1>
-<div id="stats"></div>
-<x-virtual-list id="v" item-count="30000" item-height="24" style="height: 400px; border:1px solid #ddd"></x-virtual-list>
+<div id="stats">Initializing...</div>
+<div class="controls">
+    <button onclick="scrollToTop()">Scroll to Top</button>
+    <button onclick="scrollToMiddle()">Scroll to Middle</button>
+    <button onclick="scrollToItem(1000)">Scroll to Item 1000</button>
+    <button onclick="scrollToItem(5000)">Scroll to Item 5000</button>
+    <button onclick="scrollToItem(9000)">Scroll to Item 9000</button>
+    <button onclick="scrollToEnd()">Scroll to End</button>
+</div>
+<div class="debug" id="debug">Debug info will appear here</div>
+<x-virtual-list
+        id="my-list"
+        item-count="10000"
+        item-height="32"
+        style="height: 400px; border: 1px solid #ccc; border-radius: 4px;">
+</x-virtual-list>
 
 <script type="module">
-    const R = document.getElementById('v');
-    R.renderer = (el, i) => { el.textContent = `Row ${i}`; };
+    const list = document.getElementById('my-list');
+    const debugEl = document.getElementById('debug');
 
-    // Simple FPS sampler
+    function log(message) {
+        console.log(message);
+        debugEl.textContent = message;
+    }
+
+    log('Setting up renderer...');
+
+    // Force proper styling to ensure dimensions
+    list.style.height = '400px';
+    list.style.display = 'block';
+    list.style.boxSizing = 'border-box';
+    list.style.minHeight = '400px';
+
+    log(`After forcing styles - clientHeight: ${list.clientHeight}`);
+
+    // Set up the renderer
+    list.renderer = (element, index) => {
+        element.innerHTML = `
+            <div style="padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                <span>Item ${index}</span>
+                <span style="color: #6b7280; font-size: 12px;">Row ${index}</span>
+            </div>
+        `;
+    };
+
+    log('Renderer set. Waiting for element to be ready...');
+
+    // Helper function to ensure scrollToItem works reliably
+    function safeScrollToItem(index) {
+        if (typeof list.scrollToItem !== 'function') {
+            log('ERROR: scrollToItem method not found!');
+            return;
+        }
+
+        const itemCount = Number(list.getAttribute('item-count')) || 0;
+        const clampedIndex = Math.max(0, Math.min(index, itemCount - 1));
+
+        log(`Scrolling to item ${clampedIndex}...`);
+
+        // Try to scroll immediately
+        list.scrollToItem(clampedIndex);
+
+        // Verify the scroll happened
+        setTimeout(() => {
+            const itemHeight = Number(list.getAttribute('item-height')) || 32;
+            const expectedScrollTop = clampedIndex * itemHeight;
+            const actualScrollTop = list.scrollTop;
+
+            log(`Expected scroll: ${expectedScrollTop}px, Actual: ${actualScrollTop}px`);
+
+            if (Math.abs(actualScrollTop - expectedScrollTop) > itemHeight) {
+                log('Scroll didn\'t work as expected, retrying...');
+                // Try again after a short delay
+                setTimeout(() => list.scrollToItem(clampedIndex), 50);
+            } else {
+                log(`Successfully scrolled to item ${clampedIndex}`);
+            }
+        }, 100);
+    }
+
+    // Global functions for buttons
+    window.scrollToTop = () => safeScrollToItem(0);
+    window.scrollToMiddle = () => {
+        const itemCount = Number(list.getAttribute('item-count'));
+        safeScrollToItem(Math.floor(itemCount / 2));
+    };
+    window.scrollToItem = (index) => safeScrollToItem(index);
+    window.scrollToEnd = () => {
+        const itemCount = Number(list.getAttribute('item-count'));
+        safeScrollToItem(itemCount - 1);
+    };
+
+    // Wait for everything to be ready, then do initial scroll
+    function waitForReady() {
+        const height = list.clientHeight;
+        const init = list._isInitialized;
+        const computedStyle = window.getComputedStyle(list);
+
+        log(`Check: clientHeight=${height}, init=${init}, computedHeight=${computedStyle.height}, display=${computedStyle.display}`);
+
+        if (height > 0 && init) {
+            log('Element is ready! Doing initial scroll to item 2500...');
+            safeScrollToItem(2500);
+        } else {
+            // If still no height after several attempts, force it
+            if (height === 0) {
+                log('Forcing height...');
+                list.style.height = '400px';
+                list.style.display = 'block';
+                list.style.overflow = 'auto';
+                list.style.position = 'relative';
+            }
+            setTimeout(waitForReady, 100);
+        }
+    }
+
+    // Start the ready check after a brief delay
+    setTimeout(waitForReady, 100);
+
+    // FPS monitoring
     let last = performance.now(), frames = 0, acc = 0;
-    function tick(now){
-        frames++; acc += now - last; last = now;
+    function tick(now) {
+        frames++;
+        acc += now - last;
+        last = now;
+
         if (acc >= 1000) {
             const fps = Math.round(frames * 1000 / acc);
-            document.getElementById('stats').textContent = `~${fps} FPS while scrolling`;
-            frames = 0; acc = 0;
+            document.getElementById('stats').textContent = `FPS: ${fps} | Scroll position: ${Math.round(list.scrollTop)}px`;
+            frames = 0;
+            acc = 0;
         }
         requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
+
+    // Monitor scroll events for debugging
+    list.addEventListener('scroll', () => {
+        const currentItem = Math.floor(list.scrollTop / 32);
+        // Only update debug occasionally to avoid spam
+        if (currentItem % 100 === 0) {
+            log(`Scrolled to around item ${currentItem}`);
+        }
+    });
 </script>
 </body>
 </html>
