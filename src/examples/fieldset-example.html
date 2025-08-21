@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XFieldset Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XSelect.js';
+        import '/src/elements/XCheckbox.js';
+        import '/src/elements/XTextarea.js';
+        import '/src/elements/XRadioGroup.js';
+        import '/src/elements/XFieldset.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 1000px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .demo-section {
+            margin-bottom: 32px;
+        }
+        .demo-section h2 {
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .validation-status {
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .validation-status.valid {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+        .validation-status.invalid {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+        }
+    </style>
+</head>
+<body>
+<h1>XFieldset Examples</h1>
+
+<div class="demo-section">
+    <h2>E-commerce Order Form</h2>
+    <form id="order-form">
+        <!-- Customer Information -->
+        <x-fieldset
+                id="customer-info"
+                legend="Customer Information"
+                required
+                validate-on="change">
+
+            <div class="form-grid">
+                <x-input
+                        id="first-name"
+                        label="First Name"
+                        type="text"
+                        placeholder="Enter first name"
+                        required
+                        value="">
+                </x-input>
+
+                <x-input
+                        id="last-name"
+                        label="Last Name"
+                        type="text"
+                        placeholder="Enter last name"
+                        required
+                        value="">
+                </x-input>
+            </div>
+
+            <x-input
+                    id="email"
+                    label="Email Address"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="phone"
+                    label="Phone Number"
+                    type="tel"
+                    placeholder="(555) 123-4567"
+                    value="">
+            </x-input>
+        </x-fieldset>
+
+        <!-- Shipping Information -->
+        <x-fieldset
+                id="shipping-info"
+                legend="Shipping Information"
+                required
+                validate-on="change">
+
+            <x-input
+                    id="address"
+                    label="Street Address"
+                    type="text"
+                    placeholder="123 Main St"
+                    required
+                    value="">
+            </x-input>
+
+            <div class="form-grid">
+                <x-input
+                        id="city"
+                        label="City"
+                        type="text"
+                        placeholder="New York"
+                        required
+                        value="">
+                </x-input>
+
+                <x-select
+                        id="state"
+                        label="State"
+                        placeholder="Select state"
+                        required
+                        options='[
+              {"value":"ny","label":"New York"},
+              {"value":"ca","label":"California"},
+              {"value":"tx","label":"Texas"},
+              {"value":"fl","label":"Florida"},
+              {"value":"wa","label":"Washington"}
+            ]'
+                        value="">
+                </x-select>
+            </div>
+
+            <div class="form-grid">
+                <x-input
+                        id="zip"
+                        label="ZIP Code"
+                        type="text"
+                        placeholder="12345"
+                        required
+                        value="">
+                </x-input>
+
+                <x-select
+                        id="country"
+                        label="Country"
+                        required
+                        options='[
+              {"value":"us","label":"United States"},
+              {"value":"ca","label":"Canada"},
+              {"value":"mx","label":"Mexico"}
+            ]'
+                        value="us">
+                </x-select>
+            </div>
+        </x-fieldset>
+
+        <!-- Payment Method -->
+        <x-fieldset
+                id="payment-method"
+                legend="Payment Method"
+                required
+                validate-on="change">
+
+            <x-radio-group
+                    id="payment-type"
+                    name="payment_type"
+                    required
+                    layout="horizontal"
+                    options='[
+            {"value":"credit","label":"💳 Credit Card"},
+            {"value":"paypal","label":"🅿️ PayPal"},
+            {"value":"bank","label":"🏦 Bank Transfer"}
+          ]'
+                    value="">
+            </x-radio-group>
+        </x-fieldset>
+
+        <!-- Credit Card Details (conditional) -->
+        <x-fieldset
+                id="credit-card-info"
+                legend="Credit Card Information"
+                required
+                validate-on="change"
+                show-when="payment-type:credit">
+
+            <x-input
+                    id="card-number"
+                    label="Card Number"
+                    type="text"
+                    placeholder="1234 5678 9012 3456"
+                    required
+                    value="">
+            </x-input>
+
+            <div class="form-grid">
+                <x-input
+                        id="card-expiry"
+                        label="Expiry Date"
+                        type="text"
+                        placeholder="MM/YY"
+                        required
+                        value="">
+                </x-input>
+
+                <x-input
+                        id="card-cvv"
+                        label="CVV"
+                        type="text"
+                        placeholder="123"
+                        required
+                        value="">
+                </x-input>
+            </div>
+
+            <x-input
+                    id="card-name"
+                    label="Name on Card"
+                    type="text"
+                    placeholder="John Doe"
+                    required
+                    value="">
+            </x-input>
+        </x-fieldset>
+
+        <!-- PayPal Details (conditional) -->
+        <x-fieldset
+                id="paypal-info"
+                legend="PayPal Information"
+                show-when="payment-type:paypal">
+
+            <x-input
+                    id="paypal-email"
+                    label="PayPal Email"
+                    type="email"
+                    placeholder="your.paypal@email.com"
+                    required
+                    value="">
+            </x-input>
+        </x-fieldset>
+
+        <!-- Bank Transfer Details (conditional) -->
+        <x-fieldset
+                id="bank-info"
+                legend="Bank Transfer Information"
+                required
+                show-when="payment-type:bank">
+
+            <x-input
+                    id="bank-name"
+                    label="Bank Name"
+                    type="text"
+                    placeholder="First National Bank"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="bank-routing"
+                    label="Routing Number"
+                    type="text"
+                    placeholder="123456789"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="bank-account"
+                    label="Account Number"
+                    type="text"
+                    placeholder="987654321"
+                    required
+                    value="">
+            </x-input>
+        </x-fieldset>
+
+        <!-- Order Options -->
+        <x-fieldset
+                id="order-options"
+                legend="Order Options">
+
+            <x-checkbox
+                    id="express-shipping"
+                    label="Express Shipping (+$15.00)"
+                    value="express">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="gift-wrap"
+                    label="Gift Wrapping (+$5.00)"
+                    value="gift_wrap">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="insurance"
+                    label="Shipping Insurance (+$3.00)"
+                    value="insurance">
+            </x-checkbox>
+
+            <x-textarea
+                    id="special-instructions"
+                    label="Special Instructions"
+                    placeholder="Any special delivery instructions..."
+                    auto-resize
+                    show-count
+                    max-length="200"
+                    rows="2"
+                    value="">
+            </x-textarea>
+        </x-fieldset>
+
+        <!-- Terms and Marketing -->
+        <x-fieldset
+                id="agreements"
+                legend="Terms & Marketing"
+                required>
+
+            <x-checkbox
+                    id="terms-agreement"
+                    label="I agree to the Terms of Service and Privacy Policy"
+                    required
+                    value="terms_accepted">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="marketing-emails"
+                    label="Send me promotional emails and offers"
+                    value="marketing_consent">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="sms-notifications"
+                    label="Send SMS notifications about my order"
+                    value="sms_consent">
+            </x-checkbox>
+        </x-fieldset>
+
+        <div class="row">
+            <x-button id="submit-order-btn" label="Place Order" variant="primary"></x-button>
+            <x-button id="reset-order-btn" label="Reset Form"></x-button>
+            <x-button id="validate-all-btn" label="Validate All"></x-button>
+        </div>
+
+        <div id="form-validation-status"></div>
+    </form>
+</div>
+
+<div class="demo-section">
+    <h2>Fieldset Control Demo</h2>
+
+    <x-fieldset
+            id="demo-fieldset"
+            legend="Demo Controls"
+            validate-on="change">
+
+        <x-input
+                id="demo-input"
+                label="Demo Input"
+                type="text"
+                placeholder="Type something..."
+                required
+                value="">
+        </x-input>
+
+        <x-checkbox
+                id="demo-checkbox"
+                label="Demo Checkbox"
+                value="demo_checked">
+        </x-checkbox>
+
+        <x-select
+                id="demo-select"
+                label="Demo Select"
+                placeholder="Choose option"
+                options='[
+          {"value":"option1","label":"Option 1"},
+          {"value":"option2","label":"Option 2"},
+          {"value":"option3","label":"Option 3"}
+        ]'
+                value="">
+        </x-select>
+    </x-fieldset>
+
+    <div class="row">
+        <x-button id="disable-fieldset-btn" label="Disable Fieldset"></x-button>
+        <x-button id="enable-fieldset-btn" label="Enable Fieldset"></x-button>
+        <x-button id="validate-fieldset-btn" label="Validate Fieldset"></x-button>
+        <x-button id="reset-fieldset-btn" label="Reset Fieldset"></x-button>
+        <x-button id="get-value-btn" label="Get Values"></x-button>
+        <x-button id="set-error-btn" label="Set Error"></x-button>
+        <x-button id="clear-error-btn" label="Clear Error"></x-button>
+    </div>
+</div>
+
+<div id="output">
+    <strong>Form State (DOM attributes):</strong><br>
+    <div id="state-data"></div>
+</div>
+
+<script type="module">
+    class FieldsetFormController {
+        constructor() {
+            this.fieldsets = document.querySelectorAll('x-fieldset');
+            this.allControls = document.querySelectorAll('x-input, x-select, x-checkbox, x-textarea, x-radio-group');
+            this.stateOutput = document.getElementById('state-data');
+            this.validationStatus = document.getElementById('form-validation-status');
+
+            this.bindEvents();
+            this.updateStateDisplay();
+            this.updateValidationStatus();
+        }
+
+        bindEvents() {
+            // Listen to fieldset changes
+            this.fieldsets.forEach(fieldset => {
+                fieldset.addEventListener('fieldset-change', (e) => {
+                    console.log(`${fieldset.id} changed:`, e.detail);
+                    this.updateStateDisplay();
+                    this.updateValidationStatus();
+                });
+            });
+
+            // Order form controls
+            document.getElementById('submit-order-btn').addEventListener('button-click', () => {
+                this.handleOrderSubmit();
+            });
+
+            document.getElementById('reset-order-btn').addEventListener('button-click', () => {
+                this.handleOrderReset();
+            });
+
+            document.getElementById('validate-all-btn').addEventListener('button-click', () => {
+                this.validateAllFieldsets();
+            });
+
+            // Demo controls
+            document.getElementById('disable-fieldset-btn').addEventListener('button-click', () => {
+                document.getElementById('demo-fieldset').setAttr('disabled', '');
+            });
+
+            document.getElementById('enable-fieldset-btn').addEventListener('button-click', () => {
+                document.getElementById('demo-fieldset').removeAttribute('disabled');
+            });
+
+            document.getElementById('validate-fieldset-btn').addEventListener('button-click', () => {
+                const fieldset = document.getElementById('demo-fieldset');
+                const isValid = fieldset.validate();
+                alert(`Fieldset is ${isValid ? 'valid' : 'invalid'}`);
+            });
+
+            document.getElementById('reset-fieldset-btn').addEventListener('button-click', () => {
+                document.getElementById('demo-fieldset').resetFieldset();
+            });
+
+            document.getElementById('get-value-btn').addEventListener('button-click', () => {
+                const fieldset = document.getElementById('demo-fieldset');
+                const value = fieldset.getFieldsetValue();
+                alert(`Fieldset value: ${JSON.stringify(value, null, 2)}`);
+            });
+
+            document.getElementById('set-error-btn').addEventListener('button-click', () => {
+                document.getElementById('demo-fieldset').setAttr('error', 'This is a custom fieldset error');
+            });
+
+            document.getElementById('clear-error-btn').addEventListener('button-click', () => {
+                document.getElementById('demo-fieldset').removeAttribute('error');
+            });
+        }
+
+        handleOrderSubmit() {
+            // Validate all fieldsets
+            const allValid = this.validateAllFieldsets();
+
+            if (!allValid) {
+                alert('Please fix validation errors before placing your order');
+                return;
+            }
+
+            // Collect complete order data
+            const orderData = {
+                customer: document.getElementById('customer-info').getFieldsetValue(),
+                shipping: document.getElementById('shipping-info').getFieldsetValue(),
+                payment: {
+                    method: document.getElementById('payment-method').getFieldsetValue(),
+                    creditCard: document.getElementById('credit-card-info').getFieldsetValue(),
+                    paypal: document.getElementById('paypal-info').getFieldsetValue(),
+                    bank: document.getElementById('bank-info').getFieldsetValue()
+                },
+                options: document.getElementById('order-options').getFieldsetValue(),
+                agreements: document.getElementById('agreements').getFieldsetValue(),
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Order submitted:', orderData);
+            alert('Order placed successfully! Check console for details.');
+        }
+
+        handleOrderReset() {
+            // Reset all fieldsets
+            this.fieldsets.forEach(fieldset => {
+                if (fieldset.id !== 'demo-fieldset') {
+                    fieldset.resetFieldset();
+                }
+            });
+
+            // Reset to some defaults
+            document.getElementById('country').setAttr('value', 'us');
+        }
+
+        validateAllFieldsets() {
+            let allValid = true;
+
+            this.fieldsets.forEach(fieldset => {
+                const isValid = fieldset.validate();
+                if (!isValid) {
+                    allValid = false;
+                }
+            });
+
+            return allValid;
+        }
+
+        updateValidationStatus() {
+            if (!this.validationStatus) return;
+
+            const fieldsetStates = Array.from(this.fieldsets).map(fieldset => {
+                const errors = fieldset._getFieldsetErrors ? fieldset._getFieldsetErrors() : [];
+                return {
+                    id: fieldset.id,
+                    legend: fieldset.getAttribute('legend'),
+                    isValid: errors.length === 0,
+                    errors: errors,
+                    isVisible: fieldset.style.display !== 'none'
+                };
+            });
+
+            const visibleFieldsets = fieldsetStates.filter(fs => fs.isVisible);
+            const validFieldsets = visibleFieldsets.filter(fs => fs.isValid);
+            const invalidFieldsets = visibleFieldsets.filter(fs => !fs.isValid);
+
+            let statusHtml = '';
+
+            if (visibleFieldsets.length === 0) {
+                statusHtml = '<div class="validation-status">No visible fieldsets</div>';
+            } else if (invalidFieldsets.length === 0) {
+                statusHtml = `<div class="validation-status valid">✅ All ${visibleFieldsets.length} fieldsets are valid</div>`;
+            } else {
+                statusHtml = `<div class="validation-status invalid">❌ ${invalidFieldsets.length} of ${visibleFieldsets.length} fieldsets have errors</div>`;
+
+                invalidFieldsets.forEach(fs => {
+                    statusHtml += `<div style="margin-top: 4px; font-size: 12px; color: #991b1b;">• ${fs.legend}: ${fs.errors.length} error(s)</div>`;
+                });
+            }
+
+            this.validationStatus.innerHTML = statusHtml;
+        }
+
+        updateStateDisplay() {
+            const state = {
+                fieldsets: {},
+                visibleFieldsets: [],
+                formSummary: {
+                    totalFieldsets: this.fieldsets.length,
+                    visibleFieldsets: 0,
+                    validFieldsets: 0,
+                    totalControls: this.allControls.length
+                }
+            };
+
+            // Collect fieldset states
+            this.fieldsets.forEach(fieldset => {
+                const isVisible = fieldset.style.display !== 'none';
+                const errors = fieldset._getFieldsetErrors ? fieldset._getFieldsetErrors() : [];
+
+                state.fieldsets[fieldset.id] = {
+                    legend: fieldset.getAttribute('legend'),
+                    value: fieldset.getFieldsetValue ? fieldset.getFieldsetValue() : {},
+                    isVisible: isVisible,
+                    isValid: errors.length === 0,
+                    errors: errors,
+                    disabled: fieldset.hasAttribute('disabled'),
+                    required: fieldset.hasAttribute('required'),
+                    validateOn: fieldset.getAttribute('validate-on') || 'submit',
+                    showWhen: fieldset.getAttribute('show-when') || null,
+                    enableWhen: fieldset.getAttribute('enable-when') || null
+                };
+
+                if (isVisible) {
+                    state.visibleFieldsets.push(fieldset.id);
+                    state.formSummary.visibleFieldsets++;
+
+                    if (errors.length === 0) {
+                        state.formSummary.validFieldsets++;
+                    }
+                }
+            });
+
+            this.stateOutput.innerHTML = '<pre>' + JSON.stringify(state, null, 2) + '</pre>';
+        }
+    }
+
+    // Initialize the form controller
+    new FieldsetFormController();
+
+    // Demo: Auto-fill some data after load
+    setTimeout(() => {
+        console.log('Demo: Auto-filling customer information');
+        document.getElementById('first-name').setAttr('value', 'John');
+        document.getElementById('last-name').setAttr('value', 'Doe');
+        document.getElementById('email').setAttr('value', 'john.doe@email.com');
+    }, 2000);
+
+    // Demo: Select payment method to show conditional fieldsets
+    setTimeout(() => {
+        console.log('Demo: Selecting credit card payment method');
+        document.getElementById('payment-type').setAttr('value', 'credit');
+    }, 4000);
+
+    // Demo: Show validation error
+    setTimeout(() => {
+        console.log('Demo: Setting validation error on card number');
+        document.getElementById('card-number').setAttr('error', 'Invalid card number format');
+    }, 6000);
+
+    // Clear demo error
+    setTimeout(() => {
+        console.log('Demo: Clearing card number error');
+        document.getElementById('card-number').removeAttribute('error');
+    }, 9000);
+</script>
+</body>
+</html>

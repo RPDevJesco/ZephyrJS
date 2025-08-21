@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XCheckbox Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XSelect.js';
+        import '/src/elements/XCheckbox.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 700px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .checkbox-group {
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        .checkbox-group legend {
+            font-weight: 500;
+            font-size: 14px;
+            color: #374151;
+            padding: 0 8px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .demo-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #374151;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>XCheckbox Examples</h1>
+
+<div class="demo-section">
+    <h3>Complete Registration Form</h3>
+    <form id="registration-form">
+        <div class="form-grid">
+            <x-input
+                    id="name"
+                    label="Full Name"
+                    type="text"
+                    placeholder="Enter your name"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="email"
+                    label="Email"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                    value="">
+            </x-input>
+        </div>
+
+        <div class="form-group">
+            <x-select
+                    id="plan"
+                    label="Subscription Plan"
+                    placeholder="Choose a plan"
+                    required
+                    options='[
+            {"value":"free","label":"Free Plan"},
+            {"value":"basic","label":"Basic Plan - $9/month"},
+            {"value":"premium","label":"Premium Plan - $19/month"},
+            {"value":"enterprise","label":"Enterprise Plan - $49/month"}
+          ]'
+                    value="">
+            </x-select>
+        </div>
+
+        <fieldset class="checkbox-group">
+            <legend>Communication Preferences</legend>
+            <x-checkbox
+                    id="newsletter"
+                    label="Subscribe to newsletter"
+                    value="newsletter">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="product-updates"
+                    label="Product updates and announcements"
+                    value="product_updates"
+                    checked>
+            </x-checkbox>
+
+            <x-checkbox
+                    id="marketing"
+                    label="Marketing emails and promotions"
+                    value="marketing">
+            </x-checkbox>
+        </fieldset>
+
+        <fieldset class="checkbox-group">
+            <legend>Features (Premium/Enterprise only)</legend>
+            <x-checkbox
+                    id="advanced-analytics"
+                    label="Advanced analytics dashboard"
+                    value="analytics"
+                    disabled>
+            </x-checkbox>
+
+            <x-checkbox
+                    id="api-access"
+                    label="API access"
+                    value="api"
+                    disabled>
+            </x-checkbox>
+
+            <x-checkbox
+                    id="priority-support"
+                    label="Priority support"
+                    value="priority_support"
+                    disabled>
+            </x-checkbox>
+        </fieldset>
+
+        <div class="form-group">
+            <x-checkbox
+                    id="terms"
+                    label="I agree to the Terms of Service and Privacy Policy"
+                    value="terms_accepted"
+                    required>
+            </x-checkbox>
+        </div>
+
+        <div class="form-group">
+            <x-checkbox
+                    id="age-verification"
+                    label="I confirm that I am 18 years or older"
+                    value="age_verified"
+                    required>
+            </x-checkbox>
+        </div>
+
+        <div class="row">
+            <x-button id="submit-btn" label="Create Account" variant="primary"></x-button>
+            <x-button id="reset-btn" label="Reset Form"></x-button>
+        </div>
+    </form>
+</div>
+
+<div class="demo-section">
+    <h3>Checkbox Manipulation Demo</h3>
+
+    <div class="checkbox-group">
+        <legend>Dynamic Checkboxes</legend>
+        <x-checkbox
+                id="demo1"
+                label="Checkbox 1"
+                value="demo1">
+        </x-checkbox>
+
+        <x-checkbox
+                id="demo2"
+                label="Checkbox 2"
+                value="demo2"
+                checked>
+        </x-checkbox>
+
+        <x-checkbox
+                id="demo3"
+                label="Checkbox 3"
+                value="demo3">
+        </x-checkbox>
+    </div>
+
+    <div class="row">
+        <x-button id="check-all-btn" label="Check All"></x-button>
+        <x-button id="uncheck-all-btn" label="Uncheck All"></x-button>
+        <x-button id="toggle-all-btn" label="Toggle All"></x-button>
+        <x-button id="set-error-btn" label="Set Error"></x-button>
+        <x-button id="clear-error-btn" label="Clear Error"></x-button>
+    </div>
+</div>
+
+<div id="output">
+    <strong>Form State (DOM attributes):</strong><br>
+    <div id="state-data"></div>
+</div>
+
+<script type="module">
+    class CheckboxFormController {
+        constructor() {
+            this.form = document.getElementById('registration-form');
+            this.checkboxes = document.querySelectorAll('x-checkbox');
+            this.inputs = document.querySelectorAll('x-input');
+            this.selects = document.querySelectorAll('x-select');
+            this.stateOutput = document.getElementById('state-data');
+
+            this.bindEvents();
+            this.updateStateDisplay();
+            this.setupPlanFeatures();
+        }
+
+        bindEvents() {
+            // Listen to all form element changes
+            [...this.checkboxes, ...this.inputs, ...this.selects].forEach(element => {
+                const eventType = element.tagName.toLowerCase() === 'x-checkbox' ? 'checkbox-change' :
+                    element.tagName.toLowerCase() === 'x-input' ? 'input-change' :
+                        'select-change';
+
+                element.addEventListener(eventType, () => {
+                    this.updateStateDisplay();
+                    if (element.id === 'plan') {
+                        this.updatePlanFeatures();
+                    }
+                });
+            });
+
+            // Form controls
+            document.getElementById('submit-btn').addEventListener('button-click', () => {
+                this.handleSubmit();
+            });
+
+            document.getElementById('reset-btn').addEventListener('button-click', () => {
+                this.handleReset();
+            });
+
+            // Demo controls
+            document.getElementById('check-all-btn').addEventListener('button-click', () => {
+                this.checkDemoBoxes(true);
+            });
+
+            document.getElementById('uncheck-all-btn').addEventListener('button-click', () => {
+                this.checkDemoBoxes(false);
+            });
+
+            document.getElementById('toggle-all-btn').addEventListener('button-click', () => {
+                this.toggleDemoBoxes();
+            });
+
+            document.getElementById('set-error-btn').addEventListener('button-click', () => {
+                document.getElementById('demo1').setAttr('error', 'This is a custom error message');
+            });
+
+            document.getElementById('clear-error-btn').addEventListener('button-click', () => {
+                document.getElementById('demo1').removeAttribute('error');
+            });
+        }
+
+        setupPlanFeatures() {
+            // Initially disable feature checkboxes
+            this.updatePlanFeatures();
+        }
+
+        updatePlanFeatures() {
+            const planSelect = document.getElementById('plan');
+            const plan = planSelect.getAttribute('value');
+            const featureCheckboxes = [
+                'advanced-analytics',
+                'api-access',
+                'priority-support'
+            ];
+
+            featureCheckboxes.forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (plan === 'premium' || plan === 'enterprise') {
+                    checkbox.removeAttribute('disabled');
+                } else {
+                    checkbox.setAttr('disabled', '');
+                    checkbox.removeAttribute('checked');
+                }
+            });
+        }
+
+        handleSubmit() {
+            // Trigger validation on all form elements
+            [...this.checkboxes, ...this.inputs, ...this.selects].forEach(element => {
+                element.dispatchEvent(new Event('blur'));
+            });
+
+            // Check for validation errors
+            const hasErrors = [...this.checkboxes, ...this.inputs, ...this.selects].some(element =>
+                element.hasAttribute('error')
+            );
+
+            if (hasErrors) {
+                alert('Please fix validation errors before submitting');
+                return;
+            }
+
+            // Collect form data
+            const formData = {
+                personal: {
+                    name: document.getElementById('name').getAttribute('value'),
+                    email: document.getElementById('email').getAttribute('value')
+                },
+                subscription: {
+                    plan: document.getElementById('plan').getAttribute('value')
+                },
+                communications: this.getCheckedValues([
+                    'newsletter', 'product-updates', 'marketing'
+                ]),
+                features: this.getCheckedValues([
+                    'advanced-analytics', 'api-access', 'priority-support'
+                ]),
+                agreements: {
+                    terms: document.getElementById('terms').hasAttribute('checked'),
+                    ageVerified: document.getElementById('age-verification').hasAttribute('checked')
+                }
+            };
+
+            console.log('Registration data:', formData);
+            alert('Account created successfully! Check console for data.');
+        }
+
+        getCheckedValues(checkboxIds) {
+            return checkboxIds
+                .filter(id => document.getElementById(id).hasAttribute('checked'))
+                .map(id => document.getElementById(id).getAttribute('value'));
+        }
+
+        handleReset() {
+            [...this.checkboxes, ...this.inputs, ...this.selects].forEach(element => {
+                if (element.tagName.toLowerCase() === 'x-checkbox') {
+                    element.removeAttribute('checked');
+                } else {
+                    element.setAttr('value', '');
+                }
+                element.removeAttribute('error');
+            });
+
+            // Reset to defaults
+            document.getElementById('product-updates').setAttr('checked', '');
+            this.updatePlanFeatures();
+        }
+
+        checkDemoBoxes(checked) {
+            ['demo1', 'demo2', 'demo3'].forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checked) {
+                    checkbox.check();
+                } else {
+                    checkbox.uncheck();
+                }
+            });
+        }
+
+        toggleDemoBoxes() {
+            ['demo1', 'demo2', 'demo3'].forEach(id => {
+                document.getElementById(id).toggle();
+            });
+        }
+
+        updateStateDisplay() {
+            const state = {
+                inputs: {},
+                selects: {},
+                checkboxes: {}
+            };
+
+            // Collect input states
+            this.inputs.forEach(input => {
+                state.inputs[input.id] = {
+                    value: input.getAttribute('value') || '',
+                    error: input.getAttribute('error') || null,
+                    required: input.hasAttribute('required')
+                };
+            });
+
+            // Collect select states
+            this.selects.forEach(select => {
+                state.selects[select.id] = {
+                    value: select.getAttribute('value') || '',
+                    error: select.getAttribute('error') || null,
+                    required: select.hasAttribute('required')
+                };
+            });
+
+            // Collect checkbox states
+            this.checkboxes.forEach(checkbox => {
+                state.checkboxes[checkbox.id] = {
+                    checked: checkbox.hasAttribute('checked'),
+                    value: checkbox.getAttribute('value') || 'on',
+                    error: checkbox.getAttribute('error') || null,
+                    disabled: checkbox.hasAttribute('disabled'),
+                    required: checkbox.hasAttribute('required')
+                };
+            });
+
+            this.stateOutput.innerHTML = '<pre>' + JSON.stringify(state, null, 2) + '</pre>';
+        }
+    }
+
+    // Initialize the form controller
+    new CheckboxFormController();
+
+    // Demo: Simulate some user interactions after load
+    setTimeout(() => {
+        console.log('Demo: Auto-checking newsletter after 2 seconds');
+        document.getElementById('newsletter').check();
+    }, 2000);
+
+    setTimeout(() => {
+        console.log('Demo: Setting validation error on terms checkbox after 4 seconds');
+        document.getElementById('terms').setAttr('error', 'You must accept the terms to continue');
+    }, 4000);
+
+    setTimeout(() => {
+        console.log('Demo: Clearing terms error after 7 seconds');
+        document.getElementById('terms').removeAttribute('error');
+    }, 7000);
+</script>
+</body>
+</html>

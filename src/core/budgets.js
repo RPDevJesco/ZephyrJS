@@ -1,4 +1,3 @@
-// Lightweight resource budget enforcement & metrics for a subtree.
 export function enforceBudget(root, { nodes, listeners } = {}) {
     if (!(root instanceof Element)) return;
     if (nodes) {

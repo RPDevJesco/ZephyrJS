@@ -3,71 +3,674 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zephyr Blueprint Starter</title>
-    <link rel="stylesheet" href="../public/styles.css">
+    <title>Zephyr Blueprint - DOM-First Web Components</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Import Zephyr Framework -->
     <script type="module">
         import "/src/core/XBase.js";
         import "/src/core/budgets.js";
         import "/src/elements/XButton.js";
+        import "/src/elements/XInput.js";
+        import "/src/elements/XSelect.js";
+        import "/src/elements/XCheckbox.js";
+        import "/src/elements/XTextarea.js";
+        import "/src/elements/XRadioGroup.js";
+        import "/src/elements/XFieldset.js";
+        import "/src/elements/XForm.js";
+        import "/src/elements/XDialog.js";
+        import "/src/elements/XTabs.js";
+        import "/src/elements/XBreadcrumb.js";
+        import "/src/elements/XAccordion.js";
         import "/src/elements/XVirtualList.js";
-        import "/src/examples/Counter.js";
-        // Nothing else required: elements auto-define on import.
     </script>
-    <style>
-        :root {
-            --x-accent: #4f46e5;
-            --x-radius: 10px;
-            --x-gap: 8px;
-            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        }
-        body { font-family: var(--font); margin: 24px; }
-        .row { display:flex; gap: var(--x-gap); align-items: center; }
-        x-button[variant="primary"] { --bg: var(--x-accent); --fg: white; }
-    </style>
+
+    <!-- Application Logic -->
+    <script type="module" src="app.js"></script>
 </head>
 <body>
-<h1>Zephyr Blueprint Starter</h1>
+<!-- Navigation -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <h1>⚡ Zephyr Blueprint</h1>
+            <span class="tagline">DOM-First Web Components</span>
+        </div>
 
-<section>
-    <h2>Buttons (autonomous custom element)</h2>
-    <div class="row">
-        <x-button label="Click me"></x-button>
-        <x-button label="Primary" variant="primary"></x-button>
-        <x-button label="Disabled" disabled></x-button>
+        <div class="nav-links">
+            <x-button id="nav-showcase" label="Showcase" data-section="showcase"></x-button>
+            <x-button id="nav-demo" label="Live Demo" data-section="demo" variant="primary"></x-button>
+            <x-button id="nav-performance" label="Performance" data-section="performance"></x-button>
+            <x-button id="nav-docs" label="Docs" data-section="docs"></x-button>
+        </div>
     </div>
-</section>
+</nav>
 
-<section>
-    <h2>Counter (DOM = state)</h2>
-    <div id="counter-root" count="0" class="row">
-        <span id="count">0</span>
-        <x-button id="inc" label="+" aria-label="Increment"></x-button>
-        <x-button id="dec" label="-" aria-label="Decrement"></x-button>
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Showcase Section -->
+    <section id="showcase" class="content-section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Build Faster with DOM-as-State</h1>
+                <p class="hero-subtitle">
+                    Zero complexity. Maximum performance.
+                    Web components that treat the DOM as the source of truth.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">0ms</div>
+                        <div class="stat-label">Virtual DOM Overhead</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">~2KB</div>
+                        <div class="stat-label">Core Framework</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Native Performance</div>
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <x-button id="hero-demo" label="Try Live Demo" variant="primary"></x-button>
+                    <x-button id="hero-github" label="View on GitHub"></x-button>
+                </div>
+            </div>
+
+            <div class="hero-demo">
+                <div class="demo-window">
+                    <div class="demo-header">
+                        <div class="demo-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span>DOM Inspector</span>
+                    </div>
+                    <div class="demo-content">
+                            <pre id="dom-preview"><code>&lt;x-input value="Hello World" required&gt;
+  &lt;input part="input" value="Hello World"&gt;
+&lt;/x-input&gt;
+
+&lt;x-button variant="primary" disabled&gt;
+  &lt;button part="button"&gt;Click me&lt;/button&gt;
+&lt;/x-button&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Attribute-Driven</h3>
+                <p>State lives in DOM attributes. No hidden internal state to debug. What you see is what you get.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>O(1) Updates</h3>
+                <p>Direct DOM mutations via precomputed references. No virtual DOM diffing overhead.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>Framework Agnostic</h3>
+                <p>Works anywhere HTML works. React/Vue adapters are trivial - just set attributes.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">♿</div>
+                <h3>Accessibility First</h3>
+                <p>Built on native form elements. Screen readers and assistive tech work perfectly.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Zero Dependencies</h3>
+                <p>Pure browser APIs. No build step required. ESM imports work everywhere.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔬</div>
+                <h3>Resource Budgets</h3>
+                <p>Optional performance constraints. Enforce DOM node and event listener limits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="content-section" style="display: none;">
+        <div class="demo-header">
+            <h2>Project Management Demo</h2>
+            <p>A complete application built with Zephyr Blueprint components</p>
+
+            <!-- Breadcrumb Navigation -->
+            <x-breadcrumb id="app-breadcrumb"
+                          path='[{"label":"Dashboard","href":"#dashboard"}]'
+                          home-icon="🏠">
+            </x-breadcrumb>
+        </div>
+
+        <!-- Application Tabs -->
+        <x-tabs id="app-tabs" active="dashboard">
+            <!-- Dashboard Tab -->
+            <div tab-id="dashboard" tab-label="📊 Dashboard">
+                <div class="dashboard">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3 id="total-projects">0</h3>
+                            <p>Active Projects</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="total-tasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="completed-tasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="overdue-tasks">0</h3>
+                            <p>Overdue</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <div class="recent-activity">
+                            <h3>Recent Activity</h3>
+                            <div id="activity-list" class="activity-list">
+                                <div class="empty-state">
+                                    <p>No recent activity. Create a project to get started!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+                            <h3>Quick Actions</h3>
+                            <x-button id="quick-new-project" label="+ New Project" variant="primary"></x-button>
+                            <x-button id="quick-new-task" label="+ Add Task"></x-button>
+                            <x-button id="export-data" label="Export Data"></x-button>
+                            <x-button id="clear-all-data" label="Clear All Data"></x-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Tab -->
+            <div tab-id="projects" tab-label="📁 Projects">
+                <div class="projects-header">
+                    <h3>Project Management</h3>
+                    <x-button id="new-project-btn" label="+ New Project" variant="primary"></x-button>
+                </div>
+
+                <div class="projects-filters">
+                    <x-select id="project-filter"
+                              placeholder="Filter by status"
+                              options='[
+                                    {"value":"all","label":"All Projects"},
+                                    {"value":"active","label":"Active"},
+                                    {"value":"completed","label":"Completed"},
+                                    {"value":"on-hold","label":"On Hold"}
+                                  ]'
+                              value="all">
+                    </x-select>
+
+                    <x-input id="project-search"
+                             placeholder="Search projects..."
+                             type="text"
+                             value="">
+                    </x-input>
+                </div>
+
+                <div id="projects-list" class="projects-grid">
+                    <!-- Projects will be rendered here -->
+                    <div class="empty-state">
+                        <h4>No projects yet</h4>
+                        <p>Create your first project to organize your tasks</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Tab -->
+            <div tab-id="tasks" tab-label="✅ Tasks">
+                <div class="tasks-header">
+                    <h3>Task Management</h3>
+                    <x-button id="new-task-btn" label="+ New Task" variant="primary"></x-button>
+                </div>
+
+                <div class="tasks-filters">
+                    <x-select id="task-project-filter"
+                              placeholder="All projects"
+                              options='[{"value":"all","label":"All Projects"}]'
+                              value="all">
+                    </x-select>
+
+                    <x-select id="task-status-filter"
+                              placeholder="All statuses"
+                              options='[
+                                    {"value":"all","label":"All Tasks"},
+                                    {"value":"todo","label":"To Do"},
+                                    {"value":"in-progress","label":"In Progress"},
+                                    {"value":"completed","label":"Completed"}
+                                  ]'
+                              value="all">
+                    </x-select>
+
+                    <x-select id="task-priority-filter"
+                              placeholder="All priorities"
+                              options='[
+                                    {"value":"all","label":"All Priorities"},
+                                    {"value":"high","label":"High Priority"},
+                                    {"value":"medium","label":"Medium Priority"},
+                                    {"value":"low","label":"Low Priority"}
+                                  ]'
+                              value="all">
+                    </x-select>
+                </div>
+
+                <!-- Task Board -->
+                <div class="task-board">
+                    <div class="task-column">
+                        <h4>📝 To Do</h4>
+                        <div id="todo-tasks" class="task-list" data-status="todo">
+                            <div class="empty-column">Drop tasks here</div>
+                        </div>
+                    </div>
+
+                    <div class="task-column">
+                        <h4>🚀 In Progress</h4>
+                        <div id="in-progress-tasks" class="task-list" data-status="in-progress">
+                            <div class="empty-column">Drop tasks here</div>
+                        </div>
+                    </div>
+
+                    <div class="task-column">
+                        <h4>✅ Completed</h4>
+                        <div id="completed-tasks" class="task-list" data-status="completed">
+                            <div class="empty-column">Drop tasks here</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Tab -->
+            <div tab-id="team" tab-label="👥 Team">
+                <div class="team-header">
+                    <h3>Team Management</h3>
+                    <x-button id="new-member-btn" label="+ Add Member" variant="primary"></x-button>
+                </div>
+
+                <div id="team-list" class="team-grid">
+                    <!-- Team members will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div tab-id="settings" tab-label="⚙️ Settings">
+                <x-form id="settings-form" validate-on="change">
+                    <x-fieldset legend="Application Settings" required>
+                        <x-radio-group id="theme-setting"
+                                       label="Theme"
+                                       name="theme"
+                                       layout="horizontal"
+                                       options='[
+                                             {"value":"light","label":"☀️ Light"},
+                                             {"value":"dark","label":"🌙 Dark"},
+                                             {"value":"auto","label":"🔄 Auto"}
+                                           ]'
+                                       value="light">
+                        </x-radio-group>
+
+                        <x-checkbox id="notifications-enabled"
+                                    label="Enable browser notifications"
+                                    value="notifications"
+                                    checked>
+                        </x-checkbox>
+
+                        <x-checkbox id="auto-save-enabled"
+                                    label="Auto-save data every 30 seconds"
+                                    value="auto_save"
+                                    checked>
+                        </x-checkbox>
+
+                        <x-select id="default-priority"
+                                  label="Default Task Priority"
+                                  options='[
+                                        {"value":"low","label":"Low"},
+                                        {"value":"medium","label":"Medium"},
+                                        {"value":"high","label":"High"}
+                                      ]'
+                                  value="medium">
+                        </x-select>
+                    </x-fieldset>
+
+                    <x-fieldset legend="Data Management">
+                        <x-button id="export-settings" label="Export Settings"></x-button>
+                        <x-button id="import-settings" label="Import Settings"></x-button>
+                        <x-button id="reset-settings" label="Reset to Defaults"></x-button>
+                    </x-fieldset>
+                </x-form>
+            </div>
+        </x-tabs>
+    </section>
+
+    <!-- Performance Section -->
+    <section id="performance" class="content-section" style="display: none;">
+        <div class="performance-header">
+            <h2>Performance Showcase</h2>
+            <p>See Zephyr Blueprint's performance advantages in action</p>
+        </div>
+
+        <x-accordion id="performance-accordion" multiple animate>
+            <!-- Virtual Scrolling Demo -->
+            <div section-id="virtual-scroll" section-title="Virtual Scrolling - 50,000 Items">
+                <p>Smooth scrolling through large datasets with minimal DOM nodes:</p>
+                <x-virtual-list id="perf-virtual-list"
+                                item-count="50000"
+                                item-height="32"
+                                style="height: 400px; border: 1px solid #e5e7eb; border-radius: 8px;">
+                </x-virtual-list>
+                <div class="performance-stats">
+                    <p><strong>DOM Nodes:</strong> <span id="virtual-dom-count">~20</span> (visible only)</p>
+                    <p><strong>Memory Usage:</strong> Constant</p>
+                    <p><strong>Scroll Performance:</strong> 60 FPS</p>
+                </div>
+            </div>
+
+            <!-- Form Performance -->
+            <div section-id="form-perf" section-title="Form Performance - Real-time Validation">
+                <p>Instant validation feedback without virtual DOM overhead:</p>
+                <x-form id="perf-form" validate-on="change" auto-save="5000">
+                    <x-fieldset legend="Performance Test Form" validate-on="change">
+                        <div class="form-grid">
+                            <x-input id="perf-input-1" label="Field 1" required value=""></x-input>
+                            <x-input id="perf-input-2" label="Field 2" type="email" required value=""></x-input>
+                            <x-input id="perf-input-3" label="Field 3" required value=""></x-input>
+                            <x-input id="perf-input-4" label="Field 4" required value=""></x-input>
+                        </div>
+
+                        <x-textarea id="perf-textarea"
+                                    label="Description"
+                                    auto-resize
+                                    show-count
+                                    max-length="500"
+                                    value="">
+                        </x-textarea>
+                    </x-fieldset>
+                </x-form>
+                <div class="performance-stats">
+                    <p><strong>Validation Time:</strong> <span id="validation-time">0ms</span></p>
+                    <p><strong>Re-renders:</strong> 0 (direct DOM updates)</p>
+                </div>
+            </div>
+
+            <!-- Component Creation -->
+            <div section-id="component-creation" section-title="Dynamic Component Creation">
+                <p>Create and destroy components efficiently:</p>
+                <div class="creation-controls">
+                    <x-button id="create-100" label="Create 100 Components"></x-button>
+                    <x-button id="create-1000" label="Create 1,000 Components"></x-button>
+                    <x-button id="destroy-all" label="Destroy All"></x-button>
+                </div>
+                <div id="component-container" class="component-showcase"></div>
+                <div class="performance-stats">
+                    <p><strong>Creation Time:</strong> <span id="creation-time">0ms</span></p>
+                    <p><strong>Components Created:</strong> <span id="component-count">0</span></p>
+                </div>
+            </div>
+        </x-accordion>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="content-section" style="display: none;">
+        <div class="docs-header">
+            <h2>Documentation & Examples</h2>
+            <p>Learn how to build with Zephyr Blueprint</p>
+        </div>
+
+        <x-tabs id="docs-tabs" active="getting-started">
+            <div tab-id="getting-started" tab-label="🚀 Getting Started">
+                <div class="docs-content">
+                    <h3>Quick Start</h3>
+                    <pre><code>npm i
+npm run dev
+# open http://localhost:5173/</code></pre>
+
+                    <h3>Basic Usage</h3>
+                    <pre><code>&lt;x-input label="Name" required value=""&gt;&lt;/x-input&gt;
+&lt;x-button label="Submit" variant="primary"&gt;&lt;/x-button&gt;</code></pre>
+
+                    <h3>DOM-as-State Example</h3>
+                    <div class="example-container">
+                        <div class="example-demo">
+                            <x-input id="docs-demo-input"
+                                     label="Try typing..."
+                                     value=""
+                                     placeholder="Watch the DOM update">
+                            </x-input>
+                            <x-button id="docs-demo-btn" label="Toggle Required"></x-button>
+                        </div>
+                        <div class="example-dom">
+                            <h4>Live DOM State:</h4>
+                            <pre id="docs-demo-output">&lt;x-input value="" placeholder="Watch the DOM update"&gt;</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div tab-id="components" tab-label="🧩 Components">
+                <div class="docs-content">
+                    <h3>Available Components</h3>
+
+                    <h4>Form Elements</h4>
+                    <ul>
+                        <li><code>&lt;x-input&gt;</code> - Text inputs with validation</li>
+                        <li><code>&lt;x-select&gt;</code> - Dropdown selections</li>
+                        <li><code>&lt;x-checkbox&gt;</code> - Checkboxes</li>
+                        <li><code>&lt;x-textarea&gt;</code> - Text areas with auto-resize</li>
+                        <li><code>&lt;x-radio-group&gt;</code> - Radio button groups</li>
+                        <li><code>&lt;x-fieldset&gt;</code> - Form field grouping</li>
+                        <li><code>&lt;x-form&gt;</code> - Complete form handling</li>
+                    </ul>
+
+                    <h4>UI Components</h4>
+                    <ul>
+                        <li><code>&lt;x-button&gt;</code> - Interactive buttons</li>
+                        <li><code>&lt;x-tabs&gt;</code> - Tab navigation</li>
+                        <li><code>&lt;x-dialog&gt;</code> - Modal dialogs</li>
+                        <li><code>&lt;x-accordion&gt;</code> - Collapsible content</li>
+                        <li><code>&lt;x-breadcrumb&gt;</code> - Navigation breadcrumbs</li>
+                    </ul>
+
+                    <h4>Performance Components</h4>
+                    <ul>
+                        <li><code>&lt;x-virtual-list&gt;</code> - Virtual scrolling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div tab-id="api" tab-label="📚 API Reference">
+                <div class="docs-content">
+                    <h3>Core Concepts</h3>
+
+                    <h4>Attribute-Driven Rendering</h4>
+                    <p>All state is visible in DOM attributes:</p>
+                    <pre><code>// Set value via attribute
+element.setAttribute('value', 'new value');
+
+// Or use convenience method
+element.setAttr('value', 'new value');</code></pre>
+
+                    <h4>Event-Based Communication</h4>
+                    <p>Components communicate through events:</p>
+                    <pre><code>button.addEventListener('button-click', (e) => {
+  console.log('Button clicked!');
+});
+
+input.addEventListener('input-change', (e) => {
+  console.log('Value:', e.detail.value);
+});</code></pre>
+
+                    <h4>Form Integration</h4>
+                    <p>All form components are form-associated:</p>
+                    <pre><code>&lt;form&gt;
+  &lt;x-input name="email" required&gt;&lt;/x-input&gt;
+  &lt;x-checkbox name="terms" required&gt;&lt;/x-checkbox&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+            </div>
+        </x-tabs>
+    </section>
+</main>
+
+<!-- Dialogs -->
+
+<!-- New Project Dialog -->
+<x-dialog id="new-project-dialog" title="Create New Project" size="medium">
+    <x-form id="project-form" validate-on="change">
+        <x-fieldset legend="Project Details" required>
+            <x-input id="project-name"
+                     label="Project Name"
+                     required
+                     placeholder="Enter project name"
+                     value="">
+            </x-input>
+
+            <x-textarea id="project-description"
+                        label="Description"
+                        placeholder="Describe your project..."
+                        auto-resize
+                        show-count
+                        max-length="500"
+                        rows="3"
+                        value="">
+            </x-textarea>
+
+            <x-select id="project-status"
+                      label="Status"
+                      required
+                      options='[
+                            {"value":"active","label":"Active"},
+                            {"value":"on-hold","label":"On Hold"},
+                            {"value":"completed","label":"Completed"}
+                          ]'
+                      value="active">
+            </x-select>
+
+            <x-input id="project-deadline"
+                     label="Deadline"
+                     type="date"
+                     value="">
+            </x-input>
+        </x-fieldset>
+    </x-form>
+</x-dialog>
+
+<!-- New Task Dialog -->
+<x-dialog id="new-task-dialog" title="Create New Task" size="medium">
+    <x-form id="task-form" validate-on="change">
+        <x-fieldset legend="Task Details" required>
+            <x-input id="task-title"
+                     label="Task Title"
+                     required
+                     placeholder="Enter task title"
+                     value="">
+            </x-input>
+
+            <x-textarea id="task-description"
+                        label="Description"
+                        placeholder="Describe the task..."
+                        auto-resize
+                        rows="2"
+                        value="">
+            </x-textarea>
+
+            <x-select id="task-project"
+                      label="Project"
+                      required
+                      placeholder="Select project"
+                      options='[]'
+                      value="">
+            </x-select>
+
+            <div class="form-grid">
+                <x-select id="task-priority"
+                          label="Priority"
+                          options='[
+                                {"value":"low","label":"Low"},
+                                {"value":"medium","label":"Medium"},
+                                {"value":"high","label":"High"}
+                              ]'
+                          value="medium">
+                </x-select>
+
+                <x-select id="task-status"
+                          label="Status"
+                          options='[
+                                {"value":"todo","label":"To Do"},
+                                {"value":"in-progress","label":"In Progress"},
+                                {"value":"completed","label":"Completed"}
+                              ]'
+                          value="todo">
+                </x-select>
+            </div>
+
+            <x-input id="task-due-date"
+                     label="Due Date"
+                     type="date"
+                     value="">
+            </x-input>
+        </x-fieldset>
+    </x-form>
+</x-dialog>
+
+<!-- New Team Member Dialog -->
+<x-dialog id="new-member-dialog" title="Add Team Member" size="small">
+    <x-form id="member-form" validate-on="change">
+        <x-fieldset legend="Member Details" required>
+            <x-input id="member-name"
+                     label="Full Name"
+                     required
+                     placeholder="Enter full name"
+                     value="">
+            </x-input>
+
+            <x-input id="member-email"
+                     label="Email"
+                     type="email"
+                     required
+                     placeholder="user@example.com"
+                     value="">
+            </x-input>
+
+            <x-select id="member-role"
+                      label="Role"
+                      required
+                      options='[
+                            {"value":"developer","label":"Developer"},
+                            {"value":"designer","label":"Designer"},
+                            {"value":"manager","label":"Project Manager"},
+                            {"value":"client","label":"Client"}
+                          ]'
+                      value="developer">
+            </x-select>
+        </x-fieldset>
+    </x-form>
+</x-dialog>
+
+<!-- Footer -->
+<footer class="main-footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Zephyr Blueprint. DOM-First Web Components Framework.</p>
+        <p>
+            <a href="#showcase">Features</a> •
+            <a href="#demo">Demo</a> •
+            <a href="#performance">Performance</a> •
+            <a href="#docs">Docs</a>
+        </p>
     </div>
-</section>
-
-<section>
-    <h2>Virtual List (10,000 rows)</h2>
-    <x-virtual-list id="vlist" item-count="10000" item-height="28" style="height: 300px; border:1px solid #e5e7eb; border-radius: var(--x-radius);"></x-virtual-list>
-</section>
-
-<script type="module">
-    // Wire demo events
-    document.querySelectorAll('x-button').forEach(b => {
-        b.addEventListener('button-click', () => console.log('click:', b.getAttribute('label')));
-    });
-
-    // Counter demo init
-    import Counter from '/src/examples/Counter.js';
-    new Counter(document.getElementById('counter-root'));
-
-    // Virtual list demo
-    const vlist = document.getElementById('vlist');
-    vlist.renderer = (el, i) => {
-        el.textContent = `Row ${i}`;
-        el.style.padding = '0 8px';
-        if (i % 2) el.style.background = '#fafafa'; else el.style.background = 'white';
-    };
-</script>
+</footer>
 </body>
 </html>

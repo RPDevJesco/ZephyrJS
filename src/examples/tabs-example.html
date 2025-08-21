@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XTabs Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XSelect.js';
+        import '/src/elements/XCheckbox.js';
+        import '/src/elements/XTextarea.js';
+        import '/src/elements/XRadioGroup.js';
+        import '/src/elements/XFieldset.js';
+        import '/src/elements/XDialog.js';
+        import '/src/elements/XTabs.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 1200px;
+            background: #f9fafb;
+        }
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .demo-section h2 {
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .tabs-container {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        .code-block {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        .status-panel {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        .keyboard-hint {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>XTabs Examples</h1>
+
+<div class="demo-section">
+    <h2>Basic Tab Navigation</h2>
+
+    <div class="keyboard-hint">
+        <strong>⌨️ Keyboard Navigation:</strong> Focus a tab and use Arrow Keys, Home, End, Enter, or Space to navigate.
+    </div>
+
+    <div class="tabs-container">
+        <x-tabs id="basic-tabs" active="overview">
+            <div tab-id="overview" tab-label="📋 Overview">
+                <h3>Welcome to XTabs</h3>
+                <p>This is a comprehensive tab navigation component that supports:</p>
+                <ul>
+                    <li>Keyboard navigation with arrow keys</li>
+                    <li>ARIA accessibility features</li>
+                    <li>Dynamic tab management</li>
+                    <li>Integration with form components</li>
+                    <li>Lazy loading capabilities</li>
+                    <li>Closeable tabs</li>
+                </ul>
+            </div>
+
+            <div tab-id="features" tab-label="⚡ Features">
+                <h3>Key Features</h3>
+                <h4>Accessibility First</h4>
+                <p>Full keyboard navigation, screen reader support, and ARIA compliance.</p>
+
+                <h4>DOM as State</h4>
+                <p>All tab state is visible in DOM attributes - <code>active</code> controls which tab is shown.</p>
+
+                <h4>Event-Driven</h4>
+                <p>Rich event system for <code>tab-change</code>, <code>tab-changed</code>, <code>tab-close</code>, and <code>tab-closed</code>.</p>
+            </div>
+
+            <div tab-id="integration" tab-label="🔗 Integration">
+                <h3>Framework Integration</h3>
+                <p>XTabs works seamlessly with any framework or vanilla JavaScript:</p>
+
+                <div class="code-block">
+                    // Programmatic control
+                    const tabs = document.getElementById('my-tabs');
+                    tabs.setActiveTab('settings');
+                    tabs.addTab('new-tab', 'New Tab', '&lt;p&gt;Content&lt;/p&gt;');
+                    tabs.removeTab('old-tab');
+
+                    // Event handling
+                    tabs.addEventListener('tab-changed', (e) => {
+                    console.log('Active tab:', e.detail.activeTab);
+                    });
+                </div>
+            </div>
+        </x-tabs>
+    </div>
+
+    <div class="row">
+        <x-button id="set-overview-btn" label="Go to Overview"></x-button>
+        <x-button id="set-features-btn" label="Go to Features"></x-button>
+        <x-button id="set-integration-btn" label="Go to Integration"></x-button>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h2>Form Integration</h2>
+
+    <div class="tabs-container">
+        <x-tabs id="form-tabs" active="personal">
+            <div tab-id="personal" tab-label="👤 Personal Info">
+                <x-fieldset id="personal-fieldset" legend="Personal Information" required validate-on="change">
+                    <div class="form-grid">
+                        <x-input
+                                id="user-first-name"
+                                label="First Name"
+                                type="text"
+                                placeholder="Enter first name"
+                                required
+                                value="">
+                        </x-input>
+
+                        <x-input
+                                id="user-last-name"
+                                label="Last Name"
+                                type="text"
+                                placeholder="Enter last name"
+                                required
+                                value="">
+                        </x-input>
+                    </div>
+
+                    <x-input
+                            id="user-email"
+                            label="Email Address"
+                            type="email"
+                            placeholder="you@example.com"
+                            required
+                            value="">
+                    </x-input>
+
+                    <x-input
+                            id="user-phone"
+                            label="Phone Number"
+                            type="tel"
+                            placeholder="(555) 123-4567"
+                            value="">
+                    </x-input>
+                </x-fieldset>
+            </div>
+
+            <div tab-id="preferences" tab-label="⚙️ Preferences">
+                <x-fieldset id="preferences-fieldset" legend="User Preferences">
+                    <x-radio-group
+                            id="theme-preference"
+                            label="Theme Preference"
+                            name="theme"
+                            layout="horizontal"
+                            options='[
+                {"value":"light","label":"☀️ Light"},
+                {"value":"dark","label":"🌙 Dark"},
+                {"value":"auto","label":"🔄 Auto"}
+              ]'
+                            value="auto">
+                    </x-radio-group>
+
+                    <x-select
+                            id="language-preference"
+                            label="Language"
+                            options='[
+                {"value":"en","label":"English"},
+                {"value":"es","label":"Español"},
+                {"value":"fr","label":"Français"},
+                {"value":"de","label":"Deutsch"}
+              ]'
+                            value="en">
+                    </x-select>
+
+                    <x-checkbox
+                            id="email-notifications"
+                            label="Enable email notifications"
+                            checked
+                            value="email_notifications">
+                    </x-checkbox>
+
+                    <x-checkbox
+                            id="marketing-consent"
+                            label="I agree to receive marketing communications"
+                            value="marketing_consent">
+                    </x-checkbox>
+                </x-fieldset>
+            </div>
+
+            <div tab-id="advanced" tab-label="🔧 Advanced">
+                <x-fieldset id="advanced-fieldset" legend="Advanced Settings">
+                    <x-select
+                            id="data-export-format"
+                            label="Data Export Format"
+                            options='[
+                {"value":"json","label":"JSON"},
+                {"value":"csv","label":"CSV"},
+                {"value":"xml","label":"XML"},
+                {"value":"pdf","label":"PDF"}
+              ]'
+                            value="json">
+                    </x-select>
+
+                    <x-textarea
+                            id="custom-css"
+                            label="Custom CSS"
+                            placeholder="Enter custom CSS rules..."
+                            auto-resize
+                            show-count
+                            max-length="2000"
+                            rows="4"
+                            value="">
+                    </x-textarea>
+
+                    <x-checkbox
+                            id="beta-features"
+                            label="Enable beta features (may be unstable)"
+                            value="beta_features">
+                    </x-checkbox>
+
+                    <x-checkbox
+                            id="developer-mode"
+                            label="Enable developer mode"
+                            value="developer_mode">
+                    </x-checkbox>
+                </x-fieldset>
+            </div>
+        </x-tabs>
+    </div>
+
+    <div class="row">
+        <x-button id="validate-form-btn" label="Validate All Tabs" variant="primary"></x-button>
+        <x-button id="get-form-data-btn" label="Get Form Data"></x-button>
+        <x-button id="reset-form-btn" label="Reset Form"></x-button>
+    </div>
+
+    <div id="form-results"></div>
+</div>
+
+<div class="demo-section">
+    <h2>Dynamic Tab Management</h2>
+
+    <div class="form-grid">
+        <x-input
+                id="new-tab-id"
+                label="Tab ID"
+                placeholder="e.g., my-tab"
+                value="">
+        </x-input>
+
+        <x-input
+                id="new-tab-label"
+                label="Tab Label"
+                placeholder="e.g., My Tab"
+                value="">
+        </x-input>
+    </div>
+
+    <x-textarea
+            id="new-tab-content"
+            label="Tab Content (HTML allowed)"
+            placeholder="<h3>My Tab</h3><p>Content goes here...</p>"
+            auto-resize
+            rows="3"
+            value="">
+    </x-textarea>
+
+    <div class="row">
+        <x-button id="add-tab-btn" label="Add Tab" variant="primary"></x-button>
+        <x-button id="add-form-tab-btn" label="Add Form Tab"></x-button>
+        <x-button id="clear-tabs-btn" label="Clear All Tabs"></x-button>
+    </div>
+
+    <div class="tabs-container">
+        <x-tabs id="dynamic-tabs" active="welcome" closeable>
+            <div tab-id="welcome" tab-label="🏠 Welcome">
+                <h3>Dynamic Tab Demo</h3>
+                <p>This tab container supports dynamic tab management:</p>
+                <ul>
+                    <li>Add new tabs with custom content</li>
+                    <li>Close tabs by clicking the × button</li>
+                    <li>Tabs automatically handle active state</li>
+                </ul>
+                <p><strong>Try it:</strong> Add some tabs using the form above!</p>
+            </div>
+        </x-tabs>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h2>Vertical Orientation & Closeable Tabs</h2>
+
+    <div class="tabs-container" style="height: 400px;">
+        <x-tabs id="vertical-tabs" orientation="vertical" active="dashboard" closeable>
+            <div tab-id="dashboard" tab-label="📊 Dashboard">
+                <h3>Dashboard</h3>
+                <p>Welcome to your dashboard! This vertical tab layout works great for navigation menus.</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 16px;">
+                    <div style="background: #dbeafe; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #1d4ed8;">42</div>
+                        <div style="font-size: 12px; color: #6b7280;">Active Users</div>
+                    </div>
+                    <div style="background: #dcfce7; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #15803d;">$1,247</div>
+                        <div style="font-size: 12px; color: #6b7280;">Revenue</div>
+                    </div>
+                    <div style="background: #fef3c7; padding: 16px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: #d97706;">18</div>
+                        <div style="font-size: 12px; color: #6b7280;">Pending</div>
+                    </div>
+                </div>
+            </div>
+
+            <div tab-id="analytics" tab-label="📈 Analytics">
+                <h3>Analytics</h3>
+                <p>View detailed analytics and reports here.</p>
+                <p>This content could include charts, graphs, and detailed metrics about your application performance.</p>
+            </div>
+
+            <div tab-id="users" tab-label="👥 Users">
+                <h3>User Management</h3>
+                <p>Manage user accounts and permissions.</p>
+                <div style="border: 1px solid #e5e7eb; border-radius: 4px; padding: 12px; margin-top: 12px;">
+                    <strong>Recent Users:</strong>
+                    <ul style="margin: 8px 0 0 0;">
+                        <li>john.doe@example.com</li>
+                        <li>jane.smith@example.com</li>
+                        <li>admin@example.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div tab-id="settings" tab-label="⚙️ Settings">
+                <h3>System Settings</h3>
+                <p>Configure system-wide settings and preferences.</p>
+
+                <x-fieldset legend="System Configuration" style="margin-top: 16px;">
+                    <x-checkbox
+                            id="maintenance-mode"
+                            label="Enable maintenance mode"
+                            value="maintenance_mode">
+                    </x-checkbox>
+
+                    <x-checkbox
+                            id="debug-logging"
+                            label="Enable debug logging"
+                            value="debug_logging">
+                    </x-checkbox>
+                </x-fieldset>
+            </div>
+        </x-tabs>
+    </div>
+
+    <div class="row">
+        <x-button id="add-vertical-tab-btn" label="Add Random Tab"></x-button>
+        <x-button id="toggle-orientation-btn" label="Toggle Orientation"></x-button>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h2>Tabs in Dialog</h2>
+
+    <x-button id="open-tabs-dialog-btn" label="Open Tabbed Dialog" variant="primary"></x-button>
+
+    <x-dialog id="tabs-dialog" title="Settings" size="large">
+        <x-tabs id="dialog-tabs" active="account">
+            <div tab-id="account" tab-label="👤 Account">
+                <x-fieldset legend="Account Settings" required>
+                    <div class="form-grid">
+                        <x-input
+                                id="dialog-username"
+                                label="Username"
+                                placeholder="Enter username"
+                                required
+                                value="">
+                        </x-input>
+
+                        <x-input
+                                id="dialog-email"
+                                label="Email"
+                                type="email"
+                                placeholder="you@example.com"
+                                required
+                                value="">
+                        </x-input>
+                    </div>
+
+                    <x-input
+                            id="dialog-password"
+                            label="New Password"
+                            type="password"
+                            placeholder="Leave blank to keep current"
+                            value="">
+                    </x-input>
+                </x-fieldset>
+            </div>
+
+            <div tab-id="notifications" tab-label="🔔 Notifications">
+                <x-fieldset legend="Notification Preferences">
+                    <x-radio-group
+                            id="notification-frequency"
+                            label="Email Frequency"
+                            name="notification_frequency"
+                            options='[
+                {"value":"immediate","label":"Immediate"},
+                {"value":"daily","label":"Daily Digest"},
+                {"value":"weekly","label":"Weekly Summary"},
+                {"value":"never","label":"Never"}
+              ]'
+                            value="daily">
+                    </x-radio-group>
+
+                    <x-checkbox
+                            id="browser-notifications"
+                            label="Enable browser notifications"
+                            value="browser_notifications">
+                    </x-checkbox>
+
+                    <x-checkbox
+                            id="mobile-notifications"
+                            label="Enable mobile push notifications"
+                            value="mobile_notifications">
+                    </x-checkbox>
+                </x-fieldset>
+            </div>
+
+            <div tab-id="privacy" tab-label="🔒 Privacy">
+                <x-fieldset legend="Privacy Settings">
+                    <x-radio-group
+                            id="profile-visibility"
+                            label="Profile Visibility"
+                            name="profile_visibility"
+                            options='[
+                {"value":"public","label":"Public"},
+                {"value":"friends","label":"Friends Only"},
+                {"value":"private","label":"Private"}
+              ]'
+                            value="friends">
+                    </x-radio-group>
+
+                    <x-checkbox
+                            id="search-indexing"
+                            label="Allow search engines to index my profile"
+                            value="search_indexing">
+                    </x-checkbox>
+
+                    <x-checkbox
+                            id="data-analytics"
+                            label="Allow usage analytics"
+                            checked
+                            value="data_analytics">
+                    </x-checkbox>
+                </x-fieldset>
+            </div>
+        </x-tabs>
+    </x-dialog>
+</div>
+
+<div class="demo-section">
+    <h2>Programmatic Control Demo</h2>
+
+    <div class="button-grid">
+        <x-button id="cycle-tabs-btn" label="Auto-cycle Tabs"></x-button>
+        <x-button id="random-tab-btn" label="Go to Random Tab"></x-button>
+        <x-button id="add-counter-tab-btn" label="Add Counter Tab"></x-button>
+        <x-button id="batch-add-tabs-btn" label="Batch Add Tabs"></x-button>
+    </div>
+
+    <div class="tabs-container">
+        <x-tabs id="programmatic-tabs" active="home">
+            <div tab-id="home" tab-label="🏠 Home">
+                <h3>Programmatic Control</h3>
+                <p>This tab container demonstrates programmatic control of tabs:</p>
+                <ul>
+                    <li>Auto-cycling through tabs</li>
+                    <li>Random tab selection</li>
+                    <li>Dynamic content generation</li>
+                    <li>Batch operations</li>
+                </ul>
+            </div>
+
+            <div tab-id="about" tab-label="ℹ️ About">
+                <h3>About This Demo</h3>
+                <p>This demonstrates the power of the DOM-as-state architecture:</p>
+                <ul>
+                    <li>State changes are immediately visible in DOM attributes</li>
+                    <li>Components coordinate through events</li>
+                    <li>No hidden internal state to debug</li>
+                </ul>
+            </div>
+        </x-tabs>
+    </div>
+
+    <div class="status-panel">
+        <strong>Tab Status:</strong>
+        <div id="tab-status"></div>
+    </div>
+</div>
+
+<div id="output">
+    <strong>Tab Events Log:</strong><br>
+    <div id="events-log"></div>
+</div>
+
+<script type="module">
+    class TabsDemoController {
+        constructor() {
+            this.tabContainers = document.querySelectorAll('x-tabs');
+            this.eventsLog = document.getElementById('events-log');
+            this.tabStatus = document.getElementById('tab-status');
+            this.formResults = document.getElementById('form-results');
+            this.cycleInterval = null;
+
+            this.bindEvents();
+            this.setupTabEventLogging();
+            this.updateTabStatus();
+        }
+
+        bindEvents() {
+            // Basic tab navigation
+            document.getElementById('set-overview-btn').addEventListener('button-click', () => {
+                document.getElementById('basic-tabs').setActiveTab('overview');
+            });
+
+            document.getElementById('set-features-btn').addEventListener('button-click', () => {
+                document.getElementById('basic-tabs').setActiveTab('features');
+            });
+
+            document.getElementById('set-integration-btn').addEventListener('button-click', () => {
+                document.getElementById('basic-tabs').setActiveTab('integration');
+            });
+
+            // Form tab actions
+            document.getElementById('validate-form-btn').addEventListener('button-click', () => {
+                this.validateFormTabs();
+            });
+
+            document.getElementById('get-form-data-btn').addEventListener('button-click', () => {
+                this.getFormData();
+            });
+
+            document.getElementById('reset-form-btn').addEventListener('button-click', () => {
+                this.resetFormTabs();
+            });
+
+            // Dynamic tab management
+            document.getElementById('add-tab-btn').addEventListener('button-click', () => {
+                this.addDynamicTab();
+            });
+
+            document.getElementById('add-form-tab-btn').addEventListener('button-click', () => {
+                this.addFormTab();
+            });
+
+            document.getElementById('clear-tabs-btn').addEventListener('button-click', () => {
+                this.clearDynamicTabs();
+            });
+
+            // Vertical tabs
+            document.getElementById('add-vertical-tab-btn').addEventListener('button-click', () => {
+                this.addRandomVerticalTab();
+            });
+
+            document.getElementById('toggle-orientation-btn').addEventListener('button-click', () => {
+                this.toggleOrientation();
+            });
+
+            // Dialog with tabs
+            document.getElementById('open-tabs-dialog-btn').addEventListener('button-click', () => {
+                this.openTabsDialog();
+            });
+
+            // Programmatic control
+            document.getElementById('cycle-tabs-btn').addEventListener('button-click', () => {
+                this.toggleTabCycling();
+            });
+
+            document.getElementById('random-tab-btn').addEventListener('button-click', () => {
+                this.goToRandomTab();
+            });
+
+            document.getElementById('add-counter-tab-btn').addEventListener('button-click', () => {
+                this.addCounterTab();
+            });
+
+            document.getElementById('batch-add-tabs-btn').addEventListener('button-click', () => {
+                this.batchAddTabs();
+            });
+        }
+
+        setupTabEventLogging() {
+            this.tabContainers.forEach(tabs => {
+                tabs.addEventListener('tab-change', (e) => {
+                    this.logEvent(`🔄 Tab changing: ${e.detail.previousTab} → ${e.detail.newTab} (${tabs.id})`);
+                });
+
+                tabs.addEventListener('tab-changed', (e) => {
+                    this.logEvent(`✅ Tab changed: ${e.detail.activeTab} (${tabs.id})`);
+                    this.updateTabStatus();
+                });
+
+                tabs.addEventListener('tab-close', (e) => {
+                    this.logEvent(`🗑️ Tab closing: ${e.detail.tabId} (${tabs.id})`);
+                });
+
+                tabs.addEventListener('tab-closed', (e) => {
+                    this.logEvent(`🗑️ Tab closed: ${e.detail.tabId} (${tabs.id})`);
+                    this.updateTabStatus();
+                });
+            });
+        }
+
+        logEvent(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.cssText = 'padding: 2px 0; border-bottom: 1px solid #e5e7eb; font-size: 12px;';
+            logEntry.innerHTML = `<span style="color: #6b7280;">[${timestamp}]</span> ${message}`;
+
+            this.eventsLog.insertBefore(logEntry, this.eventsLog.firstChild);
+
+            // Keep only last 15 entries
+            while (this.eventsLog.children.length > 15) {
+                this.eventsLog.removeChild(this.eventsLog.lastChild);
+            }
+        }
+
+        updateTabStatus() {
+            const status = Array.from(this.tabContainers).map(tabs => {
+                const activeTabs = tabs.getActiveTab();
+                const allTabs = tabs.getTabs();
+                return `${tabs.id}: ${activeTabs} (${allTabs.length} tabs)`;
+            }).join('<br>');
+
+            this.tabStatus.innerHTML = status;
+        }
+
+        validateFormTabs() {
+            const formTabs = document.getElementById('form-tabs');
+            const fieldsets = formTabs.querySelectorAll('x-fieldset');
+
+            let allValid = true;
+            const results = [];
+
+            fieldsets.forEach(fieldset => {
+                const isValid = fieldset.validate();
+                const legend = fieldset.getAttribute('legend');
+                results.push(`${legend}: ${isValid ? '✅ Valid' : '❌ Invalid'}`);
+                if (!isValid) allValid = false;
+            });
+
+            this.formResults.innerHTML = `
+          <div style="background: ${allValid ? '#d1fae5' : '#fee2e2'}; border: 1px solid ${allValid ? '#34d399' : '#f87171'}; border-radius: 4px; padding: 12px; margin-top: 12px;">
+            <strong>Validation Results:</strong><br>
+            ${results.join('<br>')}
+          </div>
+        `;
+        }
+
+        getFormData() {
+            const formTabs = document.getElementById('form-tabs');
+            const fieldsets = formTabs.querySelectorAll('x-fieldset');
+
+            const formData = {};
+            fieldsets.forEach(fieldset => {
+                const legend = fieldset.getAttribute('legend');
+                formData[legend] = fieldset.getFieldsetValue();
+            });
+
+            this.formResults.innerHTML = `
+          <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 4px; padding: 12px; margin-top: 12px;">
+            <strong>Form Data:</strong>
+            <pre style="margin: 8px 0 0 0; font-size: 12px; overflow-x: auto;">${JSON.stringify(formData, null, 2)}</pre>
+          </div>
+        `;
+        }
+
+        resetFormTabs() {
+            const formTabs = document.getElementById('form-tabs');
+            const fieldsets = formTabs.querySelectorAll('x-fieldset');
+
+            fieldsets.forEach(fieldset => {
+                fieldset.resetFieldset();
+            });
+
+            // Reset to default values
+            document.getElementById('theme-preference').setAttr('value', 'auto');
+            document.getElementById('language-preference').setAttr('value', 'en');
+            document.getElementById('data-export-format').setAttr('value', 'json');
+            document.getElementById('email-notifications').setAttr('checked', '');
+
+            this.formResults.innerHTML = `
+          <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 4px; padding: 12px; margin-top: 12px;">
+            Form has been reset to default values.
+          </div>
+        `;
+        }
+
+        addDynamicTab() {
+            const tabId = document.getElementById('new-tab-id').getAttribute('value')?.trim();
+            const tabLabel = document.getElementById('new-tab-label').getAttribute('value')?.trim();
+            const tabContent = document.getElementById('new-tab-content').getAttribute('value')?.trim();
+
+            if (!tabId || !tabLabel) {
+                XDialog.alert('Please enter both Tab ID and Tab Label.', 'Missing Information');
+                return;
+            }
+
+            const dynamicTabs = document.getElementById('dynamic-tabs');
+            const success = dynamicTabs.addTab(tabId, tabLabel, tabContent || `<h3>${tabLabel}</h3><p>Default content for ${tabLabel}.</p>`);
+
+            if (success) {
+                // Clear form
+                document.getElementById('new-tab-id').setAttr('value', '');
+                document.getElementById('new-tab-label').setAttr('value', '');
+                document.getElementById('new-tab-content').setAttr('value', '');
+
+                // Activate the new tab
+                dynamicTabs.setActiveTab(tabId);
+            } else {
+                XDialog.alert('Tab could not be added. Check that the ID is unique.', 'Error');
+            }
+        }
+
+        addFormTab() {
+            const tabId = `form-${Date.now()}`;
+            const tabLabel = '📝 Form Tab';
+            const tabContent = `
+          <h3>Dynamic Form</h3>
+          <x-fieldset legend="Sample Form" validate-on="change">
+            <x-input
+              id="form-${tabId}-name"
+              label="Name"
+              placeholder="Enter name"
+              required
+              value="">
+            </x-input>
+
+            <x-select
+              id="form-${tabId}-type"
+              label="Type"
+              options='[{"value":"type1","label":"Type 1"},{"value":"type2","label":"Type 2"}]'
+              value="">
+            </x-select>
+
+            <x-checkbox
+              id="form-${tabId}-active"
+              label="Active"
+              value="active">
+            </x-checkbox>
+          </x-fieldset>
+        `;
+
+            const dynamicTabs = document.getElementById('dynamic-tabs');
+            dynamicTabs.addTab(tabId, tabLabel, tabContent);
+            dynamicTabs.setActiveTab(tabId);
+        }
+
+        clearDynamicTabs() {
+            const dynamicTabs = document.getElementById('dynamic-tabs');
+            const tabs = dynamicTabs.getTabs();
+
+            // Remove all tabs except welcome
+            tabs.forEach(tab => {
+                if (tab.id !== 'welcome') {
+                    dynamicTabs.removeTab(tab.id);
+                }
+            });
+
+            dynamicTabs.setActiveTab('welcome');
+        }
+
+        addRandomVerticalTab() {
+            const verticalTabs = document.getElementById('vertical-tabs');
+            const randomId = `tab-${Date.now()}`;
+            const emojis = ['📊', '📈', '📉', '📋', '📝', '🔧', '⚙️', '🎯', '🚀', '💡'];
+            const names = ['Reports', 'Metrics', 'Tasks', 'Notes', 'Tools', 'Config', 'Goals', 'Launch', 'Ideas'];
+
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            const name = names[Math.floor(Math.random() * names.length)];
+            const label = `${emoji} ${name}`;
+
+            const content = `
+          <h3>${name}</h3>
+          <p>This is a dynamically generated tab with random content.</p>
+          <p>Tab ID: <code>${randomId}</code></p>
+          <p>Created at: ${new Date().toLocaleString()}</p>
+        `;
+
+            verticalTabs.addTab(randomId, label, content);
+            verticalTabs.setActiveTab(randomId);
+        }
+
+        toggleOrientation() {
+            const verticalTabs = document.getElementById('vertical-tabs');
+            const currentOrientation = verticalTabs.getAttribute('orientation') || 'horizontal';
+            const newOrientation = currentOrientation === 'vertical' ? 'horizontal' : 'vertical';
+
+            verticalTabs.setAttr('orientation', newOrientation);
+
+            const button = document.getElementById('toggle-orientation-btn');
+            button.setAttr('label', `Switch to ${currentOrientation === 'vertical' ? 'Vertical' : 'Horizontal'}`);
+        }
+
+        openTabsDialog() {
+            const dialog = document.getElementById('tabs-dialog');
+
+            // Clear and reset form
+            const fieldsets = dialog.querySelectorAll('x-fieldset');
+            fieldsets.forEach(fs => fs.resetFieldset());
+
+            // Add action buttons
+            dialog.clearActions();
+
+            const cancelBtn = document.createElement('x-button');
+            cancelBtn.setAttr('label', 'Cancel');
+            cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+
+            const saveBtn = document.createElement('x-button');
+            saveBtn.setAttr('label', 'Save Settings');
+            saveBtn.setAttr('variant', 'primary');
+            saveBtn.addEventListener('button-click', () => {
+                // Validate all fieldsets
+                let allValid = true;
+                fieldsets.forEach(fieldset => {
+                    if (!fieldset.validate()) allValid = false;
+                });
+
+                if (allValid) {
+                    const settingsData = {};
+                    fieldsets.forEach(fieldset => {
+                        Object.assign(settingsData, fieldset.getFieldsetValue());
+                    });
+
+                    dialog.close('save');
+                    XDialog.alert(`Settings saved!\n\n${JSON.stringify(settingsData, null, 2)}`, 'Settings Saved');
+                } else {
+                    XDialog.alert('Please fix validation errors before saving.', 'Validation Error');
+                }
+            });
+
+            dialog.addAction(cancelBtn);
+            dialog.addAction(saveBtn);
+            dialog.open();
+        }
+
+        toggleTabCycling() {
+            const button = document.getElementById('cycle-tabs-btn');
+
+            if (this.cycleInterval) {
+                clearInterval(this.cycleInterval);
+                this.cycleInterval = null;
+                button.setAttr('label', 'Auto-cycle Tabs');
+            } else {
+                const tabs = document.getElementById('programmatic-tabs');
+                let currentIndex = 0;
+
+                this.cycleInterval = setInterval(() => {
+                    const allTabs = tabs.getTabs();
+                    if (allTabs.length > 0) {
+                        currentIndex = (currentIndex + 1) % allTabs.length;
+                        tabs.setActiveTab(allTabs[currentIndex].id);
+                    }
+                }, 2000);
+
+                button.setAttr('label', 'Stop Cycling');
+            }
+        }
+
+        goToRandomTab() {
+            const tabs = document.getElementById('programmatic-tabs');
+            const allTabs = tabs.getTabs();
+
+            if (allTabs.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allTabs.length);
+                tabs.setActiveTab(allTabs[randomIndex].id);
+            }
+        }
+
+        addCounterTab() {
+            const tabs = document.getElementById('programmatic-tabs');
+            const tabId = `counter-${Date.now()}`;
+
+            const content = `
+          <h3>Interactive Counter</h3>
+          <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 48px; font-weight: bold; color: var(--x-accent); margin-bottom: 16px;" id="counter-${tabId}">0</div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <x-button id="dec-${tabId}" label="-" onclick="updateCounter('${tabId}', -1)"></x-button>
+              <x-button id="inc-${tabId}" label="+" onclick="updateCounter('${tabId}', 1)"></x-button>
+              <x-button id="reset-${tabId}" label="Reset" onclick="updateCounter('${tabId}', 0, true)"></x-button>
+            </div>
+          </div>
+        `;
+
+            tabs.addTab(tabId, '🔢 Counter', content);
+            tabs.setActiveTab(tabId);
+
+            // Add counter functionality to global scope (simplified for demo)
+            if (!window.updateCounter) {
+                window.updateCounter = (tabId, delta, reset = false) => {
+                    const counterEl = document.getElementById(`counter-${tabId}`);
+                    if (counterEl) {
+                        const current = reset ? 0 : parseInt(counterEl.textContent) + delta;
+                        counterEl.textContent = Math.max(0, current);
+                    }
+                };
+            }
+        }
+
+        batchAddTabs() {
+            const tabs = document.getElementById('programmatic-tabs');
+            const categories = [
+                { id: 'docs', label: '📚 Documentation', content: '<h3>Documentation</h3><p>API documentation and guides.</p>' },
+                { id: 'examples', label: '💡 Examples', content: '<h3>Examples</h3><p>Code examples and demos.</p>' },
+                { id: 'tutorials', label: '🎓 Tutorials', content: '<h3>Tutorials</h3><p>Step-by-step tutorials.</p>' },
+                { id: 'faq', label: '❓ FAQ', content: '<h3>FAQ</h3><p>Frequently asked questions.</p>' }
+            ];
+
+            categories.forEach(category => {
+                tabs.addTab(category.id, category.label, category.content);
+            });
+
+            tabs.setActiveTab('docs');
+        }
+    }
+
+    // Initialize the demo controller
+    new TabsDemoController();
+
+    // Demo: Auto-switch to features tab after page load
+    setTimeout(() => {
+        console.log('Demo: Auto-switching to features tab');
+        document.getElementById('basic-tabs').setActiveTab('features');
+    }, 2000);
+
+    // Demo: Fill in some form data
+    setTimeout(() => {
+        console.log('Demo: Filling in form data');
+        document.getElementById('user-first-name').setAttr('value', 'John');
+        document.getElementById('user-last-name').setAttr('value', 'Doe');
+        document.getElementById('user-email').setAttr('value', 'john.doe@example.com');
+    }, 4000);
+
+    // Demo: Switch to preferences tab
+    setTimeout(() => {
+        console.log('Demo: Switching to preferences tab');
+        document.getElementById('form-tabs').setActiveTab('preferences');
+    }, 6000);
+</script>
+</body>
+</html>

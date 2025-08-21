@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XInput Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<h1>XInput Examples</h1>
+
+<form id="demo-form">
+    <div class="form-group">
+        <x-input
+                id="name-input"
+                label="Full Name"
+                type="text"
+                placeholder="Enter your name"
+                required
+                value="">
+        </x-input>
+    </div>
+
+    <div class="form-group">
+        <x-input
+                id="email-input"
+                label="Email Address"
+                type="email"
+                placeholder="you@example.com"
+                required
+                value="">
+        </x-input>
+    </div>
+
+    <div class="form-group">
+        <x-input
+                id="password-input"
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                required
+                value="">
+        </x-input>
+    </div>
+
+    <div class="form-group">
+        <x-input
+                id="disabled-input"
+                label="Disabled Field"
+                type="text"
+                value="Can't edit this"
+                disabled>
+        </x-input>
+    </div>
+
+    <div class="row">
+        <x-button id="submit-btn" label="Submit Form" variant="primary"></x-button>
+        <x-button id="reset-btn" label="Reset"></x-button>
+        <x-button id="prefill-btn" label="Prefill Demo Data"></x-button>
+    </div>
+</form>
+
+<div id="output">
+    <strong>Form Data (DOM attributes):</strong><br>
+    <div id="form-data"></div>
+</div>
+
+<script type="module">
+    // Simple form controller that demonstrates DOM-as-state
+    class FormController {
+        constructor(formEl) {
+            this.form = formEl;
+            this.inputs = formEl.querySelectorAll('x-input');
+            this.submitBtn = formEl.querySelector('#submit-btn');
+            this.resetBtn = formEl.querySelector('#reset-btn');
+            this.prefillBtn = formEl.querySelector('#prefill-btn');
+            this.output = document.getElementById('form-data');
+
+            this.bindEvents();
+            this.updateDisplay();
+        }
+
+        bindEvents() {
+            // Listen to input changes and update display
+            this.inputs.forEach(input => {
+                input.addEventListener('input-change', () => {
+                    this.updateDisplay();
+                });
+            });
+
+            // Form actions
+            this.submitBtn.addEventListener('button-click', () => {
+                this.handleSubmit();
+            });
+
+            this.resetBtn.addEventListener('button-click', () => {
+                this.handleReset();
+            });
+
+            this.prefillBtn.addEventListener('button-click', () => {
+                this.handlePrefill();
+            });
+
+            // Also listen to the actual form submit for native behavior
+            this.form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleSubmit();
+            });
+        }
+
+        handleSubmit() {
+            console.log('Form submitted!');
+
+            // Trigger validation on all inputs
+            this.inputs.forEach(input => {
+                input.dispatchEvent(new Event('blur'));
+            });
+
+            // Check if form is valid by looking at error attributes
+            const hasErrors = Array.from(this.inputs).some(input =>
+                input.hasAttribute('error')
+            );
+
+            if (hasErrors) {
+                console.log('Form has validation errors');
+                return;
+            }
+
+            // Collect form data from DOM attributes
+            const formData = {};
+            this.inputs.forEach(input => {
+                const name = input.id.replace('-input', '');
+                formData[name] = input.getAttribute('value') || '';
+            });
+
+            console.log('Form data:', formData);
+            alert('Form submitted successfully! Check console for data.');
+        }
+
+        handleReset() {
+            // Reset by clearing attributes
+            this.inputs.forEach(input => {
+                input.setAttr('value', '');
+                input.removeAttribute('error');
+            });
+        }
+
+        handlePrefill() {
+            // Prefill by setting attributes
+            document.getElementById('name-input').setAttr('value', 'Jane Doe');
+            document.getElementById('email-input').setAttr('value', 'jane@example.com');
+            document.getElementById('password-input').setAttr('value', 'secret123');
+        }
+
+        updateDisplay() {
+            // Show current DOM state
+            const data = {};
+            this.inputs.forEach(input => {
+                const name = input.id;
+                data[name] = {
+                    value: input.getAttribute('value') || '',
+                    error: input.getAttribute('error') || null,
+                    required: input.hasAttribute('required'),
+                    disabled: input.hasAttribute('disabled')
+                };
+            });
+
+            this.output.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+    }
+
+    // Initialize form controller
+    new FormController(document.getElementById('demo-form'));
+
+    // Demo: External attribute manipulation
+    setTimeout(() => {
+        console.log('Demo: Setting error on email field after 3 seconds');
+        document.getElementById('email-input').setAttr('error', 'This email is already taken');
+    }, 3000);
+
+    setTimeout(() => {
+        console.log('Demo: Clearing error after 6 seconds');
+        document.getElementById('email-input').removeAttribute('error');
+    }, 6000);
+</script>
+</body>
+</html>

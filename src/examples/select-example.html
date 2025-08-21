@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XSelect Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XSelect.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .demo-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .demo-section h3 {
+            margin-top: 0;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+<h1>XSelect Examples</h1>
+
+<div class="demo-section">
+    <h3>Basic Usage</h3>
+    <form id="basic-form">
+        <div class="form-group">
+            <x-select
+                    id="country-select"
+                    label="Country"
+                    placeholder="Select a country"
+                    required
+                    options='[
+            {"value":"us","label":"United States"},
+            {"value":"ca","label":"Canada"},
+            {"value":"mx","label":"Mexico"},
+            {"value":"uk","label":"United Kingdom"},
+            {"value":"de","label":"Germany"},
+            {"value":"fr","label":"France"}
+          ]'
+                    value="">
+            </x-select>
+        </div>
+
+        <div class="form-group">
+            <x-select
+                    id="size-select"
+                    label="T-Shirt Size"
+                    placeholder="Choose size"
+                    required
+                    options='[
+            {"value":"xs","label":"Extra Small"},
+            {"value":"s","label":"Small"},
+            {"value":"m","label":"Medium"},
+            {"value":"l","label":"Large"},
+            {"value":"xl","label":"Extra Large"},
+            {"value":"xxl","label":"2X Large"}
+          ]'
+                    value="m">
+            </x-select>
+        </div>
+
+        <div class="form-group">
+            <x-select
+                    id="disabled-select"
+                    label="Disabled Select"
+                    options='[{"value":"locked","label":"This is locked"}]'
+                    value="locked"
+                    disabled>
+            </x-select>
+        </div>
+
+        <div class="row">
+            <x-button id="submit-btn" label="Submit" variant="primary"></x-button>
+            <x-button id="reset-btn" label="Reset"></x-button>
+        </div>
+    </form>
+</div>
+
+<div class="demo-section">
+    <h3>Dynamic Options Management</h3>
+
+    <div class="form-group">
+        <x-select
+                id="dynamic-select"
+                label="Dynamic Options"
+                placeholder="Add some options first"
+                options='[]'
+                value="">
+        </x-select>
+    </div>
+
+    <div class="form-group">
+        <x-input
+                id="option-value"
+                label="Option Value"
+                placeholder="e.g., option1"
+                value="">
+        </x-input>
+    </div>
+
+    <div class="form-group">
+        <x-input
+                id="option-label"
+                label="Option Label"
+                placeholder="e.g., First Option"
+                value="">
+        </x-input>
+    </div>
+
+    <div class="row">
+        <x-button id="add-option-btn" label="Add Option" variant="primary"></x-button>
+        <x-button id="clear-options-btn" label="Clear All"></x-button>
+        <x-button id="load-preset-btn" label="Load Preset"></x-button>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h3>Cascading Selects</h3>
+
+    <div class="form-group">
+        <x-select
+                id="category-select"
+                label="Category"
+                placeholder="Select category"
+                options='[
+          {"value":"electronics","label":"Electronics"},
+          {"value":"clothing","label":"Clothing"},
+          {"value":"books","label":"Books"}
+        ]'
+                value="">
+        </x-select>
+    </div>
+
+    <div class="form-group">
+        <x-select
+                id="subcategory-select"
+                label="Subcategory"
+                placeholder="Select category first"
+                disabled
+                options='[]'
+                value="">
+        </x-select>
+    </div>
+</div>
+
+<div id="output">
+    <strong>Current State (DOM attributes):</strong><br>
+    <div id="state-data"></div>
+</div>
+
+<script type="module">
+    class SelectDemoController {
+        constructor() {
+            this.selects = document.querySelectorAll('x-select');
+            this.inputs = document.querySelectorAll('x-input');
+            this.stateOutput = document.getElementById('state-data');
+
+            this.bindEvents();
+            this.updateStateDisplay();
+            this.setupCascadingSelects();
+        }
+
+        bindEvents() {
+            // Listen to all select changes
+            this.selects.forEach(select => {
+                select.addEventListener('select-change', (e) => {
+                    console.log(`${select.id} changed:`, e.detail);
+                    this.updateStateDisplay();
+                });
+            });
+
+            // Listen to input changes for dynamic options
+            this.inputs.forEach(input => {
+                input.addEventListener('input-change', () => {
+                    this.updateStateDisplay();
+                });
+            });
+
+            // Basic form controls
+            document.getElementById('submit-btn').addEventListener('button-click', () => {
+                this.handleSubmit();
+            });
+
+            document.getElementById('reset-btn').addEventListener('button-click', () => {
+                this.handleReset();
+            });
+
+            // Dynamic options controls
+            document.getElementById('add-option-btn').addEventListener('button-click', () => {
+                this.addDynamicOption();
+            });
+
+            document.getElementById('clear-options-btn').addEventListener('button-click', () => {
+                this.clearDynamicOptions();
+            });
+
+            document.getElementById('load-preset-btn').addEventListener('button-click', () => {
+                this.loadPresetOptions();
+            });
+
+            // Cascading select
+            document.getElementById('category-select').addEventListener('select-change', (e) => {
+                this.updateSubcategories(e.detail.value);
+            });
+        }
+
+        handleSubmit() {
+            // Trigger validation
+            this.selects.forEach(select => {
+                select.dispatchEvent(new Event('blur'));
+            });
+
+            // Check for errors
+            const hasErrors = Array.from(this.selects).some(select =>
+                select.hasAttribute('error')
+            );
+
+            if (hasErrors) {
+                alert('Please fix validation errors');
+                return;
+            }
+
+            // Collect data
+            const formData = {};
+            this.selects.forEach(select => {
+                if (!select.hasAttribute('disabled')) {
+                    formData[select.id] = {
+                        value: select.getAttribute('value'),
+                        selectedOption: select.getSelectedOption()
+                    };
+                }
+            });
+
+            console.log('Form submitted:', formData);
+            alert('Form submitted! Check console for data.');
+        }
+
+        handleReset() {
+            this.selects.forEach(select => {
+                if (!select.hasAttribute('disabled')) {
+                    select.setAttr('value', '');
+                    select.removeAttribute('error');
+                }
+            });
+        }
+
+        addDynamicOption() {
+            const valueInput = document.getElementById('option-value');
+            const labelInput = document.getElementById('option-label');
+            const dynamicSelect = document.getElementById('dynamic-select');
+
+            const value = valueInput.getAttribute('value')?.trim();
+            const label = labelInput.getAttribute('value')?.trim();
+
+            if (!value) {
+                alert('Please enter an option value');
+                return;
+            }
+
+            dynamicSelect.addOption(value, label || value);
+
+            // Clear inputs
+            valueInput.setAttr('value', '');
+            labelInput.setAttr('value', '');
+        }
+
+        clearDynamicOptions() {
+            document.getElementById('dynamic-select').clearOptions();
+        }
+
+        loadPresetOptions() {
+            const dynamicSelect = document.getElementById('dynamic-select');
+            const presetOptions = [
+                { value: 'red', label: 'Red' },
+                { value: 'green', label: 'Green' },
+                { value: 'blue', label: 'Blue' },
+                { value: 'yellow', label: 'Yellow' }
+            ];
+
+            dynamicSelect.setAttr('options', JSON.stringify(presetOptions));
+        }
+
+        updateSubcategories(category) {
+            const subcategorySelect = document.getElementById('subcategory-select');
+
+            const subcategories = {
+                electronics: [
+                    { value: 'phones', label: 'Phones' },
+                    { value: 'laptops', label: 'Laptops' },
+                    { value: 'tablets', label: 'Tablets' }
+                ],
+                clothing: [
+                    { value: 'shirts', label: 'Shirts' },
+                    { value: 'pants', label: 'Pants' },
+                    { value: 'shoes', label: 'Shoes' }
+                ],
+                books: [
+                    { value: 'fiction', label: 'Fiction' },
+                    { value: 'non-fiction', label: 'Non-Fiction' },
+                    { value: 'technical', label: 'Technical' }
+                ]
+            };
+
+            if (category && subcategories[category]) {
+                subcategorySelect.setAttr('options', JSON.stringify(subcategories[category]));
+                subcategorySelect.removeAttribute('disabled');
+                subcategorySelect.setAttr('placeholder', 'Select subcategory');
+            } else {
+                subcategorySelect.setAttr('options', '[]');
+                subcategorySelect.setAttr('disabled', '');
+                subcategorySelect.setAttr('placeholder', 'Select category first');
+            }
+
+            // Reset subcategory value
+            subcategorySelect.setAttr('value', '');
+        }
+
+        updateStateDisplay() {
+            const state = {};
+
+            // Collect select states
+            this.selects.forEach(select => {
+                state[select.id] = {
+                    value: select.getAttribute('value') || '',
+                    options: select.getAttribute('options') || '[]',
+                    error: select.getAttribute('error') || null,
+                    disabled: select.hasAttribute('disabled'),
+                    required: select.hasAttribute('required')
+                };
+            });
+
+            // Collect input states for dynamic demo
+            this.inputs.forEach(input => {
+                if (input.id.startsWith('option-')) {
+                    state[input.id] = {
+                        value: input.getAttribute('value') || ''
+                    };
+                }
+            });
+
+            this.stateOutput.innerHTML = '<pre>' + JSON.stringify(state, null, 2) + '</pre>';
+        }
+
+        setupCascadingSelects() {
+            // Demo: Set an error after 3 seconds
+            setTimeout(() => {
+                document.getElementById('country-select').setAttr('error', 'This country is temporarily unavailable');
+            }, 3000);
+
+            // Clear error after 6 seconds
+            setTimeout(() => {
+                document.getElementById('country-select').removeAttribute('error');
+            }, 6000);
+        }
+    }
+
+    // Initialize demo
+    new SelectDemoController();
+</script>
+</body>
+</html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XDialog Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XSelect.js';
+        import '/src/elements/XCheckbox.js';
+        import '/src/elements/XTextarea.js';
+        import '/src/elements/XRadioGroup.js';
+        import '/src/elements/XFieldset.js';
+        import '/src/elements/XDialog.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 24px;
+            max-width: 1000px;
+            background: #f9fafb;
+        }
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .demo-section h2 {
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        #output {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .dialog-preview {
+            border: 2px dashed #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            background: #fafafa;
+        }
+        .dialog-preview h4 {
+            margin-top: 0;
+            color: #6b7280;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-open { background: #10b981; }
+        .status-closed { background: #6b7280; }
+    </style>
+</head>
+<body>
+<h1>XDialog Examples</h1>
+
+<div class="demo-section">
+    <h2>Basic Dialog Types</h2>
+
+    <div class="button-grid">
+        <x-button id="simple-dialog-btn" label="Simple Dialog" variant="primary"></x-button>
+        <x-button id="info-dialog-btn" label="Info Dialog"></x-button>
+        <x-button id="warning-dialog-btn" label="Warning Dialog"></x-button>
+        <x-button id="no-close-dialog-btn" label="No Close Button"></x-button>
+        <x-button id="small-dialog-btn" label="Small Dialog"></x-button>
+        <x-button id="large-dialog-btn" label="Large Dialog"></x-button>
+        <x-button id="full-dialog-btn" label="Full Width Dialog"></x-button>
+        <x-button id="no-backdrop-close-btn" label="No Backdrop Close"></x-button>
+    </div>
+
+    <div class="dialog-preview">
+        <h4>Dialog Status</h4>
+        <div id="dialog-status"></div>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h2>Static Dialog Methods</h2>
+
+    <div class="button-grid">
+        <x-button id="alert-btn" label="Alert Dialog" variant="primary"></x-button>
+        <x-button id="confirm-btn" label="Confirm Dialog"></x-button>
+        <x-button id="custom-alert-btn" label="Custom Alert"></x-button>
+        <x-button id="async-confirm-btn" label="Async Confirm"></x-button>
+    </div>
+
+    <div id="static-dialog-result" style="margin-top: 12px; padding: 8px; background: #f0f9ff; border-radius: 4px; display: none;">
+        <strong>Result:</strong> <span id="result-text"></span>
+    </div>
+</div>
+
+<div class="demo-section">
+    <h2>Form Integration</h2>
+
+    <x-button id="user-form-btn" label="User Registration Form" variant="primary"></x-button>
+    <x-button id="contact-form-btn" label="Contact Form"></x-button>
+    <x-button id="settings-form-btn" label="Settings Form"></x-button>
+
+    <div id="form-results" style="margin-top: 12px;"></div>
+</div>
+
+<div class="demo-section">
+    <h2>Advanced Examples</h2>
+
+    <div class="button-grid">
+        <x-button id="multi-step-btn" label="Multi-step Dialog"></x-button>
+        <x-button id="nested-dialog-btn" label="Nested Dialogs"></x-button>
+        <x-button id="dynamic-content-btn" label="Dynamic Content"></x-button>
+        <x-button id="programmatic-btn" label="Programmatic Control"></x-button>
+    </div>
+</div>
+
+<!-- Pre-defined dialogs -->
+
+<!-- Simple Dialog -->
+<x-dialog id="simple-dialog" title="Simple Dialog" size="medium">
+    <p>This is a basic dialog with some content. You can close it by clicking the X button, pressing Escape, or clicking outside.</p>
+    <p>The dialog automatically manages focus and prevents interaction with the background content.</p>
+</x-dialog>
+
+<!-- Info Dialog -->
+<x-dialog id="info-dialog" title="📢 Information" size="medium">
+    <p><strong>Important Information:</strong></p>
+    <ul>
+        <li>Dialogs support keyboard navigation (Tab, Shift+Tab, Escape)</li>
+        <li>Focus is automatically trapped within the dialog</li>
+        <li>Previous focus is restored when the dialog closes</li>
+        <li>Screen readers will announce the dialog properly</li>
+    </ul>
+</x-dialog>
+
+<!-- Warning Dialog -->
+<x-dialog id="warning-dialog" title="⚠️ Warning" size="small" backdrop-close="false">
+    <p style="color: #d97706; margin: 0;">This action cannot be undone. Are you sure you want to continue?</p>
+</x-dialog>
+
+<!-- No Close Button -->
+<x-dialog id="no-close-dialog" title="Processing..." size="small" escape-close="false" backdrop-close="false" show-close="false">
+    <div style="text-align: center; padding: 20px;">
+        <div style="border: 3px solid #e5e7eb; border-top: 3px solid var(--x-accent); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+        <p style="margin: 0;">Please wait while we process your request...</p>
+    </div>
+</x-dialog>
+
+<!-- Large Dialog -->
+<x-dialog id="large-dialog" title="Large Dialog Example" size="large">
+    <h3>Content Management</h3>
+    <p>This is a larger dialog that can contain more substantial content. It's useful for complex forms or detailed information displays.</p>
+
+    <h4>Features</h4>
+    <ul>
+        <li>Responsive sizing that adapts to content</li>
+        <li>Scrollable content area when needed</li>
+        <li>Proper spacing and typography</li>
+        <li>Support for complex layouts</li>
+    </ul>
+
+    <h4>Sample Content</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</x-dialog>
+
+<!-- User Registration Form Dialog -->
+<x-dialog id="user-form-dialog" title="User Registration" size="medium">
+    <form id="user-registration-form">
+        <x-fieldset id="user-basic-info" legend="Basic Information" required validate-on="change">
+            <div class="form-grid">
+                <x-input
+                        id="reg-first-name"
+                        label="First Name"
+                        type="text"
+                        placeholder="Enter first name"
+                        required
+                        value="">
+                </x-input>
+
+                <x-input
+                        id="reg-last-name"
+                        label="Last Name"
+                        type="text"
+                        placeholder="Enter last name"
+                        required
+                        value="">
+                </x-input>
+            </div>
+
+            <x-input
+                    id="reg-email"
+                    label="Email Address"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="reg-password"
+                    label="Password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                    value="">
+            </x-input>
+        </x-fieldset>
+
+        <x-fieldset id="user-preferences" legend="Preferences">
+            <x-radio-group
+                    id="reg-theme"
+                    label="Preferred Theme"
+                    name="theme"
+                    layout="horizontal"
+                    options='[
+            {"value":"light","label":"☀️ Light"},
+            {"value":"dark","label":"🌙 Dark"},
+            {"value":"auto","label":"🔄 Auto"}
+          ]'
+                    value="auto">
+            </x-radio-group>
+
+            <x-checkbox
+                    id="reg-newsletter"
+                    label="Subscribe to newsletter"
+                    value="newsletter">
+            </x-checkbox>
+
+            <x-checkbox
+                    id="reg-terms"
+                    label="I agree to the Terms of Service"
+                    required
+                    value="terms_accepted">
+            </x-checkbox>
+        </x-fieldset>
+    </form>
+</x-dialog>
+
+<!-- Contact Form Dialog -->
+<x-dialog id="contact-form-dialog" title="Contact Us" size="medium">
+    <form id="contact-form">
+        <x-fieldset id="contact-info" legend="Contact Information" required>
+            <x-input
+                    id="contact-name"
+                    label="Your Name"
+                    type="text"
+                    placeholder="Enter your name"
+                    required
+                    value="">
+            </x-input>
+
+            <x-input
+                    id="contact-email"
+                    label="Email Address"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                    value="">
+            </x-input>
+
+            <x-select
+                    id="contact-subject"
+                    label="Subject"
+                    placeholder="Select a subject"
+                    required
+                    options='[
+            {"value":"general","label":"General Inquiry"},
+            {"value":"support","label":"Technical Support"},
+            {"value":"billing","label":"Billing Question"},
+            {"value":"feature","label":"Feature Request"},
+            {"value":"bug","label":"Bug Report"}
+          ]'
+                    value="">
+            </x-select>
+
+            <x-textarea
+                    id="contact-message"
+                    label="Message"
+                    placeholder="Please describe your inquiry..."
+                    required
+                    auto-resize
+                    show-count
+                    max-length="1000"
+                    rows="4"
+                    value="">
+            </x-textarea>
+        </x-fieldset>
+    </form>
+</x-dialog>
+
+<div id="output">
+    <strong>Dialog Events Log:</strong><br>
+    <div id="events-log"></div>
+</div>
+
+<style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<script type="module">
+    class DialogDemoController {
+        constructor() {
+            this.dialogs = document.querySelectorAll('x-dialog');
+            this.eventsLog = document.getElementById('events-log');
+            this.statusIndicator = document.getElementById('dialog-status');
+            this.staticResult = document.getElementById('static-dialog-result');
+            this.resultText = document.getElementById('result-text');
+            this.formResults = document.getElementById('form-results');
+
+            this.bindEvents();
+            this.setupDialogEventLogging();
+            this.updateDialogStatus();
+        }
+
+        bindEvents() {
+            // Basic dialog triggers
+            document.getElementById('simple-dialog-btn').addEventListener('button-click', () => {
+                document.getElementById('simple-dialog').open();
+            });
+
+            document.getElementById('info-dialog-btn').addEventListener('button-click', () => {
+                document.getElementById('info-dialog').open();
+            });
+
+            document.getElementById('warning-dialog-btn').addEventListener('button-click', () => {
+                const dialog = document.getElementById('warning-dialog');
+
+                // Add custom action buttons
+                dialog.clearActions();
+
+                const cancelBtn = document.createElement('x-button');
+                cancelBtn.setAttr('label', 'Cancel');
+                cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+
+                const continueBtn = document.createElement('x-button');
+                continueBtn.setAttr('label', 'Continue');
+                continueBtn.setAttr('variant', 'primary');
+                continueBtn.addEventListener('button-click', () => {
+                    dialog.close('continue');
+                    this.showResult('User chose to continue with the warning action');
+                });
+
+                dialog.addAction(cancelBtn);
+                dialog.addAction(continueBtn);
+                dialog.open();
+            });
+
+            document.getElementById('no-close-dialog-btn').addEventListener('button-click', () => {
+                const dialog = document.getElementById('no-close-dialog');
+                dialog.open();
+
+                // Auto-close after 3 seconds
+                setTimeout(() => {
+                    dialog.close('timeout');
+                }, 3000);
+            });
+
+            document.getElementById('small-dialog-btn').addEventListener('button-click', () => {
+                this.showCustomDialog('Small Dialog', 'This is a small dialog for quick messages.', 'small');
+            });
+
+            document.getElementById('large-dialog-btn').addEventListener('button-click', () => {
+                document.getElementById('large-dialog').open();
+            });
+
+            document.getElementById('full-dialog-btn').addEventListener('button-click', () => {
+                this.showCustomDialog('Full Width Dialog', 'This dialog takes up most of the screen width, useful for complex layouts or data tables.', 'full');
+            });
+
+            document.getElementById('no-backdrop-close-btn').addEventListener('button-click', () => {
+                this.showCustomDialog('No Backdrop Close', 'This dialog cannot be closed by clicking outside. You must use the close button or Escape key.', 'medium', false);
+            });
+
+            // Static dialog methods
+            document.getElementById('alert-btn').addEventListener('button-click', async () => {
+                await XDialog.alert('This is an alert message!', 'Alert');
+                this.showResult('Alert was acknowledged');
+            });
+
+            document.getElementById('confirm-btn').addEventListener('button-click', async () => {
+                const result = await XDialog.confirm('Do you want to proceed?', 'Confirmation');
+                this.showResult(`Confirm result: ${result}`);
+            });
+
+            document.getElementById('custom-alert-btn').addEventListener('button-click', async () => {
+                await XDialog.alert('Your changes have been saved successfully!', '✅ Success');
+                this.showResult('Custom alert was shown');
+            });
+
+            document.getElementById('async-confirm-btn').addEventListener('button-click', async () => {
+                const confirmed = await XDialog.confirm('This will delete all your data. This action cannot be undone.', '⚠️ Dangerous Action');
+                if (confirmed) {
+                    await XDialog.alert('Data deletion simulated (not actually deleted!)', 'Deletion Complete');
+                    this.showResult('User confirmed dangerous action');
+                } else {
+                    this.showResult('User cancelled dangerous action');
+                }
+            });
+
+            // Form dialogs
+            document.getElementById('user-form-btn').addEventListener('button-click', () => {
+                this.openUserForm();
+            });
+
+            document.getElementById('contact-form-btn').addEventListener('button-click', () => {
+                this.openContactForm();
+            });
+
+            document.getElementById('settings-form-btn').addEventListener('button-click', () => {
+                this.openSettingsForm();
+            });
+
+            // Advanced examples
+            document.getElementById('multi-step-btn').addEventListener('button-click', () => {
+                this.showMultiStepDialog();
+            });
+
+            document.getElementById('nested-dialog-btn').addEventListener('button-click', () => {
+                this.showNestedDialogs();
+            });
+
+            document.getElementById('dynamic-content-btn').addEventListener('button-click', () => {
+                this.showDynamicContentDialog();
+            });
+
+            document.getElementById('programmatic-btn').addEventListener('button-click', () => {
+                this.showProgrammaticControlDemo();
+            });
+        }
+
+        setupDialogEventLogging() {
+            this.dialogs.forEach(dialog => {
+                dialog.addEventListener('dialog-open', (e) => {
+                    this.logEvent(`🔓 Dialog opened: ${dialog.id}`);
+                    this.updateDialogStatus();
+                });
+
+                dialog.addEventListener('dialog-close', (e) => {
+                    this.logEvent(`🔒 Dialog closing: ${dialog.id} (reason: ${e.detail.reason})`);
+                });
+
+                dialog.addEventListener('dialog-closed', (e) => {
+                    this.logEvent(`✅ Dialog closed: ${dialog.id} (reason: ${e.detail.reason})`);
+                    this.updateDialogStatus();
+                });
+            });
+        }
+
+        updateDialogStatus() {
+            const openDialogs = Array.from(this.dialogs).filter(d => d.hasAttribute('open'));
+
+            let statusHtml = '';
+            if (openDialogs.length === 0) {
+                statusHtml = '<span class="status-indicator status-closed"></span>No dialogs open';
+            } else {
+                statusHtml = openDialogs.map(d =>
+                    `<div><span class="status-indicator status-open"></span>${d.id}: "${d.getAttribute('title')}"</div>`
+                ).join('');
+            }
+
+            this.statusIndicator.innerHTML = statusHtml;
+        }
+
+        logEvent(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.style.cssText = 'padding: 2px 0; border-bottom: 1px solid #e5e7eb; font-size: 12px;';
+            logEntry.innerHTML = `<span style="color: #6b7280;">[${timestamp}]</span> ${message}`;
+
+            this.eventsLog.insertBefore(logEntry, this.eventsLog.firstChild);
+
+            // Keep only last 20 entries
+            while (this.eventsLog.children.length > 20) {
+                this.eventsLog.removeChild(this.eventsLog.lastChild);
+            }
+        }
+
+        showResult(message) {
+            this.resultText.textContent = message;
+            this.staticResult.style.display = 'block';
+
+            setTimeout(() => {
+                this.staticResult.style.display = 'none';
+            }, 5000);
+        }
+
+        showCustomDialog(title, content, size = 'medium', backdropClose = true) {
+            const dialog = document.createElement('x-dialog');
+            dialog.setAttr('title', title);
+            dialog.setAttr('size', size);
+            if (!backdropClose) {
+                dialog.setAttr('backdrop-close', 'false');
+            }
+            dialog.innerHTML = `<p style="margin: 0;">${content}</p>`;
+
+            document.body.appendChild(dialog);
+
+            dialog.addEventListener('dialog-closed', () => {
+                document.body.removeChild(dialog);
+            }, { once: true });
+
+            dialog.open();
+        }
+
+        openUserForm() {
+            const dialog = document.getElementById('user-form-dialog');
+
+            // Clear previous data
+            const form = document.getElementById('user-registration-form');
+            const fieldsets = form.querySelectorAll('x-fieldset');
+            fieldsets.forEach(fs => fs.resetFieldset());
+
+            // Add form action buttons
+            dialog.clearActions();
+
+            const cancelBtn = document.createElement('x-button');
+            cancelBtn.setAttr('label', 'Cancel');
+            cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+
+            const submitBtn = document.createElement('x-button');
+            submitBtn.setAttr('label', 'Register');
+            submitBtn.setAttr('variant', 'primary');
+            submitBtn.addEventListener('button-click', () => {
+                this.handleUserFormSubmit(dialog);
+            });
+
+            dialog.addAction(cancelBtn);
+            dialog.addAction(submitBtn);
+            dialog.open();
+        }
+
+        handleUserFormSubmit(dialog) {
+            // Validate all fieldsets
+            const fieldsets = dialog.querySelectorAll('x-fieldset');
+            let allValid = true;
+
+            fieldsets.forEach(fieldset => {
+                if (!fieldset.validate()) {
+                    allValid = false;
+                }
+            });
+
+            if (!allValid) {
+                XDialog.alert('Please fix the validation errors before submitting.', 'Validation Error');
+                return;
+            }
+
+            // Collect form data
+            const userData = {};
+            fieldsets.forEach(fieldset => {
+                Object.assign(userData, fieldset.getFieldsetValue());
+            });
+
+            dialog.close('submit');
+
+            this.formResults.innerHTML = `
+          <div style="background: #d1fae5; border: 1px solid #34d399; border-radius: 4px; padding: 12px; margin-top: 12px;">
+            <strong>User Registration Data:</strong>
+            <pre style="margin: 8px 0 0 0; font-size: 12px;">${JSON.stringify(userData, null, 2)}</pre>
+          </div>
+        `;
+        }
+
+        openContactForm() {
+            const dialog = document.getElementById('contact-form-dialog');
+
+            // Clear previous data
+            const fieldset = document.getElementById('contact-info');
+            fieldset.resetFieldset();
+
+            // Add form action buttons
+            dialog.clearActions();
+
+            const cancelBtn = document.createElement('x-button');
+            cancelBtn.setAttr('label', 'Cancel');
+            cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+
+            const submitBtn = document.createElement('x-button');
+            submitBtn.setAttr('label', 'Send Message');
+            submitBtn.setAttr('variant', 'primary');
+            submitBtn.addEventListener('button-click', () => {
+                if (fieldset.validate()) {
+                    const contactData = fieldset.getFieldsetValue();
+                    dialog.close('submit');
+
+                    this.formResults.innerHTML = `
+              <div style="background: #dbeafe; border: 1px solid #3b82f6; border-radius: 4px; padding: 12px; margin-top: 12px;">
+                <strong>Contact Form Data:</strong>
+                <pre style="margin: 8px 0 0 0; font-size: 12px;">${JSON.stringify(contactData, null, 2)}</pre>
+              </div>
+            `;
+                } else {
+                    XDialog.alert('Please complete all required fields.', 'Validation Error');
+                }
+            });
+
+            dialog.addAction(cancelBtn);
+            dialog.addAction(submitBtn);
+            dialog.open();
+        }
+
+        openSettingsForm() {
+            const dialog = document.createElement('x-dialog');
+            dialog.setAttr('title', 'Settings');
+            dialog.setAttr('size', 'medium');
+
+            dialog.innerHTML = `
+          <x-fieldset id="app-settings" legend="Application Settings" validate-on="change">
+            <x-radio-group
+              id="app-theme"
+              label="Theme"
+              name="app_theme"
+              layout="horizontal"
+              options='[
+                {"value":"light","label":"☀️ Light"},
+                {"value":"dark","label":"🌙 Dark"},
+                {"value":"auto","label":"🔄 Auto"}
+              ]'
+              value="auto">
+            </x-radio-group>
+
+            <x-select
+              id="app-language"
+              label="Language"
+              options='[
+                {"value":"en","label":"English"},
+                {"value":"es","label":"Español"},
+                {"value":"fr","label":"Français"},
+                {"value":"de","label":"Deutsch"}
+              ]'
+              value="en">
+            </x-select>
+
+            <x-checkbox
+              id="app-notifications"
+              label="Enable notifications"
+              checked
+              value="notifications_enabled">
+            </x-checkbox>
+
+            <x-checkbox
+              id="app-analytics"
+              label="Allow analytics"
+              value="analytics_enabled">
+            </x-checkbox>
+          </x-fieldset>
+        `;
+
+            document.body.appendChild(dialog);
+
+            const cancelBtn = document.createElement('x-button');
+            cancelBtn.setAttr('label', 'Cancel');
+            cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+
+            const saveBtn = document.createElement('x-button');
+            saveBtn.setAttr('label', 'Save Settings');
+            saveBtn.setAttr('variant', 'primary');
+            saveBtn.addEventListener('button-click', () => {
+                const settings = dialog.querySelector('#app-settings').getFieldsetValue();
+                dialog.close('save');
+
+                this.formResults.innerHTML = `
+            <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 4px; padding: 12px; margin-top: 12px;">
+              <strong>Settings Saved:</strong>
+              <pre style="margin: 8px 0 0 0; font-size: 12px;">${JSON.stringify(settings, null, 2)}</pre>
+            </div>
+          `;
+            });
+
+            dialog.addAction(cancelBtn);
+            dialog.addAction(saveBtn);
+
+            dialog.addEventListener('dialog-closed', () => {
+                document.body.removeChild(dialog);
+            }, { once: true });
+
+            dialog.open();
+        }
+
+        showMultiStepDialog() {
+            let currentStep = 1;
+            const totalSteps = 3;
+
+            const dialog = document.createElement('x-dialog');
+            dialog.setAttr('title', `Step ${currentStep} of ${totalSteps}`);
+            dialog.setAttr('size', 'medium');
+
+            const updateStep = () => {
+                dialog.setAttr('title', `Step ${currentStep} of ${totalSteps}`);
+
+                const steps = {
+                    1: '<h3>Personal Information</h3><p>Please enter your basic details to get started.</p>',
+                    2: '<h3>Preferences</h3><p>Tell us about your preferences and interests.</p>',
+                    3: '<h3>Review</h3><p>Please review your information before submitting.</p>'
+                };
+
+                dialog.innerHTML = steps[currentStep];
+
+                // Update buttons
+                dialog.clearActions();
+
+                if (currentStep > 1) {
+                    const backBtn = document.createElement('x-button');
+                    backBtn.setAttr('label', 'Back');
+                    backBtn.addEventListener('button-click', () => {
+                        currentStep--;
+                        updateStep();
+                    });
+                    dialog.addAction(backBtn);
+                }
+
+                const cancelBtn = document.createElement('x-button');
+                cancelBtn.setAttr('label', 'Cancel');
+                cancelBtn.addEventListener('button-click', () => dialog.close('cancel'));
+                dialog.addAction(cancelBtn);
+
+                if (currentStep < totalSteps) {
+                    const nextBtn = document.createElement('x-button');
+                    nextBtn.setAttr('label', 'Next');
+                    nextBtn.setAttr('variant', 'primary');
+                    nextBtn.addEventListener('button-click', () => {
+                        currentStep++;
+                        updateStep();
+                    });
+                    dialog.addAction(nextBtn);
+                } else {
+                    const finishBtn = document.createElement('x-button');
+                    finishBtn.setAttr('label', 'Finish');
+                    finishBtn.setAttr('variant', 'primary');
+                    finishBtn.addEventListener('button-click', () => {
+                        dialog.close('complete');
+                        this.showResult('Multi-step process completed!');
+                    });
+                    dialog.addAction(finishBtn);
+                }
+            };
+
+            document.body.appendChild(dialog);
+            updateStep();
+
+            dialog.addEventListener('dialog-closed', () => {
+                document.body.removeChild(dialog);
+            }, { once: true });
+
+            dialog.open();
+        }
+
+        showNestedDialogs() {
+            const parentDialog = document.createElement('x-dialog');
+            parentDialog.setAttr('title', 'Parent Dialog');
+            parentDialog.setAttr('size', 'medium');
+            parentDialog.innerHTML = '<p>This is the parent dialog. Click the button below to open a child dialog.</p>';
+
+            const openChildBtn = document.createElement('x-button');
+            openChildBtn.setAttr('label', 'Open Child Dialog');
+            openChildBtn.setAttr('variant', 'primary');
+            openChildBtn.addEventListener('button-click', () => {
+                const childDialog = document.createElement('x-dialog');
+                childDialog.setAttr('title', 'Child Dialog');
+                childDialog.setAttr('size', 'small');
+                childDialog.innerHTML = '<p>This is a child dialog. It appears on top of the parent dialog.</p>';
+
+                document.body.appendChild(childDialog);
+
+                childDialog.addEventListener('dialog-closed', () => {
+                    document.body.removeChild(childDialog);
+                }, { once: true });
+
+                childDialog.open();
+            });
+
+            const closeBtn = document.createElement('x-button');
+            closeBtn.setAttr('label', 'Close');
+            closeBtn.addEventListener('button-click', () => parentDialog.close('close'));
+
+            parentDialog.addAction(openChildBtn);
+            parentDialog.addAction(closeBtn);
+
+            document.body.appendChild(parentDialog);
+
+            parentDialog.addEventListener('dialog-closed', () => {
+                document.body.removeChild(parentDialog);
+            }, { once: true });
+
+            parentDialog.open();
+        }
+
+        showDynamicContentDialog() {
+            const dialog = document.createElement('x-dialog');
+            dialog.setAttr('title', 'Dynamic Content');
+            dialog.setAttr('size', 'medium');
+
+            let counter = 0;
+
+            const updateContent = () => {
+                counter++;
+                dialog.innerHTML = `
+            <p>Dynamic content update #${counter}</p>
+            <p>Current time: ${new Date().toLocaleTimeString()}</p>
+            <p>This content updates every 2 seconds while the dialog is open.</p>
+          `;
+            };
+
+            updateContent();
+            const interval = setInterval(updateContent, 2000);
+
+            const closeBtn = document.createElement('x-button');
+            closeBtn.setAttr('label', 'Close');
+            closeBtn.addEventListener('button-click', () => dialog.close('close'));
+            dialog.addAction(closeBtn);
+
+            document.body.appendChild(dialog);
+
+            dialog.addEventListener('dialog-closed', () => {
+                clearInterval(interval);
+                document.body.removeChild(dialog);
+            }, { once: true });
+
+            dialog.open();
+        }
+
+        showProgrammaticControlDemo() {
+            const dialog = document.createElement('x-dialog');
+            dialog.setAttr('title', 'Programmatic Control');
+            dialog.setAttr('size', 'medium');
+
+            dialog.innerHTML = `
+          <div>
+            <p>This dialog demonstrates programmatic control:</p>
+            <ul>
+              <li>Auto-close in 10 seconds</li>
+              <li>Title updates with countdown</li>
+              <li>Size changes halfway through</li>
+            </ul>
+            <div style="text-align: center; margin: 20px 0;">
+              <div style="font-size: 24px; font-weight: bold; color: var(--x-accent);" id="countdown">10</div>
+              <div>seconds remaining</div>
+            </div>
+          </div>
+        `;
+
+            document.body.appendChild(dialog);
+
+            let timeLeft = 10;
+            const countdownEl = dialog.querySelector('#countdown');
+
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                countdownEl.textContent = timeLeft;
+                dialog.setAttr('title', `Auto-closing in ${timeLeft}s`);
+
+                // Change size halfway through
+                if (timeLeft === 5) {
+                    dialog.setAttr('size', 'large');
+                    dialog.innerHTML += '<p style="color: #059669; margin-top: 16px;"><strong>Size changed to large!</strong></p>';
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    dialog.close('timeout');
+                }
+            }, 1000);
+
+            const forceCloseBtn = document.createElement('x-button');
+            forceCloseBtn.setAttr('label', 'Close Now');
+            forceCloseBtn.addEventListener('button-click', () => {
+                clearInterval(countdownInterval);
+                dialog.close('manual');
+            });
+            dialog.addAction(forceCloseBtn);
+
+            dialog.addEventListener('dialog-closed', () => {
+                clearInterval(countdownInterval);
+                document.body.removeChild(dialog);
+                this.showResult('Programmatic demo completed');
+            }, { once: true });
+
+            dialog.open();
+        }
+    }
+
+    // Initialize the demo controller
+    new DialogDemoController();
+
+    // Demo: Auto-open a dialog after page load
+    setTimeout(() => {
+        console.log('Demo: Auto-opening simple dialog');
+        document.getElementById('simple-dialog').open();
+    }, 1000);
+</script>
+</body>
+</html>
