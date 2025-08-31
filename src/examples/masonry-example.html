@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XMasonry Example</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XMasonry.js'; // Our new component
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--x-accent);
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .masonry-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .loading-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--x-accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .loading-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .no-more-indicator {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Custom styling for masonry items */
+        x-masonry::part(item) {
+            transition: all 0.3s ease;
+        }
+        x-masonry::part(item):hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* Modal styling */
+        x-masonry::part(modal) {
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>XMasonry Gallery</h1>
+    <p>Infinite masonry layout with virtualization and DOM-as-state architecture</p>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-value" id="total-items">0</div>
+            <div class="stat-label">Total Items</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="rendered-items">0</div>
+            <div class="stat-label">Rendered</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="current-page">0</div>
+            <div class="stat-label">Current Page</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="loading-status">Ready</div>
+            <div class="stat-label">Status</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <x-button id="refresh-btn" label="🔄 Refresh" variant="primary"></x-button>
+        <x-button id="load-more-btn" label="⬇️ Load More"></x-button>
+        <x-button id="change-pattern-btn" label="🔲 Change Pattern"></x-button>
+        <x-button id="toggle-gap-btn" label="📏 Toggle Gap"></x-button>
+        <x-button id="add-random-btn" label="➕ Add Random"></x-button>
+    </div>
+</div>
+
+<div class="masonry-wrapper">
+    <!-- The XMasonry component with DOM-as-state attributes -->
+    <x-masonry
+            id="gallery"
+            base-unit="200"
+            gap="12"
+            page-size="16"
+            virtualize-buffer="1500"
+            patterns='[
+            {"width": 2, "height": 1},
+            {"width": 1, "height": 2},
+            {"width": 2, "height": 2},
+            {"width": 1, "height": 1},
+            {"width": 3, "height": 1},
+            {"width": 1, "height": 3}
+        ]'>
+    </x-masonry>
+
+    <div id="no-more" class="no-more-indicator" style="display: none;">
+        🎉 You've seen all the images!
+    </div>
+</div>
+
+<div class="loading-indicator" id="loading-indicator">
+    Loading images...
+</div>
+
+<script type="module">
+    class MasonryDemoController {
+        constructor() {
+            this.masonry = document.getElementById('gallery');
+            this.currentImageSet = 'nature'; // nature, architecture, abstract
+            this.patterns = [
+                [{"width": 2, "height": 1}, {"width": 1, "height": 2}, {"width": 2, "height": 2}, {"width": 1, "height": 1}],
+                [{"width": 3, "height": 1}, {"width": 1, "height": 2}, {"width": 2, "height": 3}, {"width": 1, "height": 1}],
+                [{"width": 1, "height": 1}, {"width": 1, "height": 1}, {"width": 1, "height": 1}, {"width": 1, "height": 1}]
+            ];
+            this.currentPatternIndex = 0;
+
+            this.setupMasonry();
+            this.bindControls();
+            this.setupStatsUpdater();
+        }
+
+        setupMasonry() {
+            // Set up the fetch function for loading images
+            this.masonry.setFetchFunction(async (page, pageSize) => {
+                console.log(`Fetching page ${page} with ${pageSize} items`);
+
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+
+                const items = [];
+                for (let i = 0; i < pageSize; i++) {
+                    const imageIndex = page * pageSize + i + 1;
+
+                    // Generate different image sources (using placeholder services)
+                    const imageServices = [
+                        `https://picsum.photos/400/300?random=${imageIndex}`,
+                        `https://source.unsplash.com/400x300/?${this.currentImageSet}&sig=${imageIndex}`,
+                        `https://loremflickr.com/400/300/${this.currentImageSet}?random=${imageIndex}`
+                    ];
+
+                    const src = imageServices[imageIndex % imageServices.length];
+
+                    items.push({
+                        id: `img-${page}-${i}`,
+                        src: src,
+                        alt: `Image ${imageIndex}`,
+                        title: `Beautiful ${this.currentImageSet} image ${imageIndex}`,
+                        // Simulate some items failing to load occasionally
+                        ...(Math.random() < 0.1 ? { src: 'invalid-url' } : {})
+                    });
+                }
+
+                console.log(`Generated ${items.length} items for page ${page}`);
+                return items;
+            });
+
+            // Listen for masonry events
+            this.masonry.addEventListener('masonry-loaded', (e) => {
+                console.log('Masonry loaded:', e.detail);
+                this.updateLoadingIndicator(false);
+            });
+
+            this.masonry.addEventListener('masonry-error', (e) => {
+                console.error('Masonry error:', e.detail);
+                this.updateLoadingIndicator(false, 'Error');
+            });
+
+            this.masonry.addEventListener('masonry-modal-open', (e) => {
+                console.log('Modal opened for:', e.detail.imageSrc);
+            });
+        }
+
+        bindControls() {
+            // Refresh button
+            document.getElementById('refresh-btn').addEventListener('button-click', () => {
+                this.masonry.refresh();
+                this.updateLoadingIndicator(true);
+            });
+
+            // Load more button
+            document.getElementById('load-more-btn').addEventListener('button-click', () => {
+                // Manually trigger load more by setting has-more if it was removed
+                if (!this.masonry.hasAttribute('has-more')) {
+                    this.masonry.setAttr('has-more', 'true');
+                }
+                this.updateLoadingIndicator(true);
+                this.masonry._loadNextPage();
+            });
+
+            // Change pattern button
+            document.getElementById('change-pattern-btn').addEventListener('button-click', () => {
+                this.currentPatternIndex = (this.currentPatternIndex + 1) % this.patterns.length;
+                const newPatterns = this.patterns[this.currentPatternIndex];
+                this.masonry.setAttr('patterns', JSON.stringify(newPatterns));
+            });
+
+            // Toggle gap button
+            document.getElementById('toggle-gap-btn').addEventListener('button-click', () => {
+                const currentGap = Number(this.masonry.getAttribute('gap') || '12');
+                const newGap = currentGap === 12 ? 2 : 12;
+                this.masonry.setAttr('gap', String(newGap));
+            });
+
+            // Add random items button
+            document.getElementById('add-random-btn').addEventListener('button-click', () => {
+                const randomItems = Array.from({ length: 5 }, (_, i) => ({
+                    id: `random-${Date.now()}-${i}`,
+                    src: `https://picsum.photos/400/300?random=${Date.now() + i}`,
+                    alt: `Random image ${i}`,
+                    title: `Random image ${i}`
+                }));
+
+                this.masonry.addItems(randomItems);
+            });
+        }
+
+        setupStatsUpdater() {
+            // Update stats periodically
+            setInterval(() => {
+                const stats = this.masonry.getStats();
+
+                document.getElementById('total-items').textContent = stats.totalItems;
+                document.getElementById('rendered-items').textContent = stats.renderedItems;
+                document.getElementById('current-page').textContent = stats.currentPage;
+                document.getElementById('loading-status').textContent =
+                    stats.isLoading ? 'Loading...' : (stats.hasMore ? 'Ready' : 'Complete');
+
+                // Show/hide no more indicator
+                const noMoreEl = document.getElementById('no-more');
+                if (!stats.hasMore && stats.totalItems > 0) {
+                    noMoreEl.style.display = 'block';
+                } else {
+                    noMoreEl.style.display = 'none';
+                }
+            }, 1000);
+
+            // Listen for loading state changes
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'is-loading') {
+                        const isLoading = this.masonry.hasAttribute('is-loading');
+                        this.updateLoadingIndicator(isLoading);
+                    }
+                });
+            });
+
+            observer.observe(this.masonry, {
+                attributes: true,
+                attributeFilter: ['is-loading']
+            });
+        }
+
+        updateLoadingIndicator(isLoading, status = null) {
+            const indicator = document.getElementById('loading-indicator');
+
+            if (isLoading) {
+                indicator.textContent = 'Loading images...';
+                indicator.classList.add('show');
+            } else {
+                if (status) {
+                    indicator.textContent = status;
+                    setTimeout(() => indicator.classList.remove('show'), 2000);
+                } else {
+                    indicator.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    // Initialize the demo when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        new MasonryDemoController();
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+            switch (e.key) {
+                case 'r':
+                    e.preventDefault();
+                    document.getElementById('refresh-btn').dispatchEvent(
+                        new CustomEvent('button-click', { bubbles: true })
+                    );
+                    break;
+                case 'l':
+                    e.preventDefault();
+                    document.getElementById('load-more-btn').dispatchEvent(
+                        new CustomEvent('button-click', { bubbles: true })
+                    );
+                    break;
+            }
+        }
+    });
+
+    // Demo: Simulate some dynamic changes
+    setTimeout(() => {
+        console.log('Demo: Changing base unit size after 5 seconds');
+        const masonry = document.getElementById('gallery');
+        masonry.setAttr('base-unit', '180');
+    }, 5000);
+
+    setTimeout(() => {
+        console.log('Demo: Adding some bonus items after 10 seconds');
+        const masonry = document.getElementById('gallery');
+        const bonusItems = [
+            {
+                id: 'bonus-1',
+                src: 'https://picsum.photos/400/300?random=bonus1',
+                alt: 'Bonus image 1'
+            },
+            {
+                id: 'bonus-2',
+                src: 'https://picsum.photos/400/300?random=bonus2',
+                alt: 'Bonus image 2'
+            }
+        ];
+        masonry.addItems(bonusItems);
+    }, 10000);
+</script>
+
+</body>
+</html>
