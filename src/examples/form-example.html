@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Form Examples</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XInput.js';
+        import '/src/elements/XFieldset.js';
+        import '/src/elements/XSelect.js';
+        import '/src/elements/XCheckbox.js';
+        import '/src/elements/XTextarea.js';
+        import '/src/elements/XDialog.js';
+        import '/src/elements/XTabs.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 24px;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--x-accent), #6366f1);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 32px 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .demo-section {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .demo-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .demo-section h2 {
+            color: var(--x-accent);
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .demo-section p {
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .output-panel {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 24px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .output-panel h4 {
+            margin: 0 0 12px 0;
+            font-family: var(--font);
+            color: #374151;
+        }
+
+        .preview-data {
+            color: #059669;
+        }
+
+        .validation-summary {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .success-message {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Form Component Library</h1>
+        <p>Demonstrating DOM-as-State form components with real-time validation</p>
+    </div>
+
+    <div class="content">
+        <!-- Basic Contact Form -->
+        <div class="demo-section">
+            <h2>Contact Information Form</h2>
+            <p>A simple contact form with validation and real-time feedback.</p>
+
+            <form id="contact-form">
+                <x-fieldset
+                        id="contact-info"
+                        legend="Contact Details"
+                        required
+                        validate-on="change">
+
+                    <div class="form-grid">
+                        <x-input
+                                id="first-name"
+                                label="First Name"
+                                type="text"
+                                placeholder="Enter first name"
+                                required
+                                value="">
+                        </x-input>
+
+                        <x-input
+                                id="last-name"
+                                label="Last Name"
+                                type="text"
+                                placeholder="Enter last name"
+                                required
+                                value="">
+                        </x-input>
+                    </div>
+
+                    <x-input
+                            id="email"
+                            label="Email Address"
+                            type="email"
+                            placeholder="you@example.com"
+                            required
+                            value="">
+                    </x-input>
+
+                    <x-input
+                            id="phone"
+                            label="Phone Number"
+                            type="tel"
+                            placeholder="(555) 123-4567"
+                            value="">
+                    </x-input>
+
+                    <x-select
+                            id="inquiry-type"
+                            label="Inquiry Type"
+                            placeholder="Select inquiry type"
+                            required
+                            options='[
+                                {"value":"general","label":"General Question"},
+                                {"value":"support","label":"Technical Support"},
+                                {"value":"sales","label":"Sales Inquiry"},
+                                {"value":"partnership","label":"Partnership"}
+                            ]'
+                            value="">
+                    </x-select>
+
+                    <x-textarea
+                            id="message"
+                            label="Message"
+                            placeholder="Please describe your inquiry..."
+                            required
+                            rows="4"
+                            max-length="500"
+                            show-count
+                            value="">
+                    </x-textarea>
+
+                    <div class="form-group">
+                        <x-checkbox
+                                id="newsletter"
+                                label="Subscribe to our newsletter for updates"
+                                value="">
+                        </x-checkbox>
+
+                        <x-checkbox
+                                id="terms"
+                                label="I agree to the Terms of Service and Privacy Policy"
+                                required
+                                value="">
+                        </x-checkbox>
+                    </div>
+                </x-fieldset>
+
+                <div class="button-group">
+                    <x-button id="reset-btn" label="Reset Form"></x-button>
+                    <x-button id="submit-btn" label="Send Message" variant="primary"></x-button>
+                </div>
+            </form>
+
+            <div class="validation-summary" id="validation-errors">
+                <h4>Please fix the following errors:</h4>
+                <ul id="error-list"></ul>
+            </div>
+
+            <div class="success-message" id="success-message">
+                <strong>Success!</strong> Your message has been sent successfully.
+            </div>
+
+            <div class="output-panel">
+                <h4>Live Form Data Preview:</h4>
+                <div class="preview-data" id="form-preview">
+                    Form data will appear here as you type...
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Registration Form -->
+        <div class="demo-section">
+            <h2>User Registration Form</h2>
+            <p>A more complex form with multiple fieldsets and conditional fields.</p>
+
+            <x-tabs id="registration-tabs">
+                <x-tab id="personal-tab" label="Personal Info">
+                    <form id="registration-form">
+                        <x-fieldset
+                                id="personal-info"
+                                legend="Personal Information"
+                                required>
+
+                            <div class="form-grid">
+                                <x-input
+                                        id="reg-first-name"
+                                        label="First Name"
+                                        type="text"
+                                        placeholder="First name"
+                                        required
+                                        value="">
+                                </x-input>
+
+                                <x-input
+                                        id="reg-last-name"
+                                        label="Last Name"
+                                        type="text"
+                                        placeholder="Last name"
+                                        required
+                                        value="">
+                                </x-input>
+                            </div>
+
+                            <x-input
+                                    id="reg-email"
+                                    label="Email Address"
+                                    type="email"
+                                    placeholder="your.email@example.com"
+                                    required
+                                    value="">
+                            </x-input>
+
+                            <div class="form-grid">
+                                <x-input
+                                        id="reg-password"
+                                        label="Password"
+                                        type="password"
+                                        placeholder="Choose a secure password"
+                                        required
+                                        value="">
+                                </x-input>
+
+                                <x-input
+                                        id="confirm-password"
+                                        label="Confirm Password"
+                                        type="password"
+                                        placeholder="Repeat your password"
+                                        required
+                                        value="">
+                                </x-input>
+                            </div>
+
+                            <x-select
+                                    id="country"
+                                    label="Country"
+                                    placeholder="Select your country"
+                                    required
+                                    options='[
+                                        {"value":"us","label":"United States"},
+                                        {"value":"ca","label":"Canada"},
+                                        {"value":"uk","label":"United Kingdom"},
+                                        {"value":"de","label":"Germany"},
+                                        {"value":"fr","label":"France"},
+                                        {"value":"jp","label":"Japan"},
+                                        {"value":"au","label":"Australia"}
+                                    ]'
+                                    value="">
+                            </x-select>
+                        </x-fieldset>
+                    </form>
+                </x-tab>
+
+                <x-tab id="preferences-tab" label="Preferences">
+                    <x-fieldset
+                            id="user-preferences"
+                            legend="Account Preferences">
+
+                        <x-select
+                                id="account-type"
+                                label="Account Type"
+                                required
+                                options='[
+                                    {"value":"personal","label":"Personal Account"},
+                                    {"value":"business","label":"Business Account"},
+                                    {"value":"enterprise","label":"Enterprise Account"}
+                                ]'
+                                value="personal">
+                        </x-select>
+
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Communication Preferences:</label>
+                            <x-checkbox
+                                    id="email-updates"
+                                    label="Email updates about new features"
+                                    value="">
+                            </x-checkbox>
+
+                            <x-checkbox
+                                    id="marketing-emails"
+                                    label="Marketing emails and newsletters"
+                                    value="">
+                            </x-checkbox>
+
+                            <x-checkbox
+                                    id="sms-notifications"
+                                    label="SMS notifications for important updates"
+                                    value="">
+                            </x-checkbox>
+                        </div>
+
+                        <x-textarea
+                                id="bio"
+                                label="Bio (Optional)"
+                                placeholder="Tell us a bit about yourself..."
+                                rows="3"
+                                max-length="250"
+                                show-count
+                                value="">
+                        </x-textarea>
+                    </x-fieldset>
+                </x-tab>
+            </x-tabs>
+
+            <div class="button-group">
+                <x-button id="reg-reset-btn" label="Clear All"></x-button>
+                <x-button id="preview-btn" label="Preview Data"></x-button>
+                <x-button id="reg-submit-btn" label="Create Account" variant="primary"></x-button>
+            </div>
+
+            <div class="output-panel">
+                <h4>Registration Data:</h4>
+                <div class="preview-data" id="registration-preview">
+                    Registration data will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Dialog -->
+<x-dialog id="preview-dialog" title="Registration Preview" size="medium">
+    <div id="preview-content">
+        <h3>Account Summary</h3>
+        <div id="preview-details"></div>
+    </div>
+</x-dialog>
+
+<script type="module">
+    // Form Controller for DOM-as-State Management
+    class FormController {
+        constructor() {
+            this.initializeEventListeners();
+            this.setupRealTimePreview();
+            this.setupValidation();
+        }
+
+        initializeEventListeners() {
+            // Contact form handlers
+            const submitBtn = document.getElementById('submit-btn');
+            const resetBtn = document.getElementById('reset-btn');
+
+            submitBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleContactSubmit();
+            });
+
+            resetBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.resetContactForm();
+            });
+
+            // Registration form handlers
+            const regSubmitBtn = document.getElementById('reg-submit-btn');
+            const regResetBtn = document.getElementById('reg-reset-btn');
+            const previewBtn = document.getElementById('preview-btn');
+
+            regSubmitBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleRegistrationSubmit();
+            });
+
+            regResetBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.resetRegistrationForm();
+            });
+
+            previewBtn?.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.showPreview();
+            });
+        }
+
+        setupRealTimePreview() {
+            // Listen for input changes on all form elements
+            const contactForm = document.getElementById('contact-form');
+            const registrationForm = document.getElementById('registration-form');
+
+            if (contactForm) {
+                contactForm.addEventListener('input', () => {
+                    this.updateContactPreview();
+                });
+
+                // Listen for custom events from x-elements
+                contactForm.addEventListener('input-change', () => {
+                    this.updateContactPreview();
+                });
+
+                contactForm.addEventListener('select-change', () => {
+                    this.updateContactPreview();
+                });
+
+                contactForm.addEventListener('checkbox-change', () => {
+                    this.updateContactPreview();
+                });
+            }
+
+            if (registrationForm) {
+                registrationForm.addEventListener('input', () => {
+                    this.updateRegistrationPreview();
+                });
+
+                registrationForm.addEventListener('input-change', () => {
+                    this.updateRegistrationPreview();
+                });
+
+                registrationForm.addEventListener('select-change', () => {
+                    this.updateRegistrationPreview();
+                });
+            }
+        }
+
+        setupValidation() {
+            // Real-time validation for password matching
+            const password = document.getElementById('reg-password');
+            const confirmPassword = document.getElementById('confirm-password');
+
+            if (password && confirmPassword) {
+                const validatePasswords = () => {
+                    const pass1 = password.getAttribute('value') || '';
+                    const pass2 = confirmPassword.getAttribute('value') || '';
+
+                    if (pass2 && pass1 !== pass2) {
+                        confirmPassword.setAttribute('error', 'Passwords do not match');
+                    } else {
+                        confirmPassword.removeAttribute('error');
+                    }
+                };
+
+                password.addEventListener('input-change', validatePasswords);
+                confirmPassword.addEventListener('input-change', validatePasswords);
+            }
+        }
+
+        updateContactPreview() {
+            const preview = document.getElementById('form-preview');
+            if (!preview) return;
+
+            const formData = this.getContactFormData();
+            preview.innerHTML = `
+                    <strong>Contact Information:</strong><br>
+                    Name: ${formData.firstName} ${formData.lastName}<br>
+                    Email: ${formData.email}<br>
+                    Phone: ${formData.phone}<br>
+                    Inquiry: ${formData.inquiryType}<br>
+                    Newsletter: ${formData.newsletter ? 'Yes' : 'No'}<br>
+                    Terms Accepted: ${formData.terms ? 'Yes' : 'No'}<br>
+                    Message Length: ${formData.message.length} characters
+                `;
+        }
+
+        updateRegistrationPreview() {
+            const preview = document.getElementById('registration-preview');
+            if (!preview) return;
+
+            const formData = this.getRegistrationFormData();
+            preview.innerHTML = `
+                    <strong>Registration Data:</strong><br>
+                    Name: ${formData.firstName} ${formData.lastName}<br>
+                    Email: ${formData.email}<br>
+                    Country: ${formData.country}<br>
+                    Account Type: ${formData.accountType}<br>
+                    Preferences: ${formData.preferences.join(', ') || 'None selected'}
+                `;
+        }
+
+        getContactFormData() {
+            return {
+                firstName: document.getElementById('first-name')?.getAttribute('value') || '',
+                lastName: document.getElementById('last-name')?.getAttribute('value') || '',
+                email: document.getElementById('email')?.getAttribute('value') || '',
+                phone: document.getElementById('phone')?.getAttribute('value') || '',
+                inquiryType: document.getElementById('inquiry-type')?.getAttribute('value') || '',
+                message: document.getElementById('message')?.getAttribute('value') || '',
+                newsletter: document.getElementById('newsletter')?.hasAttribute('checked'),
+                terms: document.getElementById('terms')?.hasAttribute('checked')
+            };
+        }
+
+        getRegistrationFormData() {
+            const preferences = [];
+            if (document.getElementById('email-updates')?.hasAttribute('checked')) {
+                preferences.push('Email Updates');
+            }
+            if (document.getElementById('marketing-emails')?.hasAttribute('checked')) {
+                preferences.push('Marketing');
+            }
+            if (document.getElementById('sms-notifications')?.hasAttribute('checked')) {
+                preferences.push('SMS');
+            }
+
+            return {
+                firstName: document.getElementById('reg-first-name')?.getAttribute('value') || '',
+                lastName: document.getElementById('reg-last-name')?.getAttribute('value') || '',
+                email: document.getElementById('reg-email')?.getAttribute('value') || '',
+                country: document.getElementById('country')?.getAttribute('value') || '',
+                accountType: document.getElementById('account-type')?.getAttribute('value') || '',
+                preferences: preferences,
+                bio: document.getElementById('bio')?.getAttribute('value') || ''
+            };
+        }
+
+        handleContactSubmit() {
+            const formData = this.getContactFormData();
+            const errors = this.validateContactForm(formData);
+
+            const errorPanel = document.getElementById('validation-errors');
+            const successPanel = document.getElementById('success-message');
+
+            if (errors.length > 0) {
+                this.showErrors(errors);
+                errorPanel.style.display = 'block';
+                successPanel.style.display = 'none';
+            } else {
+                errorPanel.style.display = 'none';
+                successPanel.style.display = 'block';
+
+                // Simulate form submission
+                console.log('Contact form submitted:', formData);
+
+                // Reset form after successful submission
+                setTimeout(() => {
+                    this.resetContactForm();
+                    successPanel.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        handleRegistrationSubmit() {
+            const formData = this.getRegistrationFormData();
+            console.log('Registration form submitted:', formData);
+
+            // Show success message
+            alert('Account created successfully! Welcome to our platform.');
+
+            // Reset the form
+            this.resetRegistrationForm();
+        }
+
+        validateContactForm(data) {
+            const errors = [];
+
+            if (!data.firstName.trim()) errors.push('First name is required');
+            if (!data.lastName.trim()) errors.push('Last name is required');
+            if (!data.email.trim()) errors.push('Email is required');
+            if (data.email && !this.isValidEmail(data.email)) errors.push('Email format is invalid');
+            if (!data.inquiryType) errors.push('Inquiry type is required');
+            if (!data.message.trim()) errors.push('Message is required');
+            if (!data.terms) errors.push('You must accept the Terms of Service');
+
+            return errors;
+        }
+
+        isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        showErrors(errors) {
+            const errorList = document.getElementById('error-list');
+            if (!errorList) return;
+
+            errorList.innerHTML = errors.map(error => `<li>${error}</li>`).join('');
+        }
+
+        resetContactForm() {
+            // Reset all form elements by clearing their value attributes
+            const elements = [
+                'first-name', 'last-name', 'email', 'phone',
+                'inquiry-type', 'message'
+            ];
+
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.setAttribute('value', '');
+                }
+            });
+
+            // Reset checkboxes
+            ['newsletter', 'terms'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.removeAttribute('checked');
+                }
+            });
+
+            // Clear previews and messages
+            document.getElementById('form-preview').innerHTML = 'Form data will appear here as you type...';
+            document.getElementById('validation-errors').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        resetRegistrationForm() {
+            const elements = [
+                'reg-first-name', 'reg-last-name', 'reg-email',
+                'reg-password', 'confirm-password', 'country', 'bio'
+            ];
+
+            elements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.setAttribute('value', '');
+                }
+            });
+
+            // Reset checkboxes
+            ['email-updates', 'marketing-emails', 'sms-notifications'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.removeAttribute('checked');
+                }
+            });
+
+            // Reset select to default
+            const accountType = document.getElementById('account-type');
+            if (accountType) {
+                accountType.setAttribute('value', 'personal');
+            }
+
+            // Clear preview
+            document.getElementById('registration-preview').innerHTML = 'Registration data will appear here...';
+        }
+
+        showPreview() {
+            const data = this.getRegistrationFormData();
+            const dialog = document.getElementById('preview-dialog');
+            const content = document.getElementById('preview-details');
+
+            content.innerHTML = `
+                    <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>Country:</strong> ${data.country}</p>
+                    <p><strong>Account Type:</strong> ${data.accountType}</p>
+                    <p><strong>Communication Preferences:</strong> ${data.preferences.join(', ') || 'None selected'}</p>
+                    ${data.bio ? `<p><strong>Bio:</strong> ${data.bio}</p>` : ''}
+                `;
+
+            dialog.setAttribute('open', '');
+        }
+    }
+
+    // Initialize the form controller when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        new FormController();
+
+        // Demo: Auto-fill some data after a delay
+        setTimeout(() => {
+            document.getElementById('first-name')?.setAttribute('value', 'John');
+            document.getElementById('last-name')?.setAttribute('value', 'Doe');
+            document.getElementById('email')?.setAttribute('value', 'john.doe@example.com');
+        }, 2000);
+    });
+</script>
+</body>
+</html>

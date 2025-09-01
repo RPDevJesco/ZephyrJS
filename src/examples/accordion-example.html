@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XAccordion Example</title>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 24px;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--x-accent), #6366f1);
+            color: white;
+            padding: 32px 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            color: var(--x-accent);
+            margin: 0 0 8px 0;
+            font-size: 20px;
+        }
+
+        .demo-section p {
+            color: #64748b;
+            margin: 0 0 24px 0;
+        }
+
+        /* Simple Accordion Styles */
+        .simple-accordion {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            background: #f9fafb;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .accordion-header:hover {
+            background: #f3f4f6;
+        }
+
+        .accordion-header[aria-expanded="true"] {
+            background: #ede9fe;
+            color: var(--x-accent);
+        }
+
+        .accordion-icon {
+            transition: transform 0.2s;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .accordion-header[aria-expanded="true"] .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            background: white;
+        }
+
+        .accordion-content.expanded {
+            max-height: 2000px;
+            transition: max-height 0.3s ease-in, padding 0.3s ease-in;
+        }
+
+        .accordion-body {
+            padding: 0 16px;
+        }
+
+        .accordion-content.expanded .accordion-body {
+            padding: 16px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            background: var(--x-accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background: #4338ca;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .code-snippet {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 8px 0;
+            overflow-x: auto;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .status-panel {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📋 Simple Accordion Component</h1>
+        <p>Built from scratch with DOM-as-state principles</p>
+    </div>
+
+    <!-- Basic Accordion -->
+    <div class="demo-section">
+        <h2>Frequently Asked Questions</h2>
+        <p>A clean, functional accordion built with vanilla JavaScript and DOM-as-state architecture.</p>
+
+        <div class="simple-accordion" id="faq-accordion" data-multiple="true">
+            <div class="accordion-item" data-expanded="true">
+                <button class="accordion-header" aria-expanded="true" aria-controls="faq1">
+                    <span>❓ What is DOM-as-state architecture?</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content expanded" id="faq1">
+                    <div class="accordion-body">
+                        <p>DOM-as-state is a web development approach where the Document Object Model (DOM) serves as the primary source of truth for application state. Instead of maintaining separate state objects, component state is stored directly in element attributes.</p>
+                        <p><strong>Key benefits:</strong></p>
+                        <ul class="feature-list">
+                            <li>Eliminates state synchronization issues</li>
+                            <li>Reduces memory overhead</li>
+                            <li>Simplifies debugging</li>
+                            <li>Improves performance through direct DOM updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq2">
+                    <span>🚀 How do I get started?</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="faq2">
+                    <div class="accordion-body">
+                        <p>Getting started is easy! Follow these steps:</p>
+                        <ol>
+                            <li>Install the component library via npm</li>
+                            <li>Import the components you need</li>
+                            <li>Add components to your HTML</li>
+                            <li>Configure using attributes</li>
+                        </ol>
+                        <div class="code-snippet">npm install @zephyr/components
+                            import { SimpleAccordion } from '@zephyr/components';</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq3">
+                    <span>💻 Browser Support</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="faq3">
+                    <div class="accordion-body">
+                        <p>Our components work in all modern browsers:</p>
+                        <ul class="feature-list">
+                            <li>✅ Chrome 80+</li>
+                            <li>✅ Firefox 75+</li>
+                            <li>✅ Safari 13+</li>
+                            <li>✅ Edge 80+</li>
+                        </ul>
+                        <p>For older browsers, polyfills may be required for custom elements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq4">
+                    <span>🔧 Customization Options</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="faq4">
+                    <div class="accordion-body">
+                        <p>Components are highly customizable through:</p>
+                        <ul class="feature-list">
+                            <li><strong>CSS Custom Properties:</strong> Theme colors, fonts, spacing</li>
+                            <li><strong>Part Selectors:</strong> Style internal component parts</li>
+                            <li><strong>Attributes:</strong> Configure behavior and appearance</li>
+                            <li><strong>Slots:</strong> Insert custom content</li>
+                        </ul>
+                        <div class="code-snippet">.simple-accordion {
+                            border-radius: 12px;
+                            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                            }</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq5">
+                    <span>📧 Support & Community</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="faq5">
+                    <div class="accordion-body">
+                        <p>Get help and connect with the community:</p>
+                        <ul class="feature-list">
+                            <li>📚 <strong>Documentation:</strong> Comprehensive guides and API references</li>
+                            <li>💬 <strong>Discord:</strong> Real-time community support</li>
+                            <li>🐛 <strong>GitHub:</strong> Bug reports and feature requests</li>
+                            <li>📬 <strong>Email:</strong> Direct support for premium users</li>
+                        </ul>
+                        <p>We typically respond to support requests within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="expandAll()">Expand All</button>
+            <button class="btn btn-secondary" onclick="collapseAll()">Collapse All</button>
+            <button class="btn" onclick="addNewSection()">Add Section</button>
+            <button class="btn btn-secondary" onclick="toggleFirst()">Toggle First</button>
+        </div>
+
+        <div class="status-panel" id="status">
+            Ready. Try clicking the accordion headers or using the controls above.
+        </div>
+    </div>
+
+    <!-- API Demo -->
+    <div class="demo-section">
+        <h2>API Documentation</h2>
+        <p>Programmatic control and event handling examples.</p>
+
+        <div class="simple-accordion" id="api-accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="events">
+                    <span>🎯 Events</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="events">
+                    <div class="accordion-body">
+                        <p>The accordion dispatches custom events:</p>
+                        <div class="code-snippet">// Listen for toggle events
+                            accordion.addEventListener('accordion-toggle', (e) => {
+                            console.log('Toggled:', e.detail.section);
+                            });
+
+                            // Listen for expand/collapse
+                            accordion.addEventListener('accordion-expand', (e) => {
+                            console.log('Expanded:', e.detail.section);
+                            });</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="methods">
+                    <span>🔧 Methods</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="methods">
+                    <div class="accordion-body">
+                        <p>Available methods for programmatic control:</p>
+                        <div class="code-snippet">// Expand a section
+                            expandSection('faq1');
+
+                            // Collapse a section
+                            collapseSection('faq1');
+
+                            // Toggle a section
+                            toggleSection('faq1');
+
+                            // Add new section dynamically
+                            addSection('new-id', 'Title', 'Content');</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="attributes">
+                    <span>⚙️ DOM Attributes</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content" id="attributes">
+                    <div class="accordion-body">
+                        <p>State is stored in DOM attributes:</p>
+                        <div class="code-snippet"><!-- Accordion configuration -->
+                            &lt;div class="simple-accordion" data-multiple="true"&gt;
+
+                            &lt;!-- Individual items --&gt;
+                            &lt;div class="accordion-item" data-expanded="true"&gt;
+                            &lt;button aria-expanded="true"&gt;Title&lt;/button&gt;
+                            &lt;div class="accordion-content expanded"&gt;...&lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;/div&gt;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Demo -->
+    <div class="demo-section">
+        <h2>Dynamic Content</h2>
+        <p>Add and remove accordion sections dynamically.</p>
+
+        <div class="simple-accordion" id="dynamic-accordion">
+            <div class="accordion-item" data-expanded="true">
+                <button class="accordion-header" aria-expanded="true" aria-controls="welcome">
+                    <span>👋 Welcome</span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content expanded" id="welcome">
+                    <div class="accordion-body">
+                        <p>This accordion can be modified in real-time. Use the controls below to add new sections dynamically!</p>
+                        <p><strong>Current time:</strong> <span id="current-time"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="addRandomSection()">Add Random Section</button>
+            <button class="btn" onclick="addTimeSection()">Add Time Section</button>
+            <button class="btn btn-secondary" onclick="removeLastSection()">Remove Last</button>
+            <button class="btn btn-secondary" onclick="clearDynamicAccordion()">Clear All</button>
+        </div>
+
+        <div class="status-panel" id="dynamic-status">
+            Dynamic accordion ready. Sections added: 0
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple Accordion Implementation
+    class SimpleAccordion {
+        constructor(element) {
+            this.element = element;
+            this.isMultiple = element.hasAttribute('data-multiple');
+            this.init();
+        }
+
+        init() {
+            // Add click listeners to all headers
+            const headers = this.element.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                header.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.toggle(header);
+                });
+            });
+        }
+
+        toggle(header) {
+            const item = header.closest('.accordion-item');
+            const content = header.nextElementSibling;
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+            // Dispatch toggle event
+            this.dispatchEvent('accordion-toggle', {
+                section: content.id,
+                expanded: !isExpanded
+            });
+
+            if (isExpanded) {
+                this.collapse(header, content, item);
+            } else {
+                // If not multiple, collapse others first
+                if (!this.isMultiple) {
+                    this.collapseAll();
+                }
+                this.expand(header, content, item);
+            }
+        }
+
+        expand(header, content, item) {
+            header.setAttribute('aria-expanded', 'true');
+            content.classList.add('expanded');
+            item.setAttribute('data-expanded', 'true');
+
+            this.dispatchEvent('accordion-expand', { section: content.id });
+        }
+
+        collapse(header, content, item) {
+            header.setAttribute('aria-expanded', 'false');
+            content.classList.remove('expanded');
+            item.removeAttribute('data-expanded');
+
+            this.dispatchEvent('accordion-collapse', { section: content.id });
+        }
+
+        expandAll() {
+            if (!this.isMultiple) return false;
+
+            const headers = this.element.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                const content = header.nextElementSibling;
+                const item = header.closest('.accordion-item');
+                if (header.getAttribute('aria-expanded') !== 'true') {
+                    this.expand(header, content, item);
+                }
+            });
+            return true;
+        }
+
+        collapseAll() {
+            const headers = this.element.querySelectorAll('.accordion-header');
+            headers.forEach(header => {
+                const content = header.nextElementSibling;
+                const item = header.closest('.accordion-item');
+                if (header.getAttribute('aria-expanded') === 'true') {
+                    this.collapse(header, content, item);
+                }
+            });
+        }
+
+        expandSection(sectionId) {
+            const content = this.element.querySelector(`#${sectionId}`);
+            if (!content) return false;
+
+            const header = content.previousElementSibling;
+            const item = header.closest('.accordion-item');
+
+            if (header.getAttribute('aria-expanded') !== 'true') {
+                if (!this.isMultiple) {
+                    this.collapseAll();
+                }
+                this.expand(header, content, item);
+            }
+            return true;
+        }
+
+        collapseSection(sectionId) {
+            const content = this.element.querySelector(`#${sectionId}`);
+            if (!content) return false;
+
+            const header = content.previousElementSibling;
+            const item = header.closest('.accordion-item');
+
+            if (header.getAttribute('aria-expanded') === 'true') {
+                this.collapse(header, content, item);
+            }
+            return true;
+        }
+
+        addSection(id, title, content) {
+            const item = document.createElement('div');
+            item.className = 'accordion-item';
+
+            item.innerHTML = `
+                    <button class="accordion-header" aria-expanded="false" aria-controls="${id}">
+                        <span>${title}</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content" id="${id}">
+                        <div class="accordion-body">
+                            ${content}
+                        </div>
+                    </div>
+                `;
+
+            this.element.appendChild(item);
+
+            // Add click listener to the new header
+            const header = item.querySelector('.accordion-header');
+            header.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.toggle(header);
+            });
+
+            return true;
+        }
+
+        removeSection(sectionId) {
+            const content = this.element.querySelector(`#${sectionId}`);
+            if (content) {
+                const item = content.closest('.accordion-item');
+                item.remove();
+                return true;
+            }
+            return false;
+        }
+
+        dispatchEvent(type, detail) {
+            const event = new CustomEvent(type, {
+                bubbles: true,
+                cancelable: true,
+                detail: detail
+            });
+            this.element.dispatchEvent(event);
+        }
+    }
+
+    // Initialize accordions
+    let accordions = {};
+    let sectionCounter = 0;
+
+    function initAccordions() {
+        const accordionElements = document.querySelectorAll('.simple-accordion');
+        accordionElements.forEach((element, index) => {
+            const id = element.id || `accordion-${index}`;
+            accordions[id] = new SimpleAccordion(element);
+        });
+
+        // Start time updates
+        updateTime();
+        setInterval(updateTime, 1000);
+    }
+
+    function updateTime() {
+        const timeEl = document.getElementById('current-time');
+        if (timeEl) {
+            timeEl.textContent = new Date().toLocaleTimeString();
+        }
+    }
+
+    // Control functions
+    function expandAll() {
+        const success = accordions['faq-accordion'].expandAll();
+        updateStatus(success ? 'Expanded all sections' : 'Cannot expand all (multiple mode disabled)');
+    }
+
+    function collapseAll() {
+        accordions['faq-accordion'].collapseAll();
+        updateStatus('Collapsed all sections');
+    }
+
+    function toggleFirst() {
+        const firstHeader = document.querySelector('#faq-accordion .accordion-header');
+        accordions['faq-accordion'].toggle(firstHeader);
+        updateStatus('Toggled first section');
+    }
+
+    function addNewSection() {
+        sectionCounter++;
+        const id = `new-section-${sectionCounter}`;
+        const title = `🆕 New Section ${sectionCounter}`;
+        const content = `<p>This section was added dynamically at ${new Date().toLocaleTimeString()}.</p><p>It demonstrates how the DOM-as-state approach makes it easy to add content programmatically.</p>`;
+
+        accordions['faq-accordion'].addSection(id, title, content);
+        setTimeout(() => {
+            accordions['faq-accordion'].expandSection(id);
+        }, 100);
+
+        updateStatus(`Added new section: ${title}`);
+    }
+
+    function addRandomSection() {
+        const topics = [
+            { title: '🎨 Design Principles', content: 'Beautiful and intuitive user interface design principles and best practices.' },
+            { title: '⚡ Performance', content: 'Optimized for speed with minimal memory footprint and fast rendering.' },
+            { title: '🔒 Security', content: 'Built with security in mind, following industry best practices and standards.' },
+            { title: '🌐 Accessibility', content: 'Fully accessible components that work with screen readers and keyboard navigation.' },
+            { title: '📱 Mobile Ready', content: 'Responsive design that works perfectly on all device sizes and orientations.' }
+        ];
+
+        const topic = topics[Math.floor(Math.random() * topics.length)];
+        sectionCounter++;
+        const id = `random-${sectionCounter}`;
+
+        accordions['dynamic-accordion'].addSection(id, topic.title, `<p>${topic.content}</p><p><small>Added at ${new Date().toLocaleTimeString()}</small></p>`);
+
+        setTimeout(() => {
+            accordions['dynamic-accordion'].expandSection(id);
+        }, 100);
+
+        updateDynamicStatus(`Added: ${topic.title}`);
+    }
+
+    function addTimeSection() {
+        sectionCounter++;
+        const now = new Date();
+        const id = `time-${sectionCounter}`;
+        const content = `
+                <p><strong>Generated at:</strong> ${now.toLocaleString()}</p>
+                <p><strong>Timestamp:</strong> ${now.getTime()}</p>
+                <p><strong>Random ID:</strong> ${Math.random().toString(36).substr(2, 9)}</p>
+            `;
+
+        accordions['dynamic-accordion'].addSection(id, `⏰ Time Section ${sectionCounter}`, content);
+        updateDynamicStatus(`Added time section ${sectionCounter}`);
+    }
+
+    function removeLastSection() {
+        const dynamicAccordion = document.getElementById('dynamic-accordion');
+        const items = dynamicAccordion.querySelectorAll('.accordion-item');
+
+        if (items.length > 1) { // Keep the welcome section
+            const lastItem = items[items.length - 1];
+            const content = lastItem.querySelector('.accordion-content');
+            accordions['dynamic-accordion'].removeSection(content.id);
+            updateDynamicStatus('Removed last section');
+        } else {
+            updateDynamicStatus('Cannot remove welcome section');
+        }
+    }
+
+    function clearDynamicAccordion() {
+        const dynamicAccordion = document.getElementById('dynamic-accordion');
+        const items = dynamicAccordion.querySelectorAll('.accordion-item');
+
+        // Remove all except the first (welcome) section
+        for (let i = 1; i < items.length; i++) {
+            const content = items[i].querySelector('.accordion-content');
+            accordions['dynamic-accordion'].removeSection(content.id);
+        }
+
+        sectionCounter = 0;
+        updateDynamicStatus('Cleared all dynamic sections');
+    }
+
+    function updateStatus(message) {
+        const status = document.getElementById('status');
+        status.textContent = message;
+        setTimeout(() => {
+            status.textContent = 'Ready. Try clicking the accordion headers or using the controls above.';
+        }, 3000);
+    }
+
+    function updateDynamicStatus(message) {
+        const status = document.getElementById('dynamic-status');
+        const count = document.getElementById('dynamic-accordion').querySelectorAll('.accordion-item').length - 1;
+        status.textContent = `${message}. Sections added: ${count}`;
+    }
+
+    // Event listeners
+    document.addEventListener('accordion-toggle', (e) => {
+        console.log('Accordion toggled:', e.detail);
+    });
+
+    document.addEventListener('accordion-expand', (e) => {
+        console.log('Section expanded:', e.detail);
+    });
+
+    document.addEventListener('accordion-collapse', (e) => {
+        console.log('Section collapsed:', e.detail);
+    });
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAccordions);
+    } else {
+        initAccordions();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XBreadcrumb Examples</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XBreadcrumb.js';
+        import '/src/elements/XButton.js';
+        import '/src/elements/XDialog.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #4f46e5;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 24px;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--x-accent), #6366f1);
+            color: white;
+            padding: 32px 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            color: var(--x-accent);
+            margin: 0 0 8px 0;
+            font-size: 20px;
+        }
+
+        .demo-section p {
+            color: #64748b;
+            margin: 0 0 24px 0;
+        }
+
+        .breadcrumb-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .breadcrumb-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .nav-simulation {
+            background: #1e293b;
+            color: white;
+            border-radius: 6px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .nav-simulation h4 {
+            margin: 0 0 12px 0;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .nav-link {
+            background: #374151;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-link:hover {
+            background: #4b5563;
+        }
+
+        .nav-link.current {
+            background: var(--x-accent);
+        }
+
+        .code-example {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .status-panel {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        /* Custom breadcrumb styling */
+        x-breadcrumb::part(nav) {
+            background: transparent;
+        }
+
+        x-breadcrumb::part(list) {
+            margin: 0;
+            padding: 0;
+        }
+
+        x-breadcrumb::part(item) {
+            display: flex;
+            align-items: center;
+        }
+
+        x-breadcrumb a {
+            color: var(--x-accent);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        x-breadcrumb a:hover {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        x-breadcrumb [aria-current="page"] {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .separator {
+            color: #9ca3af;
+            margin: 0 4px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🧭 XBreadcrumb Component</h1>
+        <p>Navigation breadcrumbs with DOM-as-state architecture</p>
+    </div>
+
+    <!-- Basic Breadcrumb -->
+    <div class="demo-section">
+        <h2>Basic Breadcrumb Navigation</h2>
+        <p>Simple breadcrumb with static navigation items.</p>
+
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-label">Home › Products › Electronics</div>
+            <x-breadcrumb
+                    id="basic-breadcrumb"
+                    path='[
+                        {"label":"Home","href":"/"},
+                        {"label":"Products","href":"/products"},
+                        {"label":"Electronics","current":true}
+                    ]'
+                    separator="›">
+            </x-breadcrumb>
+        </div>
+
+        <div class="code-example">
+            &lt;x-breadcrumb
+            path='[
+            {"label":"Home","href":"/"},
+            {"label":"Products","href":"/products"},
+            {"label":"Electronics","current":true}
+            ]'
+            separator="›"&gt;
+            &lt;/x-breadcrumb&gt;
+        </div>
+    </div>
+
+    <!-- Interactive Breadcrumb -->
+    <div class="demo-section">
+        <h2>Interactive Breadcrumb</h2>
+        <p>Dynamic breadcrumb that responds to navigation and can be programmatically controlled.</p>
+
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-label">Dynamic Navigation Path</div>
+            <x-breadcrumb
+                    id="dynamic-breadcrumb"
+                    path='[{"label":"Dashboard","href":"/dashboard","current":true}]'
+                    separator="/"
+                    home-icon="🏠">
+            </x-breadcrumb>
+        </div>
+
+        <div class="controls">
+            <x-button id="nav-users" label="Navigate to Users"></x-button>
+            <x-button id="nav-profile" label="Go to Profile"></x-button>
+            <x-button id="nav-settings" label="Open Settings"></x-button>
+            <x-button id="nav-back" label="Go Back"></x-button>
+            <x-button id="nav-reset" label="Reset to Home"></x-button>
+        </div>
+
+        <div class="nav-simulation">
+            <h4>Simulate Page Navigation:</h4>
+            <div class="nav-links">
+                <a href="#" class="nav-link current" data-path='[{"label":"Dashboard","href":"/dashboard","current":true}]'>Dashboard</a>
+                <a href="#" class="nav-link" data-path='[{"label":"Dashboard","href":"/dashboard"},{"label":"Users","href":"/users","current":true}]'>Users</a>
+                <a href="#" class="nav-link" data-path='[{"label":"Dashboard","href":"/dashboard"},{"label":"Users","href":"/users"},{"label":"John Doe","current":true}]'>User Profile</a>
+                <a href="#" class="nav-link" data-path='[{"label":"Dashboard","href":"/dashboard"},{"label":"Settings","href":"/settings","current":true}]'>Settings</a>
+                <a href="#" class="nav-link" data-path='[{"label":"Dashboard","href":"/dashboard"},{"label":"Settings","href":"/settings"},{"label":"Account","current":true}]'>Account Settings</a>
+            </div>
+        </div>
+
+        <div class="status-panel" id="navigation-status">
+            Ready to navigate. Click any button or link above.
+        </div>
+    </div>
+
+    <!-- Truncated Breadcrumb -->
+    <div class="demo-section">
+        <h2>Truncated Breadcrumb</h2>
+        <p>Long navigation paths automatically collapse to prevent overflow.</p>
+
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-label">Long Path with Auto-Collapse</div>
+            <x-breadcrumb
+                    id="truncated-breadcrumb"
+                    path='[
+                        {"label":"Home","href":"/"},
+                        {"label":"E-commerce","href":"/ecommerce"},
+                        {"label":"Categories","href":"/categories"},
+                        {"label":"Electronics","href":"/electronics"},
+                        {"label":"Computers","href":"/computers"},
+                        {"label":"Laptops","href":"/laptops"},
+                        {"label":"Gaming","href":"/gaming"},
+                        {"label":"MacBook Pro","current":true}
+                    ]'
+                    max-items="4"
+                    separator="›">
+            </x-breadcrumb>
+        </div>
+
+        <div class="controls">
+            <x-button id="show-all" label="Show All Items"></x-button>
+            <x-button id="limit-3" label="Limit to 3 Items"></x-button>
+            <x-button id="limit-5" label="Limit to 5 Items"></x-button>
+            <x-button id="add-level" label="Add Deeper Level"></x-button>
+        </div>
+
+        <div class="code-example">
+            &lt;x-breadcrumb
+            max-items="4"
+            path='[...longPathArray...]'&gt;
+            &lt;/x-breadcrumb&gt;
+        </div>
+    </div>
+
+    <!-- E-commerce Example -->
+    <div class="demo-section">
+        <h2>E-commerce Navigation</h2>
+        <p>Realistic e-commerce breadcrumb with category navigation.</p>
+
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-label">Shop Navigation</div>
+            <x-breadcrumb
+                    id="ecommerce-breadcrumb"
+                    path='[
+                        {"label":"🏠 Home","href":"/"},
+                        {"label":"📱 Electronics","href":"/electronics"},
+                        {"label":"💻 Laptops","href":"/laptops"},
+                        {"label":"MacBook Pro 16-inch","current":true}
+                    ]'
+                    separator="/"
+                    clickable-current="false">
+            </x-breadcrumb>
+        </div>
+
+        <div class="nav-simulation">
+            <h4>Browse Categories:</h4>
+            <div class="nav-links">
+                <a href="#" class="nav-link" data-ecommerce='[{"label":"🏠 Home","href":"/","current":true}]'>Home</a>
+                <a href="#" class="nav-link" data-ecommerce='[{"label":"🏠 Home","href":"/"},{"label":"👕 Clothing","href":"/clothing","current":true}]'>Clothing</a>
+                <a href="#" class="nav-link" data-ecommerce='[{"label":"🏠 Home","href":"/"},{"label":"👕 Clothing","href":"/clothing"},{"label":"👔 Men","href":"/mens","current":true}]'>Men\'s Clothing</a>
+                <a href="#" class="nav-link" data-ecommerce='[{"label":"🏠 Home","href":"/"},{"label":"📚 Books","href":"/books","current":true}]'>Books</a>
+                <a href="#" class="nav-link" data-ecommerce='[{"label":"🏠 Home","href":"/"},{"label":"🎮 Gaming","href":"/gaming"},{"label":"🎯 Accessories","href":"/accessories","current":true}]'>Gaming Accessories</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Demo -->
+    <div class="demo-section">
+        <h2>Programmatic API</h2>
+        <p>Control breadcrumbs through JavaScript API methods.</p>
+
+        <div class="breadcrumb-container">
+            <div class="breadcrumb-label">API-Controlled Breadcrumb</div>
+            <x-breadcrumb
+                    id="api-breadcrumb"
+                    path='[{"label":"Start","current":true}]'>
+            </x-breadcrumb>
+        </div>
+
+        <div class="controls">
+            <x-button id="api-add" label="Add Item"></x-button>
+            <x-button id="api-remove" label="Remove Last"></x-button>
+            <x-button id="api-clear" label="Clear All"></x-button>
+            <x-button id="api-navigate" label="Navigate to Index 1"></x-button>
+            <x-button id="api-get-path" label="Get Current Path"></x-button>
+        </div>
+
+        <div class="code-example" id="api-output">
+            // API Examples:
+            breadcrumb.addItem('New Section', '/section');
+            breadcrumb.removeLastItem();
+            breadcrumb.setPath([{label: 'Home', href: '/'}]);
+            breadcrumb.clear();
+        </div>
+    </div>
+</div>
+
+<!-- Results Dialog -->
+<x-dialog id="results-dialog" title="API Results" size="medium">
+    <div id="results-content">
+        Results will appear here...
+    </div>
+</x-dialog>
+
+<script type="module">
+    class BreadcrumbDemoController {
+        constructor() {
+            this.setupEventListeners();
+            this.setupNavigationSimulation();
+            this.setupAPIDemo();
+        }
+
+        setupEventListeners() {
+            // Dynamic breadcrumb navigation buttons
+            document.getElementById('nav-users')?.addEventListener('click', () => {
+                this.navigateToUsers();
+            });
+
+            document.getElementById('nav-profile')?.addEventListener('click', () => {
+                this.navigateToProfile();
+            });
+
+            document.getElementById('nav-settings')?.addEventListener('click', () => {
+                this.navigateToSettings();
+            });
+
+            document.getElementById('nav-back')?.addEventListener('click', () => {
+                this.navigateBack();
+            });
+
+            document.getElementById('nav-reset')?.addEventListener('click', () => {
+                this.resetNavigation();
+            });
+
+            // Truncation controls
+            document.getElementById('show-all')?.addEventListener('click', () => {
+                this.setMaxItems(null);
+            });
+
+            document.getElementById('limit-3')?.addEventListener('click', () => {
+                this.setMaxItems(3);
+            });
+
+            document.getElementById('limit-5')?.addEventListener('click', () => {
+                this.setMaxItems(5);
+            });
+
+            document.getElementById('add-level')?.addEventListener('click', () => {
+                this.addDeeperLevel();
+            });
+
+            // Listen for breadcrumb navigation events
+            document.addEventListener('breadcrumb-navigate', (e) => {
+                this.handleBreadcrumbNavigation(e);
+            });
+        }
+
+        setupNavigationSimulation() {
+            // Simulate page navigation
+            const simLinks = document.querySelectorAll('[data-path]');
+            simLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Update active state
+                    simLinks.forEach(l => l.classList.remove('current'));
+                    link.classList.add('current');
+
+                    // Update breadcrumb
+                    const breadcrumb = document.getElementById('dynamic-breadcrumb');
+                    const path = JSON.parse(link.getAttribute('data-path'));
+                    breadcrumb.setPath(path);
+
+                    this.updateNavigationStatus(`Navigated to: ${path[path.length - 1].label}`);
+                });
+            });
+
+            // E-commerce navigation
+            const ecommerceLinks = document.querySelectorAll('[data-ecommerce]');
+            ecommerceLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const breadcrumb = document.getElementById('ecommerce-breadcrumb');
+                    const path = JSON.parse(link.getAttribute('data-ecommerce'));
+                    breadcrumb.setPath(path);
+                });
+            });
+        }
+
+        setupAPIDemo() {
+            let itemCounter = 1;
+
+            document.getElementById('api-add')?.addEventListener('click', () => {
+                const breadcrumb = document.getElementById('api-breadcrumb');
+                breadcrumb.addItem(`Item ${itemCounter}`, `/item${itemCounter}`);
+                itemCounter++;
+                this.updateAPIOutput(`Added: Item ${itemCounter - 1}`);
+            });
+
+            document.getElementById('api-remove')?.addEventListener('click', () => {
+                const breadcrumb = document.getElementById('api-breadcrumb');
+                const removed = breadcrumb.removeLastItem();
+                this.updateAPIOutput(removed ? 'Removed last item' : 'Nothing to remove');
+            });
+
+            document.getElementById('api-clear')?.addEventListener('click', () => {
+                const breadcrumb = document.getElementById('api-breadcrumb');
+                breadcrumb.clear();
+                itemCounter = 1;
+                this.updateAPIOutput('Cleared all items');
+            });
+
+            document.getElementById('api-navigate')?.addEventListener('click', () => {
+                const breadcrumb = document.getElementById('api-breadcrumb');
+                const navigated = breadcrumb.navigateToIndex(1);
+                this.updateAPIOutput(navigated ? 'Navigated to index 1' : 'Invalid index');
+            });
+
+            document.getElementById('api-get-path')?.addEventListener('click', () => {
+                const breadcrumb = document.getElementById('api-breadcrumb');
+                const path = breadcrumb.getPath();
+                this.showResults('Current Path', JSON.stringify(path, null, 2));
+            });
+        }
+
+        // Navigation methods
+        navigateToUsers() {
+            const breadcrumb = document.getElementById('dynamic-breadcrumb');
+            breadcrumb.setPath([
+                {"label":"Dashboard","href":"/dashboard"},
+                {"label":"Users","href":"/users","current":true}
+            ]);
+            this.updateNavigationStatus('Navigated to Users section');
+        }
+
+        navigateToProfile() {
+            const breadcrumb = document.getElementById('dynamic-breadcrumb');
+            breadcrumb.setPath([
+                {"label":"Dashboard","href":"/dashboard"},
+                {"label":"Users","href":"/users"},
+                {"label":"John Doe","current":true}
+            ]);
+            this.updateNavigationStatus('Viewing John Doe\'s profile');
+        }
+
+        navigateToSettings() {
+            const breadcrumb = document.getElementById('dynamic-breadcrumb');
+            breadcrumb.setPath([
+                {"label":"Dashboard","href":"/dashboard"},
+                {"label":"Settings","href":"/settings","current":true}
+            ]);
+            this.updateNavigationStatus('Opened Settings page');
+        }
+
+        navigateBack() {
+            const breadcrumb = document.getElementById('dynamic-breadcrumb');
+            const success = breadcrumb.removeLastItem();
+            if (success) {
+                this.updateNavigationStatus('Navigated back one level');
+            } else {
+                this.updateNavigationStatus('Already at root level');
+            }
+        }
+
+        resetNavigation() {
+            const breadcrumb = document.getElementById('dynamic-breadcrumb');
+            breadcrumb.setPath([{"label":"Dashboard","href":"/dashboard","current":true}]);
+            this.updateNavigationStatus('Reset to Dashboard');
+        }
+
+        // Truncation methods
+        setMaxItems(max) {
+            const breadcrumb = document.getElementById('truncated-breadcrumb');
+            if (max === null) {
+                breadcrumb.removeAttribute('max-items');
+            } else {
+                breadcrumb.setAttribute('max-items', max.toString());
+            }
+        }
+
+        addDeeperLevel() {
+            const breadcrumb = document.getElementById('truncated-breadcrumb');
+            breadcrumb.addItem('Deep Level', '/deep', {current: true});
+        }
+
+        // Utility methods
+        updateNavigationStatus(message) {
+            const status = document.getElementById('navigation-status');
+            if (status) {
+                status.textContent = message;
+                status.style.background = '#f0fdf4';
+                status.style.borderColor = '#bbf7d0';
+                status.style.color = '#166534';
+            }
+        }
+
+        updateAPIOutput(message) {
+            const output = document.getElementById('api-output');
+            if (output) {
+                output.innerHTML = `<span style="color: #10b981;">// ${message}</span>\n` + output.innerHTML;
+            }
+        }
+
+        showResults(title, content) {
+            const dialog = document.getElementById('results-dialog');
+            const contentEl = document.getElementById('results-content');
+
+            dialog.setAttribute('title', title);
+            contentEl.innerHTML = `<pre style="background: #f8fafc; padding: 12px; border-radius: 4px; overflow-x: auto;">${content}</pre>`;
+            dialog.setAttribute('open', '');
+        }
+
+        handleBreadcrumbNavigation(e) {
+            const { href, label, index } = e.detail;
+            this.updateNavigationStatus(`Breadcrumb clicked: ${label} (${href || 'no link'})`);
+            console.log('Breadcrumb navigation:', e.detail);
+        }
+    }
+
+    // Initialize the demo
+    document.addEventListener('DOMContentLoaded', () => {
+        new BreadcrumbDemoController();
+    });
+</script>
+</body>
+</html>
