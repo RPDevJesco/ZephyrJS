@@ -1,6 +1,6 @@
 # ZephyrJS
 
-> A revolutionary web component library built on DOM-as-state architecture
+> A web component library built on DOM-as-state architecture
 
 ZephyrJS is a lightweight, modern web component library that reimagines how we think about state management in web applications. By using the DOM as the single source of truth, ZephyrJS eliminates the complexity of state synchronization while delivering exceptional performance and developer experience.
 
