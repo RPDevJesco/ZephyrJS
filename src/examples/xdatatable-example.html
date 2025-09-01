@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XDataTable - Sortable Data Table Demo</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XDataTable.js';
+        import '/src/elements/XButton.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #3b82f6;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+        
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .demo-header {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #1f2937;
+        }
+
+        .demo-header p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .controls-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .stats-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--x-accent);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Custom table cell content styles */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: #1f2937;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .user-email {
+            color: #6b7280;
+            margin: 0;
+            font-size: 12px;
+        }
+
+        .event-log {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .event-item {
+            padding: 2px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-timestamp {
+            color: #9ca3af;
+            margin-right: 8px;
+        }
+
+        .event-type {
+            color: #34d399;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>📊 XDataTable Component</h1>
+        <p>Sortable data table with pagination, selection, and real-time updates</p>
+    </div>
+
+    <div class="controls-section">
+        <h3 style="margin-top: 0;">🎛️ Table Controls</h3>
+        
+        <div class="controls-grid">
+            <div class="control-group">
+                <label>Page Size</label>
+                <select id="page-size-select">
+                    <option value="5">5 rows</option>
+                    <option value="10" selected>10 rows</option>
+                    <option value="20">20 rows</option>
+                    <option value="50">50 rows</option>
+                </select>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="selectable-check" checked>
+                <label for="selectable-check">Row Selection</label>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="striped-check" checked>
+                <label for="striped-check">Striped Rows</label>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="hover-check" checked>
+                <label for="hover-check">Hover Effects</label>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="compact-check">
+                <label for="compact-check">Compact Mode</label>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="sticky-header-check">
+                <label for="sticky-header-check">Sticky Header</label>
+            </div>
+        </div>
+        
+        <div class="actions-row">
+            <x-button id="add-row-btn" label="➕ Add Row" variant="primary"></x-button>
+            <x-button id="remove-selected-btn" label="🗑️ Remove Selected" variant="danger"></x-button>
+            <x-button id="clear-selection-btn" label="Clear Selection" variant="outline"></x-button>
+            <x-button id="toggle-loading-btn" label="Toggle Loading" variant="secondary"></x-button>
+            <x-button id="refresh-btn" label="🔄 Refresh" variant="outline"></x-button>
+            <x-button id="export-btn" label="📥 Export Data" variant="outline"></x-button>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <h3 style="margin-top: 0;">📈 Table Statistics</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-value" id="total-rows">0</span>
+                <div class="stat-label">Total Rows</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="selected-rows">0</span>
+                <div class="stat-label">Selected Rows</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="current-page">1</span>
+                <div class="stat-label">Current Page</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="total-pages">1</span>
+                <div class="stat-label">Total Pages</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <x-datatable 
+            id="demo-table"
+            page-size="10"
+            selectable
+            striped
+            hover
+            show-counter>
+        </x-datatable>
+    </div>
+
+    <div>
+        <h3>📋 Event Log</h3>
+        <div id="event-log" class="event-log">
+            <div class="event-item">
+                <span class="event-timestamp">[Ready]</span>
+                <span class="event-type">system</span>
+                DataTable demo initialized
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        class DataTableDemo {
+            constructor() {
+                this.table = document.getElementById('demo-table');
+                this.eventLog = document.getElementById('event-log');
+                this.sampleNames = ['John', 'Jane', 'Mike', 'Sarah', 'David', 'Lisa', 'Tom', 'Emma', 'Chris', 'Anna'];
+                this.sampleRoles = ['Developer', 'Designer', 'Manager', 'Analyst', 'Tester', 'Admin'];
+                this.sampleProjects = ['Game Engine', 'Mobile App', 'Web Platform', 'AI System', 'Database', 'Analytics'];
+                
+                this.initTable();
+                this.initControls();
+                this.initEventListeners();
+                this.updateStats();
+            }
+
+            initTable() {
+                // Define table columns
+                const columns = [
+                    {
+                        key: 'id',
+                        title: 'ID',
+                        width: '60px',
+                        formatter: (value) => `#${value}`
+                    },
+                    {
+                        key: 'user',
+                        title: 'User',
+                        width: '200px',
+                        render: (value, row) => `
+                            <div class="user-cell">
+                                <div class="user-avatar">${row.name.charAt(0)}</div>
+                                <div class="user-info">
+                                    <div class="user-name">${row.name}</div>
+                                    <div class="user-email">${row.email}</div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        key: 'role',
+                        title: 'Role',
+                        width: '120px'
+                    },
+                    {
+                        key: 'project',
+                        title: 'Project',
+                        width: '140px'
+                    },
+                    {
+                        key: 'progress',
+                        title: 'Progress',
+                        width: '120px',
+                        render: (value) => `
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${value}%"></div>
+                            </div>
+                            <div class="progress-text">${value}%</div>
+                        `
+                    },
+                    {
+                        key: 'status',
+                        title: 'Status',
+                        width: '100px',
+                        render: (value) => {
+                            const statusClass = {
+                                'Active': 'status-active',
+                                'Inactive': 'status-inactive',
+                                'Pending': 'status-pending'
+                            };
+                            return `<span class="status-badge ${statusClass[value] || ''}">${value}</span>`;
+                        }
+                    },
+                    {
+                        key: 'lastActive',
+                        title: 'Last Active',
+                        width: '120px',
+                        formatter: (value) => {
+                            const date = new Date(value);
+                            return date.toLocaleDateString();
+                        }
+                    }
+                ];
+
+                // Generate sample data
+                const data = this.generateSampleData(25);
+
+                // Set up table
+                this.table.setColumns(columns);
+                this.table.setData(data);
+                
+                this.logEvent('table-init', `Initialized with ${data.length} rows`);
+            }
+
+            generateSampleData(count) {
+                return Array.from({ length: count }, (_, index) => {
+                    const name = this.sampleNames[Math.floor(Math.random() * this.sampleNames.length)];
+                    const role = this.sampleRoles[Math.floor(Math.random() * this.sampleRoles.length)];
+                    const project = this.sampleProjects[Math.floor(Math.random() * this.sampleProjects.length)];
+                    const progress = Math.floor(Math.random() * 100);
+                    const statuses = ['Active', 'Inactive', 'Pending'];
+                    const status = statuses[Math.floor(Math.random() * statuses.length)];
+                    
+                    return {
+                        id: index + 1,
+                        name: `${name} ${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`,
+                        email: `${name.toLowerCase()}@company.com`,
+                        user: name, // For sorting
+                        role,
+                        project,
+                        progress,
+                        status,
+                        lastActive: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
+                    };
+                });
+            }
+
+            initControls() {
+                // Page size control
+                document.getElementById('page-size-select').addEventListener('change', (e) => {
+                    this.table.setAttr('page-size', e.target.value);
+                    this.updateStats();
+                    this.logEvent('page-size-change', `Changed to ${e.target.value} rows per page`);
+                });
+
+                // Checkbox controls
+                const checkboxControls = [
+                    { id: 'selectable-check', attr: 'selectable' },
+                    { id: 'striped-check', attr: 'striped' },
+                    { id: 'hover-check', attr: 'hover' },
+                    { id: 'compact-check', attr: 'compact' },
+                    { id: 'sticky-header-check', attr: 'sticky-header' }
+                ];
+
+                checkboxControls.forEach(({ id, attr }) => {
+                    document.getElementById(id).addEventListener('change', (e) => {
+                        if (e.target.checked) {
+                            this.table.setAttr(attr, '');
+                        } else {
+                            this.table.removeAttribute(attr);
+                        }
+                        this.logEvent('attribute-change', `${attr}: ${e.target.checked}`);
+                    });
+                });
+
+                // Action buttons
+                document.getElementById('add-row-btn').addEventListener('button-click', () => {
+                    this.addRandomRow();
+                });
+
+                document.getElementById('remove-selected-btn').addEventListener('button-click', () => {
+                    this.removeSelectedRows();
+                });
+
+                document.getElementById('clear-selection-btn').addEventListener('button-click', () => {
+                    this.table.clearSelection();
+                    this.updateStats();
+                    this.logEvent('selection-clear', 'Cleared all selections');
+                });
+
+                document.getElementById('toggle-loading-btn').addEventListener('button-click', () => {
+                    const isLoading = this.table.hasAttribute('loading');
+                    this.table.setLoading(!isLoading);
+                    this.logEvent('loading-toggle', `Loading: ${!isLoading}`);
+                });
+
+                document.getElementById('refresh-btn').addEventListener('button-click', () => {
+                    this.table.refresh();
+                    this.updateStats();
+                });
+
+                document.getElementById('export-btn').addEventListener('button-click', () => {
+                    this.exportData();
+                });
+            }
+
+            initEventListeners() {
+                // Table events
+                this.table.addEventListener('row-click', (e) => {
+                    const { row, index } = e.detail;
+                    this.logEvent('row-click', `Clicked row ${index + 1}: ${row.name}`);
+                });
+
+                this.table.addEventListener('selection-change', (e) => {
+                    const { selectedRows } = e.detail;
+                    this.updateStats();
+                    this.logEvent('selection-change', `Selected: ${selectedRows.length} rows`);
+                });
+
+                this.table.addEventListener('sort-change', (e) => {
+                    const { column, direction } = e.detail;
+                    this.logEvent('sort-change', `Sorted by ${column} (${direction})`);
+                });
+
+                this.table.addEventListener('page-change', (e) => {
+                    const { page, pageSize } = e.detail;
+                    this.updateStats();
+                    this.logEvent('page-change', `Changed to page ${page} (${pageSize} per page)`);
+                });
+
+                this.table.addEventListener('refresh', () => {
+                    this.logEvent('refresh', 'Table refreshed');
+                });
+            }
+
+            addRandomRow() {
+                const data = this.table.getData();
+                const newRow = this.generateSampleData(1)[0];
+                newRow.id = Math.max(...data.map(r => r.id)) + 1;
+                
+                this.table.addRow(newRow);
+                this.updateStats();
+                this.logEvent('row-add', `Added new row: ${newRow.name}`);
+            }
+
+            removeSelectedRows() {
+                const selectedIndices = this.table.getSelectedRows();
+                if (selectedIndices.length === 0) {
+                    this.logEvent('remove-error', 'No rows selected for removal');
+                    return;
+                }
+
+                // Remove rows in reverse order to maintain indices
+                selectedIndices.sort((a, b) => b - a).forEach(index => {
+                    this.table.removeRow(index);
+                });
+
+                this.updateStats();
+                this.logEvent('row-remove', `Removed ${selectedIndices.length} rows`);
+            }
+
+            exportData() {
+                const data = this.table.getData();
+                const selectedData = this.table.getSelectedData();
+                
+                const exportData = selectedData.length > 0 ? selectedData : data;
+                const csv = this.convertToCSV(exportData);
+                
+                // Download CSV
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'table-data.csv';
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                this.logEvent('export', `Exported ${exportData.length} rows to CSV`);
+            }
+
+            convertToCSV(data) {
+                if (data.length === 0) return '';
+                
+                const headers = Object.keys(data[0]).filter(key => key !== 'user'); // Remove computed field
+                const csvHeaders = headers.join(',');
+                
+                const csvRows = data.map(row => 
+                    headers.map(header => {
+                        const value = row[header];
+                        // Escape quotes and wrap in quotes if contains comma
+                        return typeof value === 'string' && value.includes(',') 
+                            ? `"${value.replace(/"/g, '""')}"` 
+                            : value;
+                    }).join(',')
+                );
+                
+                return [csvHeaders, ...csvRows].join('\n');
+            }
+
+            updateStats() {
+                const data = this.table.getData();
+                const selectedRows = this.table.getSelectedRows();
+                const currentPage = Number(this.table.getAttribute('current-page') || '1');
+                const pageSize = Number(this.table.getAttribute('page-size') || '10');
+                const totalPages = Math.ceil(data.length / pageSize);
+
+                document.getElementById('total-rows').textContent = data.length;
+                document.getElementById('selected-rows').textContent = selectedRows.length;
+                document.getElementById('current-page').textContent = currentPage;
+                document.getElementById('total-pages').textContent = totalPages;
+            }
+
+            logEvent(type, message) {
+                const timestamp = new Date().toLocaleTimeString();
+                const logItem = document.createElement('div');
+                logItem.className = 'event-item';
+                logItem.innerHTML = `
+                    <span class="event-timestamp">[${timestamp}]</span>
+                    <span class="event-type">${type}</span>
+                    ${message}
+                `;
+                
+                this.eventLog.appendChild(logItem);
+                this.eventLog.scrollTop = this.eventLog.scrollHeight;
+
+                // Keep only last 30 entries
+                while (this.eventLog.children.length > 30) {
+                    this.eventLog.removeChild(this.eventLog.firstChild);
+                }
+            }
+        }
+
+        // Initialize demo when DOM is ready
+        new DataTableDemo();
+    </script>
+</body>
+</html>

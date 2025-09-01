@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSplitter - Redesigned Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+
+        .container {
+            height: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .pane-content {
+            padding: 20px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .pane-a .pane-content {
+            background: #eff6ff;
+            border-right: 1px solid #dbeafe;
+        }
+
+        .pane-b .pane-content {
+            background: #f0fdf4;
+        }
+
+        .vertical-container .pane-a .pane-content {
+            background: #fef3c7;
+            border-right: none;
+            border-bottom: 1px solid #fcd34d;
+        }
+
+        .vertical-container .pane-b .pane-content {
+            background: #ecfdf5;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        button:active {
+            background: #e5e7eb;
+        }
+
+        .status {
+            background: #1f2937;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            white-space: pre;
+        }
+
+        h2 {
+            margin: 30px 0 10px 0;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body>
+<h1>XSplitter - Redesigned Component Test</h1>
+
+<div class="controls">
+    <button onclick="setSplitPosition(25)">25%</button>
+    <button onclick="setSplitPosition(50)">50%</button>
+    <button onclick="setSplitPosition(75)">75%</button>
+    <button onclick="toggleDisabled()">Toggle Disabled</button>
+    <button onclick="changeOrientation()">Toggle Orientation</button>
+    <button onclick="reset()">Reset</button>
+</div>
+
+<h2>Horizontal Splitter</h2>
+<div class="container">
+    <x-splitter
+            id="horizontal-splitter"
+            orientation="horizontal"
+            split-position="50"
+            min-size="20"
+            max-size="80"
+            snap-threshold="5"
+            handle-size="8"
+            live-resize>
+
+        <div class="pane-a">
+            <div class="pane-content">
+                <h3>Left Pane</h3>
+                <p>This is the left pane. Try dragging the handle to resize!</p>
+                <p>You can also use keyboard navigation:</p>
+                <ul>
+                    <li>Focus the handle and use ← → arrow keys</li>
+                    <li>Works with touch on mobile devices</li>
+                    <li>Supports snapping to center</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pane-b">
+            <div class="pane-content">
+                <h3>Right Pane</h3>
+                <p>This pane automatically adjusts its size.</p>
+                <p>Features:</p>
+                <ul>
+                    <li>✅ Drag to resize</li>
+                    <li>✅ Keyboard navigation</li>
+                    <li>✅ Touch support</li>
+                    <li>✅ Min/max constraints</li>
+                    <li>✅ Snap to center</li>
+                    <li>✅ Live resize events</li>
+                </ul>
+            </div>
+        </div>
+    </x-splitter>
+</div>
+
+<h2>Vertical Splitter</h2>
+<div class="container vertical-container">
+    <x-splitter
+            id="vertical-splitter"
+            orientation="vertical"
+            split-position="60"
+            min-size="15"
+            max-size="85"
+            snap-threshold="8"
+            handle-size="6"
+            live-resize>
+
+        <div class="pane-a">
+            <div class="pane-content">
+                <h3>Top Pane</h3>
+                <p>This is the top pane in a vertical layout.</p>
+                <p>Use ↑ ↓ arrow keys when the handle is focused.</p>
+            </div>
+        </div>
+
+        <div class="pane-b">
+            <div class="pane-content">
+                <h3>Bottom Pane</h3>
+                <p>Perfect for console outputs, logs, or secondary content.</p>
+                <p>The drag handle responds to both mouse and touch events.</p>
+            </div>
+        </div>
+    </x-splitter>
+</div>
+
+<div class="status" id="status">Ready. Try dragging the splitter handles!</div>
+
+<script type="module">
+    // Import the components
+    import '/src/core/XBase.js';
+    import '/src/elements/XSplitter.js';
+
+    // Test functions
+    window.setSplitPosition = (percentage) => {
+        document.getElementById('horizontal-splitter').setSplitPosition(percentage);
+        document.getElementById('vertical-splitter').setSplitPosition(percentage);
+    };
+
+    window.toggleDisabled = () => {
+        const h = document.getElementById('horizontal-splitter');
+        const v = document.getElementById('vertical-splitter');
+        if (h.hasAttribute('disabled')) {
+            h.removeAttribute('disabled');
+            v.removeAttribute('disabled');
+        } else {
+            h.setAttribute('disabled', '');
+            v.setAttribute('disabled', '');
+        }
+    };
+
+    window.changeOrientation = () => {
+        const h = document.getElementById('horizontal-splitter');
+        const newOrientation = h.getAttribute('orientation') === 'horizontal' ? 'vertical' : 'horizontal';
+        h.setAttribute('orientation', newOrientation);
+    };
+
+    window.reset = () => {
+        document.getElementById('horizontal-splitter').reset();
+        document.getElementById('vertical-splitter').reset();
+    };
+
+    // Event listeners for debugging
+    document.addEventListener('splitter-resize', (e) => {
+        const status = document.getElementById('status');
+        status.textContent = `Splitter resized: ${e.detail.position.toFixed(1)}%`;
+    });
+
+    document.addEventListener('splitter-drag-start', (e) => {
+        console.log('Drag started');
+    });
+
+    document.addEventListener('splitter-drag-end', (e) => {
+        console.log('Drag ended');
+    });
+</script>
+</body>
+</html>

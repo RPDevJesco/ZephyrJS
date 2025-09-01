@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XContentGrid - Content Masonry Grid Demo</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XContentGrid.js';
+        import '/src/elements/XButton.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #3b82f6;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .demo-header {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #1f2937;
+        }
+
+        .demo-header p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .controls-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* Content Card Styles */
+        .content-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 12px 0;
+        }
+
+        .card-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .difficulty-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .difficulty-beginner {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .difficulty-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 8px 0;
+        }
+
+        .tag {
+            background: #f3f4f6;
+            color: #6b7280;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        /* Long content cards */
+        .long-content {
+            height: auto;
+        }
+
+        .long-content .card-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Project card specific styles */
+        .project-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .project-card .card-title,
+        .project-card .card-description,
+        .project-card .card-meta {
+            color: white;
+        }
+
+        .project-card .difficulty-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .project-card .tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .status-section {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .status-item {
+            text-align: center;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .status-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--x-accent);
+            display: block;
+        }
+
+        .status-label {
+            font-size: 11px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        .event-log {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            height: 150px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .event-item {
+            padding: 2px 0;
+            border-bottom: 1px solid #374151;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-timestamp {
+            color: #9ca3af;
+            margin-right: 8px;
+        }
+
+        .event-type {
+            color: #34d399;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="demo-header">
+    <h1>🎯 XContentGrid Component</h1>
+    <p>Smart content grid with filtering, sorting, and metadata extraction for tutorials, blog posts, and projects</p>
+</div>
+
+<div class="controls-section">
+    <h3 style="margin-top: 0;">🎛️ Grid Controls</h3>
+
+    <div class="controls-grid">
+        <div class="control-group">
+            <label>Columns</label>
+            <select id="columns-select">
+                <option value="0">Auto Fit</option>
+                <option value="2">2 Columns</option>
+                <option value="3">3 Columns</option>
+                <option value="4">4 Columns</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Min Column Width</label>
+            <select id="min-width-select">
+                <option value="250px">250px</option>
+                <option value="300px" selected>300px</option>
+                <option value="350px">350px</option>
+                <option value="400px">400px</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Gap Size</label>
+            <select id="gap-select">
+                <option value="16px">Small (16px)</option>
+                <option value="24px" selected>Medium (24px)</option>
+                <option value="32px">Large (32px)</option>
+            </select>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="auto-fit-check" checked>
+            <label for="auto-fit-check">Auto Fit Columns</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="show-metadata-check" checked>
+            <label for="show-metadata-check">Show Metadata</label>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="loading-check">
+            <label for="loading-check">Loading State</label>
+        </div>
+    </div>
+
+    <div class="actions-row">
+        <x-button id="add-tutorial-btn" label="➕ Add Tutorial" variant="primary"></x-button>
+        <x-button id="add-project-btn" label="🚀 Add Project" variant="success"></x-button>
+        <x-button id="add-blog-btn" label="✍️ Add Blog Post" variant="info"></x-button>
+        <x-button id="refresh-btn" label="🔄 Refresh" variant="outline"></x-button>
+        <x-button id="clear-filters-btn" label="🗑️ Clear Filters" variant="secondary"></x-button>
+    </div>
+</div>
+
+<div class="status-section">
+    <div class="status-grid">
+        <div class="status-item">
+            <span class="status-value" id="total-items">0</span>
+            <div class="status-label">Total Items</div>
+        </div>
+        <div class="status-item">
+            <span class="status-value" id="filtered-items">0</span>
+            <div class="status-label">Filtered Items</div>
+        </div>
+        <div class="status-item">
+            <span class="status-value" id="categories-count">0</span>
+            <div class="status-label">Categories</div>
+        </div>
+        <div class="status-item">
+            <span class="status-value" id="tags-count">0</span>
+            <div class="status-label">Tags</div>
+        </div>
+    </div>
+</div>
+
+<div style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+    <x-content-grid
+            id="content-grid"
+            auto-fit
+            min-column-width="300px"
+            gap="24px"
+            show-metadata>
+
+        <!-- Tutorial Cards -->
+        <div class="content-card" data-id="unity-basics" data-title="Unity Basics for Beginners" data-category="Tutorial" data-tags="unity,beginner,fundamentals" data-date="2024-01-15" data-author="Sarah Chen" data-difficulty="Beginner" data-duration="2 hours">
+            <img class="card-image" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=160&fit=crop" alt="Unity Basics">
+            <div class="card-content">
+                <h3 class="card-title">Unity Basics for Beginners</h3>
+                <p class="card-description">Learn the fundamental concepts of Unity game engine including scenes, GameObjects, components, and basic scripting. Perfect for absolute beginners starting their game development journey.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">SC</div>
+                        <span>Sarah Chen</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-beginner">Beginner</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">unity</span>
+                    <span class="tag">beginner</span>
+                    <span class="tag">fundamentals</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" data-id="csharp-games" data-title="C# Programming for Games" data-category="Tutorial" data-tags="csharp,programming,intermediate" data-date="2024-01-12" data-author="Mike Rodriguez" data-difficulty="Intermediate" data-duration="4 hours">
+            <img class="card-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=160&fit=crop" alt="C# Programming">
+            <div class="card-content">
+                <h3 class="card-title">C# Programming for Games</h3>
+                <p class="card-description">Master C# programming specifically for game development. Cover object-oriented programming, design patterns, and game-specific coding practices.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">MR</div>
+                        <span>Mike Rodriguez</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">csharp</span>
+                    <span class="tag">programming</span>
+                    <span class="tag">intermediate</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card project-card" data-id="space-rpg" data-title="Space Explorer RPG" data-category="Project" data-tags="rpg,space,3d" data-date="2024-01-10" data-author="Alex Thompson" data-difficulty="Advanced" data-priority="5">
+            <div class="card-content">
+                <h3 class="card-title">🚀 Space Explorer RPG</h3>
+                <p class="card-description">An epic space exploration game with deep RPG mechanics, resource management, and epic space battles. Features procedural generation and dynamic storytelling.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">AT</div>
+                        <span>Alex Thompson</span>
+                    </div>
+                    <span class="difficulty-badge">Advanced</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">rpg</span>
+                    <span class="tag">space</span>
+                    <span class="tag">3d</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" data-id="2d-platformer" data-title="Creating a 2D Platformer" data-category="Tutorial" data-tags="2d,platformer,beginner" data-date="2024-01-08" data-author="Emma Wilson" data-difficulty="Beginner" data-duration="6 hours">
+            <img class="card-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=160&fit=crop" alt="2D Platformer">
+            <div class="card-content">
+                <h3 class="card-title">Creating a 2D Platformer</h3>
+                <p class="card-description">Build your first 2D platformer game from scratch. Learn about character controllers, level design, collectibles, and enemy AI in a step-by-step tutorial.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">EW</div>
+                        <span>Emma Wilson</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-beginner">Beginner</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">2d</span>
+                    <span class="tag">platformer</span>
+                    <span class="tag">beginner</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card long-content" data-id="game-design-psychology" data-title="Game Design Psychology" data-category="Blog" data-tags="design,psychology,theory" data-date="2024-01-05" data-author="Dr. Lisa Park" data-difficulty="Intermediate">
+            <div class="card-content">
+                <h3 class="card-title">Game Design Psychology</h3>
+                <p class="card-description">Understanding player behavior and motivation is crucial for creating engaging games. This comprehensive guide explores the psychological principles behind successful game design, including flow theory, reward systems, and player retention strategies. Learn how to apply these concepts to create more compelling gaming experiences that keep players coming back for more. We'll also cover common psychological pitfalls and how to avoid them in your game design process.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">LP</div>
+                        <span>Dr. Lisa Park</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">design</span>
+                    <span class="tag">psychology</span>
+                    <span class="tag">theory</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" data-id="mobile-optimization" data-title="Mobile Game Optimization" data-category="Tutorial" data-tags="mobile,optimization,performance" data-date="2024-01-03" data-author="James Kim" data-difficulty="Advanced" data-duration="3 hours">
+            <img class="card-image" src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=160&fit=crop" alt="Mobile Optimization">
+            <div class="card-content">
+                <h3 class="card-title">Mobile Game Optimization</h3>
+                <p class="card-description">Learn advanced techniques for optimizing games for mobile devices. Cover performance profiling, memory management, and platform-specific optimizations.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">JK</div>
+                        <span>James Kim</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-advanced">Advanced</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">mobile</span>
+                    <span class="tag">optimization</span>
+                    <span class="tag">performance</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card project-card" data-id="puzzle-paradise" data-title="Puzzle Paradise" data-category="Project" data-tags="puzzle,casual,mobile" data-date="2024-01-01" data-author="Team Indie" data-difficulty="Intermediate" data-priority="3">
+            <div class="card-content">
+                <h3 class="card-title">🧩 Puzzle Paradise</h3>
+                <p class="card-description">A mind-bending puzzle game with innovative mechanics and beautiful visuals. Features over 100 levels with increasing complexity.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">TI</div>
+                        <span>Team Indie</span>
+                    </div>
+                    <span class="difficulty-badge">Intermediate</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">puzzle</span>
+                    <span class="tag">casual</span>
+                    <span class="tag">mobile</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" data-id="indie-marketing" data-title="Marketing Your Indie Game" data-category="Blog" data-tags="marketing,indie,business" data-date="2023-12-28" data-author="Rachel Green" data-difficulty="Intermediate">
+            <div class="card-content">
+                <h3 class="card-title">Marketing Your Indie Game</h3>
+                <p class="card-description">Effective strategies for promoting your indie game on a budget. Learn about social media marketing, press releases, and building a community around your game.</p>
+                <div class="card-meta">
+                    <div class="card-author">
+                        <div class="author-avatar">RG</div>
+                        <span>Rachel Green</span>
+                    </div>
+                    <span class="difficulty-badge difficulty-intermediate">Intermediate</span>
+                </div>
+                <div class="card-tags">
+                    <span class="tag">marketing</span>
+                    <span class="tag">indie</span>
+                    <span class="tag">business</span>
+                </div>
+            </div>
+        </div>
+    </x-content-grid>
+</div>
+
+<div>
+    <h3>📋 Event Log</h3>
+    <div id="event-log" class="event-log">
+        <div class="event-item">
+            <span class="event-timestamp">[Ready]</span>
+            <span class="event-type">system</span>
+            ContentGrid demo initialized
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    class ContentGridDemo {
+        constructor() {
+            this.grid = document.getElementById('content-grid');
+            this.eventLog = document.getElementById('event-log');
+            this.itemCounter = 100; // For unique IDs
+
+            this.initControls();
+            this.initEventListeners();
+            this.updateStats();
+        }
+
+        initControls() {
+            // Columns control
+            document.getElementById('columns-select').addEventListener('change', (e) => {
+                const value = e.target.value;
+                if (value === '0') {
+                    this.grid.removeAttribute('columns');
+                    this.grid.setAttr('auto-fit', '');
+                } else {
+                    this.grid.setAttr('columns', value);
+                    this.grid.removeAttribute('auto-fit');
+                }
+                this.logEvent('columns-change', `Changed to ${value === '0' ? 'auto-fit' : value + ' columns'}`);
+            });
+
+            // Min width control
+            document.getElementById('min-width-select').addEventListener('change', (e) => {
+                this.grid.setAttr('min-column-width', e.target.value);
+                this.logEvent('min-width-change', `Changed to ${e.target.value}`);
+            });
+
+            // Gap control
+            document.getElementById('gap-select').addEventListener('change', (e) => {
+                this.grid.setAttr('gap', e.target.value);
+                this.logEvent('gap-change', `Changed to ${e.target.value}`);
+            });
+
+            // Checkbox controls
+            document.getElementById('auto-fit-check').addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.grid.setAttr('auto-fit', '');
+                    this.grid.removeAttribute('columns');
+                    document.getElementById('columns-select').value = '0';
+                } else {
+                    this.grid.removeAttribute('auto-fit');
+                }
+                this.logEvent('auto-fit-change', `Auto fit: ${e.target.checked}`);
+            });
+
+            document.getElementById('show-metadata-check').addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.grid.setAttr('show-metadata', '');
+                } else {
+                    this.grid.removeAttribute('show-metadata');
+                }
+                this.logEvent('metadata-change', `Show metadata: ${e.target.checked}`);
+            });
+
+            document.getElementById('loading-check').addEventListener('change', (e) => {
+                this.grid.setLoading(e.target.checked);
+                this.logEvent('loading-change', `Loading: ${e.target.checked}`);
+            });
+
+            // Action buttons
+            document.getElementById('add-tutorial-btn').addEventListener('button-click', () => {
+                this.addTutorial();
+            });
+
+            document.getElementById('add-project-btn').addEventListener('button-click', () => {
+                this.addProject();
+            });
+
+            document.getElementById('add-blog-btn').addEventListener('button-click', () => {
+                this.addBlogPost();
+            });
+
+            document.getElementById('refresh-btn').addEventListener('button-click', () => {
+                this.grid.refresh();
+                this.updateStats();
+            });
+
+            document.getElementById('clear-filters-btn').addEventListener('button-click', () => {
+                // Clear all filters by dispatching a custom clear event
+                const filters = this.grid.querySelectorAll('select, input[type="text"]');
+                filters.forEach(filter => {
+                    if (filter.tagName === 'SELECT') {
+                        filter.value = '';
+                    } else {
+                        filter.value = '';
+                    }
+                });
+
+                // Trigger change events to update the grid
+                filters.forEach(filter => {
+                    filter.dispatchEvent(new Event('change'));
+                    filter.dispatchEvent(new Event('input'));
+                });
+
+                this.logEvent('filters-clear', 'All filters cleared');
+            });
+        }
+
+        initEventListeners() {
+            this.grid.addEventListener('item-click', (e) => {
+                const { item, metadata } = e.detail;
+                this.logEvent('item-click', `Clicked: ${metadata.title || 'Untitled'}`);
+                console.log('Item clicked:', metadata);
+            });
+
+            this.grid.addEventListener('filter-change', (e) => {
+                const { filteredCount, totalCount, filters } = e.detail;
+                this.updateStats();
+                this.logEvent('filter-change', `Showing ${filteredCount}/${totalCount} items`);
+            });
+
+            this.grid.addEventListener('refresh', () => {
+                this.logEvent('refresh', 'Grid refreshed');
+            });
+        }
+
+        addTutorial() {
+            const tutorials = [
+                { title: 'Advanced AI Behavior', category: 'Tutorial', tags: 'ai,advanced,programming', author: 'Dr. AI Expert', difficulty: 'Advanced', duration: '5 hours' },
+                { title: 'Shader Programming Basics', category: 'Tutorial', tags: 'shaders,graphics,intermediate', author: 'Graphics Guru', difficulty: 'Intermediate', duration: '3 hours' },
+                { title: 'Game Audio Design', category: 'Tutorial', tags: 'audio,sound,design', author: 'Sound Master', difficulty: 'Beginner', duration: '2 hours' },
+                { title: 'VR Development Guide', category: 'Tutorial', tags: 'vr,virtual reality,advanced', author: 'VR Specialist', difficulty: 'Advanced', duration: '4 hours' }
+            ];
+
+            const tutorial = tutorials[Math.floor(Math.random() * tutorials.length)];
+            const element = this.createTutorialElement(tutorial);
+
+            this.grid.addItem(element);
+            this.updateStats();
+
+            // Recreate filter controls to include new categories/tags without duplicates
+            this._recreateFilterControls();
+
+            this.logEvent('item-add', `Added tutorial: ${tutorial.title}`);
+        }
+
+        addProject() {
+            const projects = [
+                { title: 'Racing Championship', category: 'Project', tags: 'racing,3d,multiplayer', author: 'Speed Team', difficulty: 'Advanced' },
+                { title: 'Tower Defense Pro', category: 'Project', tags: 'strategy,tower defense,2d', author: 'Strategy Studios', difficulty: 'Intermediate' },
+                { title: 'Indie Adventure', category: 'Project', tags: 'adventure,indie,story', author: 'Narrative Games', difficulty: 'Intermediate' },
+                { title: 'Retro Arcade Game', category: 'Project', tags: 'retro,arcade,pixel', author: 'Pixel Perfect', difficulty: 'Beginner' }
+            ];
+
+            const project = projects[Math.floor(Math.random() * projects.length)];
+            const element = this.createProjectElement(project);
+
+            this.grid.addItem(element);
+            this.updateStats();
+
+            // Recreate filter controls to include new categories/tags without duplicates
+            this._recreateFilterControls();
+
+            this.logEvent('item-add', `Added project: ${project.title}`);
+        }
+
+        addBlogPost() {
+            const posts = [
+                { title: 'Future of Gaming Technology', category: 'Blog', tags: 'technology,future,trends', author: 'Tech Visionary', difficulty: 'Intermediate' },
+                { title: 'Monetization Strategies', category: 'Blog', tags: 'business,monetization,mobile', author: 'Business Expert', difficulty: 'Advanced' },
+                { title: 'Community Building Tips', category: 'Blog', tags: 'community,social,marketing', author: 'Community Manager', difficulty: 'Beginner' },
+                { title: 'Accessibility in Gaming', category: 'Blog', tags: 'accessibility,inclusive,design', author: 'UX Designer', difficulty: 'Intermediate' }
+            ];
+
+            const post = posts[Math.floor(Math.random() * posts.length)];
+            const element = this.createBlogElement(post);
+
+            this.grid.addItem(element);
+            this.updateStats();
+
+            // Recreate filter controls to include new categories/tags without duplicates
+            this._recreateFilterControls();
+
+            this.logEvent('item-add', `Added blog post: ${post.title}`);
+        }
+
+        _recreateFilterControls() {
+            // Force the component to recreate its filter controls
+            // This will be handled by the component's addItem method now
+            this.logEvent('filters-recreate', 'Filter controls updated with new items');
+        }
+
+        createTutorialElement(tutorial) {
+            this.itemCounter++;
+            const element = document.createElement('div');
+            element.className = 'content-card';
+            element.dataset.id = `tutorial-${this.itemCounter}`;
+            element.dataset.title = tutorial.title;
+            element.dataset.category = tutorial.category;
+            element.dataset.tags = tutorial.tags;
+            element.dataset.date = new Date().toISOString().split('T')[0];
+            element.dataset.author = tutorial.author;
+            element.dataset.difficulty = tutorial.difficulty;
+            element.dataset.duration = tutorial.duration;
+
+            const imageIndex = Math.floor(Math.random() * 9) + 1;
+            element.innerHTML = `
+                    <img class="card-image" src="https://images.unsplash.com/photo-155074516${imageIndex}-adc38448a05e?w=400&h=160&fit=crop" alt="${tutorial.title}">
+                    <div class="card-content">
+                        <h3 class="card-title">${tutorial.title}</h3>
+                        <p class="card-description">A comprehensive guide covering all aspects of ${tutorial.title.toLowerCase()}. Perfect for developers looking to expand their skills.</p>
+                        <div class="card-meta">
+                            <div class="card-author">
+                                <div class="author-avatar">${tutorial.author.split(' ').map(n => n[0]).join('')}</div>
+                                <span>${tutorial.author}</span>
+                            </div>
+                            <span class="difficulty-badge difficulty-${tutorial.difficulty.toLowerCase()}">${tutorial.difficulty}</span>
+                        </div>
+                        <div class="card-tags">
+                            ${tutorial.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+            return element;
+        }
+
+        createProjectElement(project) {
+            this.itemCounter++;
+            const element = document.createElement('div');
+            element.className = 'content-card project-card';
+            element.dataset.id = `project-${this.itemCounter}`;
+            element.dataset.title = project.title;
+            element.dataset.category = project.category;
+            element.dataset.tags = project.tags;
+            element.dataset.date = new Date().toISOString().split('T')[0];
+            element.dataset.author = project.author;
+            element.dataset.difficulty = project.difficulty;
+            element.dataset.priority = Math.floor(Math.random() * 5) + 1;
+
+            const emoji = ['🏎️', '🏰', '🗡️', '🕹️'][Math.floor(Math.random() * 4)];
+            element.innerHTML = `
+                    <div class="card-content">
+                        <h3 class="card-title">${emoji} ${project.title}</h3>
+                        <p class="card-description">An exciting ${project.category.toLowerCase()} showcasing innovative gameplay mechanics and stunning visuals.</p>
+                        <div class="card-meta">
+                            <div class="card-author">
+                                <div class="author-avatar">${project.author.split(' ').map(n => n[0]).join('')}</div>
+                                <span>${project.author}</span>
+                            </div>
+                            <span class="difficulty-badge">${project.difficulty}</span>
+                        </div>
+                        <div class="card-tags">
+                            ${project.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+            return element;
+        }
+
+        createBlogElement(post) {
+            this.itemCounter++;
+            const element = document.createElement('div');
+            element.className = 'content-card';
+            element.dataset.id = `blog-${this.itemCounter}`;
+            element.dataset.title = post.title;
+            element.dataset.category = post.category;
+            element.dataset.tags = post.tags;
+            element.dataset.date = new Date().toISOString().split('T')[0];
+            element.dataset.author = post.author;
+            element.dataset.difficulty = post.difficulty;
+
+            element.innerHTML = `
+                    <div class="card-content">
+                        <h3 class="card-title">${post.title}</h3>
+                        <p class="card-description">An insightful article exploring ${post.title.toLowerCase()} and its impact on the gaming industry. Essential reading for developers.</p>
+                        <div class="card-meta">
+                            <div class="card-author">
+                                <div class="author-avatar">${post.author.split(' ').map(n => n[0]).join('')}</div>
+                                <span>${post.author}</span>
+                            </div>
+                            <span class="difficulty-badge difficulty-${post.difficulty.toLowerCase()}">${post.difficulty}</span>
+                        </div>
+                        <div class="card-tags">
+                            ${post.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+            return element;
+        }
+
+        updateStats() {
+            const allItems = this.grid.getItems();
+            const filteredItems = this.grid.getFilteredItems();
+
+            const categories = new Set(allItems.map(item => item.metadata.category).filter(Boolean));
+            const allTags = new Set(allItems.flatMap(item => item.metadata.tags));
+
+            document.getElementById('total-items').textContent = allItems.length;
+            document.getElementById('filtered-items').textContent = filteredItems.length;
+            document.getElementById('categories-count').textContent = categories.size;
+            document.getElementById('tags-count').textContent = allTags.size;
+        }
+
+        logEvent(type, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logItem = document.createElement('div');
+            logItem.className = 'event-item';
+            logItem.innerHTML = `
+                    <span class="event-timestamp">[${timestamp}]</span>
+                    <span class="event-type">${type}</span>
+                    ${message}
+                `;
+
+            this.eventLog.appendChild(logItem);
+            this.eventLog.scrollTop = this.eventLog.scrollHeight;
+
+            // Keep only last 30 entries
+            while (this.eventLog.children.length > 30) {
+                this.eventLog.removeChild(this.eventLog.firstChild);
+            }
+        }
+    }
+
+    // Initialize demo when DOM is ready
+    new ContentGridDemo();
+</script>
+</body>
+</html>

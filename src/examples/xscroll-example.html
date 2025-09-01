@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XScroll - Large Collections Browser Demo</title>
+    <script type="module">
+        import '/src/core/XBase.js';
+        import '/src/elements/XScroll.js';
+        import '/src/elements/XButton.js';
+    </script>
+    <style>
+        :root {
+            --x-accent: #3b82f6;
+            --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial;
+        }
+
+        body {
+            font-family: var(--font);
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .demo-header {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .demo-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #1f2937;
+        }
+
+        .demo-header p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            color: #e5e7eb;
+            font-weight: 500;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 6px 10px;
+            border: 1px solid #4b5563;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #374151;
+            color: white;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+        }
+
+        .checkbox-group label {
+            color: #e5e7eb;
+            font-size: 12px;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        /* Tutorial Cards */
+        .tutorial-card {
+            flex-shrink: 0;
+            width: 300px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .tutorial-card.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px #dbeafe;
+        }
+
+        .tutorial-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .tutorial-content {
+            padding: 16px;
+        }
+
+        .tutorial-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 8px 0;
+        }
+
+        .tutorial-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .tutorial-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .tutorial-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        /* Game Asset Cards */
+        .asset-card {
+            flex-shrink: 0;
+            width: 200px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .asset-card:hover {
+            transform: scale(1.02);
+        }
+
+        .asset-card.active {
+            border-color: #10b981;
+            transform: scale(1.05);
+        }
+
+        .asset-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .asset-content {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .asset-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 4px 0;
+        }
+
+        .asset-type {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Blog Post Cards */
+        .blog-card {
+            flex-shrink: 0;
+            width: 350px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-card.active {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+
+        .blog-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 8px 0;
+        }
+
+        .blog-excerpt {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .author-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* Project Cards */
+        .project-card {
+            flex-shrink: 0;
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            color: white;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card.active {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .project-description {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        /* Vertical Scroll Demo */
+        .vertical-scroll {
+            height: 400px;
+        }
+
+        .vertical-item {
+            flex-shrink: 0;
+            height: 100px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .vertical-item:hover {
+            background: #f9fafb;
+            transform: translateX(4px);
+        }
+
+        .vertical-item.active {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+
+        .vertical-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .vertical-content {
+            flex: 1;
+        }
+
+        .vertical-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 4px 0;
+        }
+
+        .vertical-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .status-panel {
+            background: #f3f4f6;
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--x-accent);
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="demo-header">
+    <h1>🌊 XScroll Component</h1>
+    <p>Smooth scrolling container for browsing large collections with touch support and auto-play</p>
+</div>
+
+<!-- Horizontal Tutorials Scroll -->
+<div class="demo-section">
+    <div class="section-header">
+        <h2 class="section-title">📚 Game Development Tutorials</h2>
+        <div class="section-controls">
+            <div class="checkbox-group">
+                <input type="checkbox" id="tutorials-arrows" checked>
+                <label>Show Arrows</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="tutorials-dots" checked>
+                <label>Show Dots</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="tutorials-autoplay">
+                <label>Auto Play</label>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="tutorials-loop" checked>
+                <label>Loop</label>
+            </div>
+        </div>
+    </div>
+    <div class="section-content">
+        <x-scroll
+                id="tutorials-scroll"
+                direction="horizontal"
+                smooth
+                snap
+                show-arrows
+                show-dots
+                loop
+                keyboard-nav
+                touch-nav
+                gap="16px">
+
+            <!-- Tutorial cards will be generated by JavaScript -->
+        </x-scroll>
+
+        <div class="status-panel">
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value" id="tutorials-current">1</div>
+                    <div class="status-label">Current Item</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="tutorials-total">0</div>
+                    <div class="status-label">Total Items</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Game Assets Grid Scroll -->
+<div class="demo-section">
+    <div class="section-header">
+        <h2 class="section-title">🎨 Game Assets Collection</h2>
+        <div class="section-controls">
+            <div class="control-group">
+                <label>Items Visible:</label>
+                <select id="assets-visible">
+                    <option value="0">Auto</option>
+                    <option value="3">3 Items</option>
+                    <option value="4">4 Items</option>
+                    <option value="5" selected>5 Items</option>
+                    <option value="6">6 Items</option>
+                </select>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="assets-center" checked>
+                <label>Center Active</label>
+            </div>
+        </div>
+    </div>
+    <div class="section-content">
+        <x-scroll
+                id="assets-scroll"
+                direction="horizontal"
+                smooth
+                center-active
+                show-arrows
+                items-visible="5"
+                gap="12px">
+
+            <!-- Asset cards will be generated by JavaScript -->
+        </x-scroll>
+    </div>
+</div>
+
+<!-- Blog Posts Scroll -->
+<div class="demo-section">
+    <div class="section-header">
+        <h2 class="section-title">✍️ Latest Blog Posts</h2>
+        <div class="section-controls">
+            <div class="control-group">
+                <label>Auto Speed:</label>
+                <select id="blog-speed">
+                    <option value="2000">Fast (2s)</option>
+                    <option value="3000" selected>Normal (3s)</option>
+                    <option value="5000">Slow (5s)</option>
+                </select>
+            </div>
+            <x-button id="blog-toggle-auto" label="Start Auto-Play" variant="outline" size="sm"></x-button>
+        </div>
+    </div>
+    <div class="section-content">
+        <x-scroll
+                id="blog-scroll"
+                direction="horizontal"
+                smooth
+                show-dots
+                scroll-speed="3000"
+                gap="20px">
+
+            <!-- Blog cards will be generated by JavaScript -->
+        </x-scroll>
+    </div>
+</div>
+
+<!-- Project Updates Scroll -->
+<div class="demo-section">
+    <div class="section-header">
+        <h2 class="section-title">🚀 Project Updates</h2>
+        <div class="section-controls">
+            <x-button id="add-project" label="➕ Add Project" variant="primary" size="sm"></x-button>
+            <x-button id="remove-project" label="➖ Remove Last" variant="danger" size="sm"></x-button>
+        </div>
+    </div>
+    <div class="section-content">
+        <x-scroll
+                id="projects-scroll"
+                direction="horizontal"
+                smooth
+                show-arrows
+                show-dots
+                gap="16px">
+
+            <!-- Project cards will be generated by JavaScript -->
+        </x-scroll>
+    </div>
+</div>
+
+<!-- Vertical Scroll Demo -->
+<div class="demo-section">
+    <div class="section-header">
+        <h2 class="section-title">📋 Development Tools (Vertical)</h2>
+        <div class="section-controls">
+            <div class="checkbox-group">
+                <input type="checkbox" id="vertical-arrows" checked>
+                <label>Show Arrows</label>
+            </div>
+        </div>
+    </div>
+    <div class="section-content">
+        <div class="vertical-scroll">
+            <x-scroll
+                    id="tools-scroll"
+                    direction="vertical"
+                    smooth
+                    show-arrows
+                    gap="12px">
+
+                <!-- Tool items will be generated by JavaScript -->
+            </x-scroll>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    class ScrollDemo {
+        constructor() {
+            this.tutorialsScroll = document.getElementById('tutorials-scroll');
+            this.assetsScroll = document.getElementById('assets-scroll');
+            this.blogScroll = document.getElementById('blog-scroll');
+            this.projectsScroll = document.getElementById('projects-scroll');
+            this.toolsScroll = document.getElementById('tools-scroll');
+
+            this.generateContent();
+            this.initControls();
+            this.initEventListeners();
+        }
+
+        generateContent() {
+            this.generateTutorials();
+            this.generateAssets();
+            this.generateBlogPosts();
+            this.generateProjects();
+            this.generateTools();
+        }
+
+        generateTutorials() {
+            const tutorials = [
+                { title: 'Unity Basics', description: 'Learn the fundamentals of Unity game engine', level: 'Beginner', duration: '2h' },
+                { title: 'C# for Games', description: 'Master C# programming for game development', level: 'Intermediate', duration: '4h' },
+                { title: '2D Platformer', description: 'Create your first 2D platformer game', level: 'Beginner', duration: '6h' },
+                { title: 'Physics Systems', description: 'Advanced physics and collision detection', level: 'Advanced', duration: '3h' },
+                { title: 'AI Behavior', description: 'Implement intelligent NPC behavior', level: 'Advanced', duration: '5h' },
+                { title: 'Multiplayer Basics', description: 'Introduction to multiplayer networking', level: 'Intermediate', duration: '4h' },
+                { title: 'UI Design', description: 'Create beautiful game user interfaces', level: 'Beginner', duration: '2h' },
+                { title: 'Performance Optimization', description: 'Optimize your games for better performance', level: 'Advanced', duration: '3h' }
+            ];
+
+            tutorials.forEach((tutorial, index) => {
+                const card = document.createElement('div');
+                card.className = 'tutorial-card';
+                card.innerHTML = `
+                        <img class="tutorial-image" src="https://images.unsplash.com/photo-155074516${(index % 9) + 1}-adc38448a05e?w=300&h=160&fit=crop" alt="${tutorial.title}">
+                        <div class="tutorial-content">
+                            <h3 class="tutorial-title">${tutorial.title}</h3>
+                            <p class="tutorial-description">${tutorial.description}</p>
+                            <div class="tutorial-meta">
+                                <span class="tutorial-badge">${tutorial.level}</span>
+                                <span>${tutorial.duration}</span>
+                            </div>
+                        </div>
+                    `;
+                this.tutorialsScroll.appendChild(card);
+            });
+
+            document.getElementById('tutorials-total').textContent = tutorials.length;
+        }
+
+        generateAssets() {
+            const assets = [
+                { name: 'Characters', type: 'Sprites', icon: '👾' },
+                { name: 'Environments', type: 'Backgrounds', icon: '🏞️' },
+                { name: 'Items', type: 'Props', icon: '💎' },
+                { name: 'Effects', type: 'Particles', icon: '✨' },
+                { name: 'UI Elements', type: 'Interface', icon: '🎛️' },
+                { name: 'Audio', type: 'Sound FX', icon: '🔊' },
+                { name: 'Music', type: 'Soundtrack', icon: '🎵' },
+                { name: 'Fonts', type: 'Typography', icon: '🔤' },
+                { name: 'Icons', type: 'Interface', icon: '🎯' },
+                { name: 'Animations', type: 'Motion', icon: '🎬' }
+            ];
+
+            assets.forEach(asset => {
+                const card = document.createElement('div');
+                card.className = 'asset-card';
+                card.innerHTML = `
+                        <div class="asset-image">${asset.icon}</div>
+                        <div class="asset-content">
+                            <h4 class="asset-title">${asset.name}</h4>
+                            <p class="asset-type">${asset.type}</p>
+                        </div>
+                    `;
+                this.assetsScroll.appendChild(card);
+            });
+        }
+
+        generateBlogPosts() {
+            const posts = [
+                { title: 'The Future of Indie Gaming', excerpt: 'Exploring trends and opportunities in the independent game development scene.', author: 'Alex', date: '2024-01-15' },
+                { title: 'Unity 2024 New Features', excerpt: 'A comprehensive overview of the latest Unity engine updates and improvements.', author: 'Sarah', date: '2024-01-10' },
+                { title: 'Game Design Psychology', excerpt: 'Understanding player behavior and motivation in game design decisions.', author: 'Mike', date: '2024-01-08' },
+                { title: 'Mobile Game Monetization', excerpt: 'Strategies for successful revenue generation in mobile gaming.', author: 'Emma', date: '2024-01-05' },
+                { title: 'Accessibility in Games', excerpt: 'Making games accessible to players with disabilities.', author: 'David', date: '2024-01-03' }
+            ];
+
+            posts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'blog-card';
+                card.innerHTML = `
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <div class="blog-meta">
+                            <div class="blog-author">
+                                <div class="author-avatar">${post.author.charAt(0)}</div>
+                                <span>${post.author}</span>
+                            </div>
+                            <span>${new Date(post.date).toLocaleDateString()}</span>
+                        </div>
+                    `;
+                this.blogScroll.appendChild(card);
+            });
+        }
+
+        generateProjects() {
+            const projects = [
+                { title: 'Space Explorer RPG', description: 'Epic space exploration with deep RPG mechanics', progress: '75%', team: '5 devs' },
+                { title: 'Pixel Dungeon Crawler', description: 'Retro-style dungeon exploration game', progress: '45%', team: '3 devs' },
+                { title: 'Racing Championship', description: 'High-speed racing with customization', progress: '90%', team: '8 devs' },
+                { title: 'Puzzle Paradise', description: 'Mind-bending puzzle mechanics', progress: '30%', team: '2 devs' }
+            ];
+
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                        <h3 class="project-title">${project.title}</h3>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-stats">
+                            <span>Progress: ${project.progress}</span>
+                            <span>Team: ${project.team}</span>
+                        </div>
+                    `;
+                this.projectsScroll.appendChild(card);
+            });
+        }
+
+        generateTools() {
+            const tools = [
+                { name: 'Unity Editor', description: 'Complete game development environment', icon: '🎮' },
+                { name: 'Visual Studio', description: 'Powerful IDE for C# development', icon: '💻' },
+                { name: 'Blender', description: '3D modeling and animation software', icon: '🎨' },
+                { name: 'Photoshop', description: 'Professional image editing tool', icon: '📸' },
+                { name: 'Audacity', description: 'Open-source audio editing platform', icon: '🎧' },
+                { name: 'Git', description: 'Version control for collaborative development', icon: '📝' },
+                { name: 'Trello', description: 'Project management and organization', icon: '📋' },
+                { name: 'Discord', description: 'Team communication and community building', icon: '💬' }
+            ];
+
+            tools.forEach(tool => {
+                const item = document.createElement('div');
+                item.className = 'vertical-item';
+                item.innerHTML = `
+                        <div class="vertical-icon">${tool.icon}</div>
+                        <div class="vertical-content">
+                            <h4 class="vertical-title">${tool.name}</h4>
+                            <p class="vertical-description">${tool.description}</p>
+                        </div>
+                    `;
+                this.toolsScroll.appendChild(item);
+            });
+        }
+
+        initControls() {
+            // Tutorials controls
+            document.getElementById('tutorials-arrows').addEventListener('change', (e) => {
+                this.toggleAttribute(this.tutorialsScroll, 'show-arrows', e.target.checked);
+            });
+
+            document.getElementById('tutorials-dots').addEventListener('change', (e) => {
+                this.toggleAttribute(this.tutorialsScroll, 'show-dots', e.target.checked);
+            });
+
+            document.getElementById('tutorials-autoplay').addEventListener('change', (e) => {
+                this.toggleAttribute(this.tutorialsScroll, 'auto-scroll', e.target.checked);
+            });
+
+            document.getElementById('tutorials-loop').addEventListener('change', (e) => {
+                this.toggleAttribute(this.tutorialsScroll, 'loop', e.target.checked);
+            });
+
+            // Assets controls
+            document.getElementById('assets-visible').addEventListener('change', (e) => {
+                this.assetsScroll.setAttr('items-visible', e.target.value);
+            });
+
+            document.getElementById('assets-center').addEventListener('change', (e) => {
+                this.toggleAttribute(this.assetsScroll, 'center-active', e.target.checked);
+            });
+
+            // Blog controls
+            document.getElementById('blog-speed').addEventListener('change', (e) => {
+                this.blogScroll.setAttr('scroll-speed', e.target.value);
+            });
+
+            document.getElementById('blog-toggle-auto').addEventListener('button-click', (e) => {
+                const button = e.target;
+                const isAutoPlay = this.blogScroll.hasAttribute('auto-scroll');
+
+                if (isAutoPlay) {
+                    this.blogScroll.removeAttribute('auto-scroll');
+                    button.label = 'Start Auto-Play';
+                } else {
+                    this.blogScroll.setAttr('auto-scroll', '');
+                    button.label = 'Stop Auto-Play';
+                }
+            });
+
+            // Project controls
+            document.getElementById('add-project').addEventListener('button-click', () => {
+                this.addProject();
+            });
+
+            document.getElementById('remove-project').addEventListener('button-click', () => {
+                this.removeProject();
+            });
+
+            // Vertical scroll controls
+            document.getElementById('vertical-arrows').addEventListener('change', (e) => {
+                this.toggleAttribute(this.toolsScroll, 'show-arrows', e.target.checked);
+            });
+        }
+
+        initEventListeners() {
+            // Tutorials scroll events
+            this.tutorialsScroll.addEventListener('scroll-to', (e) => {
+                document.getElementById('tutorials-current').textContent = e.detail.index + 1;
+            });
+
+            this.tutorialsScroll.addEventListener('item-visible', (e) => {
+                console.log('Tutorial visible:', e.detail);
+            });
+
+            // All scroll components
+            [this.tutorialsScroll, this.assetsScroll, this.blogScroll, this.projectsScroll, this.toolsScroll].forEach(scroll => {
+                scroll.addEventListener('scroll-to', (e) => {
+                    console.log(`Scroll to index ${e.detail.index} in ${scroll.id}`);
+                });
+            });
+        }
+
+        toggleAttribute(element, attribute, enabled) {
+            if (enabled) {
+                element.setAttr(attribute, '');
+            } else {
+                element.removeAttribute(attribute);
+            }
+        }
+
+        addProject() {
+            const projectNames = ['Zombie Survival', 'Tower Defense Pro', 'Card Battle Arena', 'Platformer Deluxe', 'Strategy Empire'];
+            const descriptions = ['Survive the apocalypse', 'Defend your base', 'Collect and battle', 'Jump and run adventure', 'Build your empire'];
+
+            const randomName = projectNames[Math.floor(Math.random() * projectNames.length)];
+            const randomDesc = descriptions[Math.floor(Math.random() * descriptions.length)];
+            const randomProgress = Math.floor(Math.random() * 100);
+            const randomTeam = Math.floor(Math.random() * 6) + 2;
+
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                    <h3 class="project-title">${randomName}</h3>
+                    <p class="project-description">${randomDesc}</p>
+                    <div class="project-stats">
+                        <span>Progress: ${randomProgress}%</span>
+                        <span>Team: ${randomTeam} devs</span>
+                    </div>
+                `;
+
+            this.projectsScroll.addItem(card);
+            console.log('Added new project:', randomName);
+        }
+
+        removeProject() {
+            const items = this.projectsScroll.getItems();
+            if (items.length > 1) {
+                const removed = this.projectsScroll.removeItem(items.length - 1);
+                if (removed) {
+                    console.log('Removed project');
+                }
+            } else {
+                console.log('Cannot remove last project');
+            }
+        }
+    }
+
+    // Initialize demo when DOM is ready
+    new ScrollDemo();
+</script>
+</body>
+</html>
