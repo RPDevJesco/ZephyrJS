@@ -1,6 +1,8 @@
 const basePath = location.hostname.endsWith('github.io')
     ? '/micro-framework/src/'
-    : './src/';
+    : '../src/';
+
+console.log(basePath);
 
 import(`${basePath}core/XBase.js`).then(module => window.XBase = module.default);
 import(`${basePath}core/XBudgets.js`).then(module => window.XBudgets = module.default);
