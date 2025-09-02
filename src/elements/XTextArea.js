@@ -1,7 +1,7 @@
 import XBase from '../core/XBase.js';
 
 // Form-Associated Textarea Element with auto-resize and character counting
-export default class XTextarea extends XBase {
+export default class XTextArea extends XBase {
     static formAssociated = true;
     static get observedAttributes() {
         return ['value', 'placeholder', 'required', 'disabled', 'error', 'label', 'rows', 'auto-resize', 'max-length', 'show-count'];
@@ -304,4 +304,4 @@ export default class XTextarea extends XBase {
     }
 }
 
-customElements.define('x-textarea', XTextarea);
+customElements.define('x-textarea', XTextArea);
