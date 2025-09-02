@@ -77,8 +77,11 @@ class ShowcaseApp {
         this.hideError();
 
         try {
-            // Construct the example file path
-            const examplePath = `./main/src/examples/${exampleName}.html`;
+            // because github pages are picky. Just resolve it here prior to getting to the examplePath.
+            const ghBase =
+                location.hostname.endsWith('github.io') ? `/${location.pathname.split('/')[1]}` : '';
+
+            const examplePath = `${ghBase}/src/examples/${exampleName}.html`;
 
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
