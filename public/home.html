@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZephyrJS - Home</title>
+    <style>
+        :root {
+            --x-accent: #6366f1;
+            --x-accent-light: #818cf8;
+            --x-accent-dark: #4f46e5;
+            --x-font: 'Inter', system-ui, -apple-system, sans-serif;
+            --x-radius: 12px;
+            --x-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --x-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #06b6d4;
+            --dark: #1f2937;
+            --light: #f8fafc;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: var(--x-font);
+            line-height: 1.6;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><circle cx="10" cy="10" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="5" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="15" r="4" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: drift 30s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin: 0 0 1.5rem 0;
+            background: linear-gradient(120deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.375rem;
+            margin: 0 0 3rem 0;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--x-accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .features-section {
+            padding: 5rem 2rem;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin: 0 0 4rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--x-shadow);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--x-shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.375rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: #6b7280;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .components-preview {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .component-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--x-accent);
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .component-card:hover {
+            border-color: var(--x-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .component-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .component-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .component-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin: 0 0 0.5rem 0;
+            color: var(--dark);
+        }
+
+        .component-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .stats-section {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat {
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: block;
+            color: var(--x-accent-light);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .cta-section {
+            background: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .features-grid,
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                padding: 3rem 1rem;
+            }
+
+            .features-section,
+            .components-preview,
+            .stats-section,
+            .cta-section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">ZephyrJS</h1>
+        <p class="hero-subtitle">A back-to-basics web component library that rediscovers forgotten performance principles</p>
+        <div class="hero-buttons">
+            <a href="https://github.com/RPDevJesco/micro-framework" target="_blank" class="btn btn-primary">
+                <span>📚</span>
+                View on GitHub
+            </a>
+            <button onclick="parent.loadExample('input-example')" class="btn btn-outline">
+                <span>🚀</span>
+                Try Components
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="features-section">
+    <div class="container">
+        <h2 class="section-title">Why ZephyrJS?</h2>
+        <p class="section-subtitle">Rediscovering the performance and simplicity that web development once had</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🌐</span>
+                <h3 class="feature-title">Web Platform Native</h3>
+                <p class="feature-description">Built on stable web standards like Custom Elements and DOM attributes. No framework lock-in, works everywhere the web does.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Forgotten Performance</h3>
+                <p class="feature-description">Direct DOM manipulation without virtual DOM overhead. Under 5KB gzipped core with blazing fast updates.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🔍</span>
+                <h3 class="feature-title">Transparent State</h3>
+                <p class="feature-description">Component state lives in DOM attributes where you can see it, debug it, and understand it using browser DevTools.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">🛠️</span>
+                <h3 class="feature-title">Zero Build Step</h3>
+                <p class="feature-description">Import and use components directly in browsers with ES modules. No compilation, no build tools, just code and go.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">♿</span>
+                <h3 class="feature-title">Accessibility First</h3>
+                <p class="feature-description">WCAG 2.1 compliant components with keyboard navigation, screen reader support, and semantic HTML built-in.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <h3 class="feature-title">Mobile Ready</h3>
+                <p class="feature-description">Responsive, touch-friendly components that work beautifully on all devices without additional configuration.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Components Preview -->
+<div class="components-preview">
+    <div class="container">
+        <h2 class="section-title">Explore Components</h2>
+        <p class="section-subtitle">Click any component to see live examples and documentation</p>
+
+        <div class="component-grid">
+            <div class="component-card" onclick="parent.loadExample('input-example')">
+                <span class="component-icon">✏️</span>
+                <h3 class="component-name">XInput</h3>
+                <p class="component-description">Smart input fields with validation</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('card-example')">
+                <span class="component-icon">🃏</span>
+                <h3 class="component-name">XCard</h3>
+                <p class="component-description">Flexible content cards</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('tabs-example')">
+                <span class="component-icon">📑</span>
+                <h3 class="component-name">XTabs</h3>
+                <p class="component-description">Accessible tab navigation</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('dialog-example')">
+                <span class="component-icon">💬</span>
+                <h3 class="component-name">XDialog</h3>
+                <p class="component-description">Modal dialogs with focus management</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('datatable-example')">
+                <span class="component-icon">📊</span>
+                <h3 class="component-name">XDataTable</h3>
+                <p class="component-description">Sortable tables with pagination</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('form-example')">
+                <span class="component-icon">📄</span>
+                <h3 class="component-name">XForm</h3>
+                <p class="component-description">Complete form management</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('masonry-example')">
+                <span class="component-icon">🧱</span>
+                <h3 class="component-name">XMasonry</h3>
+                <p class="component-description">Infinite masonry layouts</p>
+            </div>
+
+            <div class="component-card" onclick="parent.loadExample('splitter-example')">
+                <span class="component-icon">↔️</span>
+                <h3 class="component-name">XSplitter</h3>
+                <p class="component-description">Resizable pane splitter</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section">
+    <div class="container">
+        <h2 class="section-title">Performance That Matters</h2>
+        <p class="section-subtitle">Real metrics that show why going back to basics wins</p>
+
+        <div class="stats-grid">
+            <div class="stat">
+                <span class="stat-number">~5KB</span>
+                <div class="stat-label">Core library size (gzipped)</div>
+            </div>
+
+            <div class="stat">
+                <span class="stat-number">20+</span>
+                <div class="stat-label">Production-ready components</div>
+            </div>
+
+            <div class="stat">
+                <span class="stat-number">0ms</span>
+                <div class="stat-label">Build step required</div>
+            </div>
+
+            <div class="stat">
+                <span class="stat-number">100%</span>
+                <div class="stat-label">Framework compatibility</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="cta-section">
+    <div class="container">
+        <h2 class="section-title">Ready to Rediscover Simplicity?</h2>
+        <p class="section-subtitle">Start building with ZephyrJS today and experience what web development was meant to be</p>
+
+        <div class="cta-buttons">
+            <a href="https://github.com/RPDevJesco/micro-framework" target="_blank" class="btn btn-primary">
+                <span>🔗</span>
+                Get Started
+            </a>
+            <button onclick="parent.loadExample('form-example')" class="btn btn-outline" style="background: var(--x-accent); color: white; border: 2px solid var(--x-accent);">
+                <span>🎯</span>
+                View Examples
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle navigation from within iframe
+    function navigateToComponent(componentExample) {
+        // Try to call parent's loadExample function
+        if (parent && parent.loadExample) {
+            parent.loadExample(componentExample);
+        } else if (parent && parent.app) {
+            parent.app.loadExample(componentExample);
+        } else {
+            console.log('Would navigate to:', componentExample);
+        }
+    }
+</script>
+</body>
+</html>

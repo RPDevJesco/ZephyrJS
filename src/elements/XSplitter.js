@@ -402,6 +402,11 @@ export default class XSplitter extends XBase {
     }
 
     render() {
+        // Add guard clause to prevent accessing undefined handle
+        if (!this.handle) {
+            return;
+        }
+
         // Re-apply disabled state
         if (this.hasAttribute('disabled')) {
             this.handle.style.cursor = 'default';
