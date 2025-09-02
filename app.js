@@ -77,15 +77,16 @@ class ShowcaseApp {
         this.hideError();
 
         try {
-            // because github pages are picky. Just resolve it here prior to getting to the examplePath.
+            // Fix the GitHub Pages path resolution
             let examplePath = '';
 
             if (location.hostname.endsWith('github.io')) {
+                // GitHub Pages serves from /micro-framework/, so we need the full path
                 examplePath = `/micro-framework/src/examples/${exampleName}.html`;
             } else {
+                // Local development - relative path is fine
                 examplePath = `src/examples/${exampleName}.html`;
             }
-
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
             breadcrumb.innerHTML = `
