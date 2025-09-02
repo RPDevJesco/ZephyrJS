@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XRadioGroup Example</title>
     <script type="module">
-        import '/src/core/XBase.js';
-        import '/src/elements/XButton.js';
-        import '/src/elements/XInput.js';
-        import '/src/elements/XSelect.js';
-        import '/src/elements/XCheckbox.js';
-        import '/src/elements/XTextArea.js';
-        import '/src/elements/XRadioGroup.js';
+        if (location.hostname.endsWith('github.io')) {
+            await import('../core/GHPagesModules.js');
+        } else {
+            await import('../core/XModules.js');
+        }
     </script>
     <style>
         :root {

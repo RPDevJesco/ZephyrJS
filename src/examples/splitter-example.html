@@ -176,9 +176,11 @@
 <div class="status" id="status">Ready. Try dragging the splitter handles!</div>
 
 <script type="module">
-    // Import the components
-    import '/src/core/XBase.js';
-    import '/src/elements/XSplitter.js';
+    if (location.hostname.endsWith('github.io')) {
+        await import('../core/GHPagesModules.js');
+    } else {
+        await import('../core/XModules.js');
+    }
 
     // Test functions
     window.setSplitPosition = (percentage) => {

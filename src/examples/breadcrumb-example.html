@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XBreadcrumb Examples</title>
     <script type="module">
-        import '/src/core/XBase.js';
-        import '/src/elements/XBreadcrumb.js';
-        import '/src/elements/XButton.js';
-        import '/src/elements/XDialog.js';
+        if (location.hostname.endsWith('github.io')) {
+            await import('../core/GHPagesModules.js');
+        } else {
+            await import('../core/XModules.js');
+        }
     </script>
     <style>
         :root {

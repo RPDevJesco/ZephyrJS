@@ -4,8 +4,11 @@
     <meta charset="UTF-8" />
     <title>Perf Harness</title>
     <script type="module">
-        import '../elements/XButton.js';
-        import '../elements/XVirtualList.js';
+        if (location.hostname.endsWith('github.io')) {
+            await import('../core/GHPagesModules.js');
+        } else {
+            await import('../core/XModules.js');
+        }
     </script>
     <style>
         body { font-family: ui-sans-serif, system-ui; margin: 16px; }
