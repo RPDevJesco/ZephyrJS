@@ -85,7 +85,7 @@ class ShowcaseApp {
                 examplePath = `/micro-framework/src/examples/${exampleName}.html`;
             } else {
                 // Local development - relative path is fine
-                examplePath = `../src/examples/${exampleName}.html`;
+                examplePath = `/micro-framework/src/examples/${exampleName}.html`;
             }
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
