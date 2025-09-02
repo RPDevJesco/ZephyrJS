@@ -81,9 +81,9 @@ class ShowcaseApp {
             let examplePath = '';
 
             if (location.hostname.endsWith('github.io')) {
-                examplePath = 'https://github.com/RPDevJesco/micro-framework/tree/main/src/examples/${exampleName}.html';
+                examplePath = `/micro-framework/src/examples/${exampleName}.html`;
             } else {
-                 examplePath = `src/examples/${exampleName}.html`;
+                examplePath = `src/examples/${exampleName}.html`;
             }
 
             // Update breadcrumb
