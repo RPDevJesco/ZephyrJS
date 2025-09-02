@@ -78,7 +78,7 @@ class ShowcaseApp {
 
         try {
             // Construct the example file path
-            const examplePath = `/main/src/examples/${exampleName}.html`;
+            const examplePath = `./main/src/examples/${exampleName}.html`;
 
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
