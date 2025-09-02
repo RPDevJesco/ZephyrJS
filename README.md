@@ -30,6 +30,15 @@ Modern tooling has made us forget how simple web development can be:
 
 ## 🚀 Quick Start
 
+### Visualization
+
+You can see the framework used in an actual web setting via:
+```bash
+https://rpdevjesco.github.io/micro-framework/
+```
+
+###
+
 ### Installation
 
 ```bash
