@@ -61,7 +61,7 @@ class ShowcaseApp {
         // Load home page in iframe like other examples
         contentArea.innerHTML = `
                 <div class="example-content" style="padding: 0;">
-                    <iframe src="home.html" style="width: 100%; min-height: 800px; border: none; border-radius: 0; background: white;"></iframe>
+                    <iframe src="public/home.html" style="width: 100%; min-height: 800px; border: none; border-radius: 0; background: white;"></iframe>
                 </div>
             `;
 
