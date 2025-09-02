@@ -78,10 +78,13 @@ class ShowcaseApp {
 
         try {
             // because github pages are picky. Just resolve it here prior to getting to the examplePath.
-            const ghBase =
-                location.hostname.endsWith('github.io') ? `/${location.pathname.split('/')[1]}` : '';
+            let examplePath = '';
 
-            const examplePath = `${ghBase}/src/examples/${exampleName}.html`;
+            if (location.hostname.endsWith('github.io')) {
+                examplePath = 'https://github.com/RPDevJesco/micro-framework/tree/main/src/examples/${exampleName}.html';
+            } else {
+                 examplePath = `src/examples/${exampleName}.html`;
+            }
 
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
