@@ -1,6 +1,6 @@
 import XBase from '../core/XBase.js';
 
-// Smooth Scrolling Container for Large Collections
+// Smooth Scrolling Container for Large Collections xScroll
 export default class XScroll extends XBase {
     static get observedAttributes() {
         return [
