@@ -6,20 +6,26 @@ export default class XVirtualList extends XBase {
     constructor() {
         super();
         this._isInitialized = false;
+        this._renderer = null;
+        this._pendingRender = false;
     }
 
     onConnect(signal) {
         this._initializeContainer();
         this._setupScrolling(signal);
         this._isInitialized = true;
-        // Render after initialization is complete
-        this.render();
+
+        // Force an immediate render to ensure items appear right away
+        requestAnimationFrame(() => {
+            this.render();
+        });
     }
 
     _initializeContainer() {
-        // Set up the virtual list container styles
+        // Set up the virtual list container styles immediately
         this.style.overflow = 'auto';
         this.style.position = 'relative';
+        this.style.display = 'block'; // Ensure it's visible
 
         // Create or get the container element
         this._container = this.firstElementChild;
@@ -30,6 +36,7 @@ export default class XVirtualList extends XBase {
 
         this._container.style.position = 'relative';
         this._container.style.width = '100%';
+        this._container.style.minHeight = '100%';
     }
 
     _setupScrolling(signal) {
@@ -51,9 +58,14 @@ export default class XVirtualList extends XBase {
 
     set renderer(fn) {
         this._renderer = fn;
+        // Immediately render when renderer is set if we're initialized
         if (this._isInitialized) {
             this.render();
         }
+    }
+
+    get renderer() {
+        return this._renderer;
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -61,7 +73,14 @@ export default class XVirtualList extends XBase {
 
         // Re-render when item-count or item-height changes
         if (this._isInitialized && (name === 'item-count' || name === 'item-height')) {
-            this.render();
+            // Use requestAnimationFrame to avoid render thrashing
+            if (!this._pendingRender) {
+                this._pendingRender = true;
+                requestAnimationFrame(() => {
+                    this.render();
+                    this._pendingRender = false;
+                });
+            }
         }
     }
 
@@ -74,23 +93,30 @@ export default class XVirtualList extends XBase {
         const N = Math.max(0, Number(this.getAttribute('item-count') ?? 0));
         const H = Math.max(1, Number(this.getAttribute('item-height') ?? 24));
 
-        // Get actual viewport height, with better fallback handling
-        const vh = this.clientHeight || this.getBoundingClientRect().height || 300;
+        // Get viewport height with better fallback handling
+        let vh = this.clientHeight;
 
-        // Ensure we have a valid viewport height
+        // If clientHeight is 0, try to get it from computed styles
         if (vh <= 0) {
-            return; // Skip rendering if we can't determine viewport size
+            const computedStyle = window.getComputedStyle(this);
+            vh = parseInt(computedStyle.height) || 400; // fallback to 400px
+        }
+
+        // If still no valid height, wait and try again
+        if (vh <= 0) {
+            requestAnimationFrame(() => this.render());
+            return;
         }
 
         // Calculate visible range with proper bounds checking
-        const scrollTop = Math.max(0, this.scrollTop);
+        const scrollTop = Math.max(0, this.scrollTop || 0);
         const start = Math.max(0, Math.floor(scrollTop / H) - 3);
         const visible = Math.min(N - start, Math.ceil(vh / H) + 6);
 
         // Set container height to accommodate all items
         this._container.style.height = `${N * H}px`;
 
-        // Don't render if no items are visible
+        // Handle empty list case
         if (visible <= 0 || N === 0) {
             this._container.innerHTML = '';
             return;
@@ -105,12 +131,24 @@ export default class XVirtualList extends XBase {
             if (idx >= N) break; // Safety check
 
             const el = this._container.children[i];
+            el.style.position = 'absolute';
             el.style.top = `${idx * H}px`;
+            el.style.left = '0';
+            el.style.right = '0';
             el.style.height = `${H}px`;
+            el.style.boxSizing = 'border-box';
 
             // Call the renderer if available
             try {
-                this._renderer?.(el, idx);
+                if (this._renderer) {
+                    this._renderer(el, idx);
+                } else {
+                    // Default renderer if none provided
+                    el.textContent = `Item ${idx}`;
+                    el.style.padding = '8px';
+                    el.style.borderBottom = '1px solid #eee';
+                    el.style.background = idx % 2 === 0 ? '#f9f9f9' : 'white';
+                }
             } catch (error) {
                 console.warn('XVirtualList renderer error:', error);
                 el.textContent = `Item ${idx}`;
@@ -128,6 +166,7 @@ export default class XVirtualList extends XBase {
             item.style.left = '0';
             item.style.right = '0';
             item.style.boxSizing = 'border-box';
+            item.style.overflow = 'hidden'; // Prevent content overflow
             this._container.appendChild(item);
         }
 
@@ -146,31 +185,56 @@ export default class XVirtualList extends XBase {
             return;
         }
 
+        // Calculate target scroll position
+        const targetScrollTop = index * H;
+
         // If element isn't ready yet, defer the scroll
         if (!this._isInitialized || this.clientHeight === 0) {
-            // Use requestAnimationFrame to ensure layout is complete
-            requestAnimationFrame(() => {
-                // Double-check we're ready, then try again
-                if (this.clientHeight > 0) {
-                    this.scrollTop = index * H;
-                    this.render(); // Force a render after scroll
+            // Use a more reliable approach to wait for readiness
+            const waitForReady = () => {
+                if (this.clientHeight > 0 && this._isInitialized) {
+                    this.scrollTop = targetScrollTop;
+                    // Force a render after scroll
+                    requestAnimationFrame(() => this.render());
                 } else {
-                    // If still not ready, use a small delay
-                    setTimeout(() => this.scrollToItem(index), 10);
+                    // Keep trying, but with exponential backoff
+                    setTimeout(waitForReady, 50);
                 }
-            });
+            };
+            waitForReady();
             return;
         }
 
-        this.scrollTop = index * H;
-        this.render(); // Force a render after scroll
+        // Immediate scroll if ready
+        this.scrollTop = targetScrollTop;
+
+        // Force a render after scroll to ensure items appear immediately
+        requestAnimationFrame(() => this.render());
     }
 
     // Public method to refresh the list
     refresh() {
         if (this._isInitialized) {
-            this.render();
+            // Clear container first to force re-render
+            this._container.innerHTML = '';
+            requestAnimationFrame(() => this.render());
         }
+    }
+
+    // Get current visible range (for debugging)
+    getVisibleRange() {
+        const H = Number(this.getAttribute('item-height') ?? 24);
+        const vh = this.clientHeight || 400;
+        const scrollTop = this.scrollTop || 0;
+        const start = Math.max(0, Math.floor(scrollTop / H) - 3);
+        const visible = Math.ceil(vh / H) + 6;
+
+        return {
+            start,
+            end: start + visible,
+            scrollTop,
+            clientHeight: vh
+        };
     }
 }
 

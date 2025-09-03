@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XMasonry Example</title>
-    <script type="module">
-        import '../core/XModules.js';
-    </script>
     <style>
         :root {
             --x-accent: #4f46e5;
@@ -105,6 +102,21 @@
         x-masonry::part(modal) {
             backdrop-filter: blur(5px);
         }
+
+        /* Button styles for fallback */
+        .demo-button {
+            padding: 8px 16px;
+            background: var(--x-accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .demo-button:hover {
+            background: #3730a3;
+        }
     </style>
 </head>
 <body>
@@ -127,17 +139,17 @@
             <div class="stat-label">Current Page</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value" id="loading-status">Ready</div>
+            <div class="stat-value" id="loading-status">Loading...</div>
             <div class="stat-label">Status</div>
         </div>
     </div>
 
     <div class="controls">
-        <x-button id="refresh-btn" label="🔄 Refresh" variant="primary"></x-button>
-        <x-button id="load-more-btn" label="⬇️ Load More"></x-button>
-        <x-button id="change-pattern-btn" label="🔲 Change Pattern"></x-button>
-        <x-button id="toggle-gap-btn" label="📏 Toggle Gap"></x-button>
-        <x-button id="add-random-btn" label="➕ Add Random"></x-button>
+        <button id="refresh-btn" class="demo-button">🔄 Refresh</button>
+        <button id="load-more-btn" class="demo-button">⬇️ Load More</button>
+        <button id="change-pattern-btn" class="demo-button">🔲 Change Pattern</button>
+        <button id="toggle-gap-btn" class="demo-button">📏 Toggle Gap</button>
+        <button id="add-random-btn" class="demo-button">➕ Add Random</button>
     </div>
 </div>
 
@@ -165,10 +177,31 @@
 </div>
 
 <div class="loading-indicator" id="loading-indicator">
-    Loading images...
+    Loading components...
 </div>
 
 <script type="module">
+    // Import modules and wait for them to be ready
+    async function loadModules() {
+        try {
+            await import('../core/XModules.js');
+
+            // Wait a bit for custom elements to be defined
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            // Check if XMasonry is defined
+            if (!customElements.get('x-masonry')) {
+                throw new Error('XMasonry component not loaded');
+            }
+
+            console.log('All modules loaded successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to load modules:', error);
+            return false;
+        }
+    }
+
     class MasonryDemoController {
         constructor() {
             this.masonry = document.getElementById('gallery');
@@ -186,6 +219,12 @@
         }
 
         setupMasonry() {
+            // Check if the component is ready
+            if (typeof this.masonry.setFetchFunction !== 'function') {
+                console.error('XMasonry component not ready. Methods:', Object.getOwnPropertyNames(this.masonry));
+                return;
+            }
+
             // Set up the fetch function for loading images
             this.masonry.setFetchFunction(async (page, pageSize) => {
                 console.log(`Fetching page ${page} with ${pageSize} items`);
@@ -238,37 +277,41 @@
 
         bindControls() {
             // Refresh button
-            document.getElementById('refresh-btn').addEventListener('button-click', () => {
-                this.masonry.refresh();
-                this.updateLoadingIndicator(true);
+            document.getElementById('refresh-btn').addEventListener('click', () => {
+                if (this.masonry.refresh) {
+                    this.masonry.refresh();
+                    this.updateLoadingIndicator(true);
+                }
             });
 
             // Load more button
-            document.getElementById('load-more-btn').addEventListener('button-click', () => {
+            document.getElementById('load-more-btn').addEventListener('click', () => {
                 // Manually trigger load more by setting has-more if it was removed
                 if (!this.masonry.hasAttribute('has-more')) {
-                    this.masonry.setAttr('has-more', 'true');
+                    this.masonry.setAttribute('has-more', 'true');
                 }
                 this.updateLoadingIndicator(true);
-                this.masonry._loadNextPage();
+                if (this.masonry._loadNextPage) {
+                    this.masonry._loadNextPage();
+                }
             });
 
             // Change pattern button
-            document.getElementById('change-pattern-btn').addEventListener('button-click', () => {
+            document.getElementById('change-pattern-btn').addEventListener('click', () => {
                 this.currentPatternIndex = (this.currentPatternIndex + 1) % this.patterns.length;
                 const newPatterns = this.patterns[this.currentPatternIndex];
-                this.masonry.setAttr('patterns', JSON.stringify(newPatterns));
+                this.masonry.setAttribute('patterns', JSON.stringify(newPatterns));
             });
 
             // Toggle gap button
-            document.getElementById('toggle-gap-btn').addEventListener('button-click', () => {
+            document.getElementById('toggle-gap-btn').addEventListener('click', () => {
                 const currentGap = Number(this.masonry.getAttribute('gap') || '12');
                 const newGap = currentGap === 12 ? 2 : 12;
-                this.masonry.setAttr('gap', String(newGap));
+                this.masonry.setAttribute('gap', String(newGap));
             });
 
             // Add random items button
-            document.getElementById('add-random-btn').addEventListener('button-click', () => {
+            document.getElementById('add-random-btn').addEventListener('click', () => {
                 const randomItems = Array.from({ length: 5 }, (_, i) => ({
                     id: `random-${Date.now()}-${i}`,
                     src: `https://picsum.photos/400/300?random=${Date.now() + i}`,
@@ -276,14 +319,20 @@
                     title: `Random image ${i}`
                 }));
 
-                this.masonry.addItems(randomItems);
+                if (this.masonry.addItems) {
+                    this.masonry.addItems(randomItems);
+                }
             });
         }
 
         setupStatsUpdater() {
             // Update stats periodically
             setInterval(() => {
-                const stats = this.masonry.getStats();
+                let stats = { totalItems: 0, renderedItems: 0, currentPage: 0, isLoading: false, hasMore: true };
+
+                if (this.masonry.getStats) {
+                    stats = this.masonry.getStats();
+                }
 
                 document.getElementById('total-items').textContent = stats.totalItems;
                 document.getElementById('rendered-items').textContent = stats.renderedItems;
@@ -333,10 +382,49 @@
         }
     }
 
-    // Initialize the demo when page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        new MasonryDemoController();
-    });
+    // Initialize the demo when modules are loaded
+    async function initDemo() {
+        const indicator = document.getElementById('loading-indicator');
+        indicator.textContent = 'Loading components...';
+        indicator.classList.add('show');
+
+        const modulesLoaded = await loadModules();
+
+        if (modulesLoaded) {
+            // Wait for the custom element to be fully connected
+            const masonry = document.getElementById('gallery');
+
+            // Wait for the component to be initialized
+            if (masonry.tagName.toLowerCase() === 'x-masonry') {
+                // Wait for connectedCallback to complete
+                await new Promise(resolve => {
+                    if (masonry.isConnected && masonry._isInitialized) {
+                        resolve();
+                    } else {
+                        const checkInterval = setInterval(() => {
+                            if (masonry._isInitialized || masonry.setFetchFunction) {
+                                clearInterval(checkInterval);
+                                resolve();
+                            }
+                        }, 100);
+                    }
+                });
+            }
+
+            document.getElementById('loading-status').textContent = 'Ready';
+            indicator.textContent = 'Components loaded!';
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+
+            new MasonryDemoController();
+        } else {
+            document.getElementById('loading-status').textContent = 'Error';
+            indicator.textContent = 'Failed to load components';
+            indicator.style.background = '#ef4444';
+        }
+    }
+
+    // Start initialization
+    initDemo();
 
     // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
@@ -344,43 +432,43 @@
             switch (e.key) {
                 case 'r':
                     e.preventDefault();
-                    document.getElementById('refresh-btn').dispatchEvent(
-                        new CustomEvent('button-click', { bubbles: true })
-                    );
+                    document.getElementById('refresh-btn').click();
                     break;
                 case 'l':
                     e.preventDefault();
-                    document.getElementById('load-more-btn').dispatchEvent(
-                        new CustomEvent('button-click', { bubbles: true })
-                    );
+                    document.getElementById('load-more-btn').click();
                     break;
             }
         }
     });
 
-    // Demo: Simulate some dynamic changes
+    // Demo: Simulate some dynamic changes after component is ready
     setTimeout(() => {
-        console.log('Demo: Changing base unit size after 5 seconds');
         const masonry = document.getElementById('gallery');
-        masonry.setAttr('base-unit', '180');
+        if (masonry && masonry.setAttribute) {
+            console.log('Demo: Changing base unit size after 5 seconds');
+            masonry.setAttribute('base-unit', '180');
+        }
     }, 5000);
 
     setTimeout(() => {
-        console.log('Demo: Adding some bonus items after 10 seconds');
         const masonry = document.getElementById('gallery');
-        const bonusItems = [
-            {
-                id: 'bonus-1',
-                src: 'https://picsum.photos/400/300?random=bonus1',
-                alt: 'Bonus image 1'
-            },
-            {
-                id: 'bonus-2',
-                src: 'https://picsum.photos/400/300?random=bonus2',
-                alt: 'Bonus image 2'
-            }
-        ];
-        masonry.addItems(bonusItems);
+        if (masonry && masonry.addItems) {
+            console.log('Demo: Adding some bonus items after 10 seconds');
+            const bonusItems = [
+                {
+                    id: 'bonus-1',
+                    src: 'https://picsum.photos/400/300?random=bonus1',
+                    alt: 'Bonus image 1'
+                },
+                {
+                    id: 'bonus-2',
+                    src: 'https://picsum.photos/400/300?random=bonus2',
+                    alt: 'Bonus image 2'
+                }
+            ];
+            masonry.addItems(bonusItems);
+        }
     }, 10000);
 </script>
 

@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XInput Example</title>
-    <script type="module">
-        import '../core/XModules.js';
-    </script>
     <style>
         :root {
             --x-accent: #4f46e5;
@@ -96,9 +93,26 @@
 </div>
 
 <script type="module">
+    // Import modules and wait for them to be ready
+    async function loadModules() {
+        try {
+            await import('../core/XModules.js');
+
+            // Wait a bit for custom elements to be defined
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            console.log('All modules loaded successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to load modules:', error);
+            return false;
+        }
+    }
+
     // Simple form controller that demonstrates DOM-as-state
     class FormController {
         constructor(formEl) {
+            loadModules();
             this.form = formEl;
             this.inputs = formEl.querySelectorAll('x-input');
             this.submitBtn = formEl.querySelector('#submit-btn');

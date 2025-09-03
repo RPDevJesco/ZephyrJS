@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XTabs Example</title>
-    <script type="module">
-        import '../core/XModules.js';
-    </script>
     <style>
         :root {
             --x-accent: #4f46e5;
@@ -565,8 +562,25 @@
 </div>
 
 <script type="module">
+    // Import modules and wait for them to be ready
+    async function loadModules() {
+        try {
+            await import('../core/XModules.js');
+
+            // Wait a bit for custom elements to be defined
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            console.log('All modules loaded successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to load modules:', error);
+            return false;
+        }
+    }
+
     class TabsDemoController {
         constructor() {
+            loadModules();
             this.tabContainers = document.querySelectorAll('x-tabs');
             this.eventsLog = document.getElementById('events-log');
             this.tabStatus = document.getElementById('tab-status');

@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Form Examples</title>
-    <script type="module">
-        import '../core/XModules.js';
-    </script>
     <style>
         :root {
             --x-accent: #4f46e5;
@@ -421,9 +418,26 @@
 </x-dialog>
 
 <script type="module">
+    // Import modules and wait for them to be ready
+    async function loadModules() {
+        try {
+            await import('../core/XModules.js');
+
+            // Wait a bit for custom elements to be defined
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            console.log('All modules loaded successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to load modules:', error);
+            return false;
+        }
+    }
+
     // Form Controller for DOM-as-State Management
     class FormController {
         constructor() {
+            loadModules();
             this.initializeEventListeners();
             this.setupRealTimePreview();
             this.setupValidation();

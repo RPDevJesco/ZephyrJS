@@ -176,7 +176,23 @@
 <div class="status" id="status">Ready. Try dragging the splitter handles!</div>
 
 <script type="module">
-    import '../core/XModules.js';
+    // Import modules and wait for them to be ready
+    async function loadModules() {
+        try {
+            await import('../core/XModules.js');
+
+            // Wait a bit for custom elements to be defined
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            console.log('All modules loaded successfully');
+            return true;
+        } catch (error) {
+            console.error('Failed to load modules:', error);
+            return false;
+        }
+    }
+
+    await loadModules();
 
     // Test functions
     window.setSplitPosition = (percentage) => {
