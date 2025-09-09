@@ -16,19 +16,24 @@ export default class XCard extends XBase {
         this._footer = null;
         this._imageElement = null;
         this._loadingOverlay = null;
+        this._originalContent = null;
     }
 
     onConnect(signal) {
+        // Store original content before any manipulation
+        this._originalContent = Array.from(this.children);
+
         this._createCardStructure();
         this._setupEventListeners(signal);
-        this.render();
+
+        // Delay initial render to ensure DOM is ready
+        requestAnimationFrame(() => {
+            this.render();
+        });
     }
 
     _createCardStructure() {
-        // Preserve existing content and organize by data attributes
-        const existingContent = Array.from(this.children);
-
-        // Create card sections
+        // Create card sections first
         this._header = document.createElement('div');
         this._header.part = 'header';
         this._header.className = 'card-header';
@@ -66,24 +71,8 @@ export default class XCard extends XBase {
             </div>
         `;
 
-        // Organize existing content
-        const headerContent = existingContent.filter(el =>
-            el.hasAttribute('data-card-section') && el.getAttribute('data-card-section') === 'header'
-        );
-        const bodyContent = existingContent.filter(el =>
-            !el.hasAttribute('data-card-section') || el.getAttribute('data-card-section') === 'body'
-        );
-        const footerContent = existingContent.filter(el =>
-            el.hasAttribute('data-card-section') && el.getAttribute('data-card-section') === 'footer'
-        );
-
-        // Move content to appropriate sections
-        headerContent.forEach(el => this._header.appendChild(el));
-        bodyContent.forEach(el => this._body.appendChild(el));
-        footerContent.forEach(el => this._footer.appendChild(el));
-
-        // Clear and rebuild structure
-        this.innerHTML = '';
+        // Organize content properly
+        this._organizeContent();
 
         // Add image if specified
         const imageUrl = this.getAttribute('image');
@@ -91,16 +80,238 @@ export default class XCard extends XBase {
             this._setupImage(imageUrl);
         }
 
-        // Add sections (order depends on image position)
+        // Clear current content and rebuild structure
+        this.innerHTML = '';
+
+        // Add sections in correct order
         this._arrangeCardSections();
 
-        // Add loading overlay
+        // Add loading overlay last
         this.appendChild(this._loadingOverlay);
+    }
 
-        this._applyCardStyles();
+    _organizeContent() {
+        if (!this._originalContent) return;
+
+        // Handle both slot-based and data-attribute-based content organization
+        this._originalContent.forEach(element => {
+            let targetSection = this._body; // Default to body
+
+            // Check for slot attribute first
+            const slot = element.getAttribute('slot');
+            if (slot) {
+                switch (slot) {
+                    case 'header':
+                        targetSection = this._header;
+                        break;
+                    case 'footer':
+                        targetSection = this._footer;
+                        break;
+                    case 'body':
+                    default:
+                        targetSection = this._body;
+                        break;
+                }
+            }
+            // Fallback to data-card-section attribute
+            else {
+                const section = element.getAttribute('data-card-section');
+                switch (section) {
+                    case 'header':
+                        targetSection = this._header;
+                        break;
+                    case 'footer':
+                        targetSection = this._footer;
+                        break;
+                    case 'body':
+                    default:
+                        targetSection = this._body;
+                        break;
+                }
+            }
+
+            // Clone the element to avoid moving issues
+            const clonedElement = element.cloneNode(true);
+            targetSection.appendChild(clonedElement);
+        });
+    }
+
+    _arrangeCardSections() {
+        const imagePosition = this.getAttribute('image-position') || 'top';
+
+        // Remove any existing sections from DOM
+        [this._imageElement, this._header, this._body, this._footer].forEach(section => {
+            if (section && section.parentNode === this) {
+                this.removeChild(section);
+            }
+        });
+
+        // Arrange based on image position
+        switch (imagePosition) {
+            case 'top':
+                this._appendNonEmptySections([this._imageElement, this._header, this._body, this._footer]);
+                break;
+            case 'bottom':
+                this._appendNonEmptySections([this._header, this._body, this._footer, this._imageElement]);
+                break;
+            case 'left':
+                this._createSideImageLayout('left');
+                break;
+            case 'right':
+                this._createSideImageLayout('right');
+                break;
+            default:
+                this._appendNonEmptySections([this._header, this._body, this._footer]);
+        }
+    }
+
+    _appendNonEmptySections(sections, container = this) {
+        sections.forEach(section => {
+            if (!section) return;
+
+            if (section === this._imageElement) {
+                if (this.getAttribute('image')) {
+                    container.appendChild(section);
+                }
+            } else {
+                // Check if section has content (including text nodes)
+                const hasContent = section.children.length > 0 ||
+                    section.textContent.trim().length > 0;
+
+                if (hasContent) {
+                    container.appendChild(section);
+                }
+            }
+        });
+    }
+
+    _createSideImageLayout(side) {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = `
+            display: flex;
+            ${side === 'right' ? 'flex-direction: row-reverse;' : ''}
+            height: 100%;
+            min-height: 200px;
+        `;
+
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.cssText = `
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        `;
+
+        if (this._imageElement) {
+            this._imageElement.style.cssText += `
+                width: 40%;
+                flex-shrink: 0;
+            `;
+        }
+
+        this._appendNonEmptySections([this._header, this._body, this._footer], contentWrapper);
+
+        if (this.getAttribute('image') && this._imageElement) {
+            wrapper.appendChild(this._imageElement);
+        }
+        wrapper.appendChild(contentWrapper);
+        this.appendChild(wrapper);
+    }
+
+    _applyCardStyles() {
+        const variant = this.getAttribute('variant') || 'default';
+        const elevated = this.hasAttribute('elevated');
+        const bordered = this.hasAttribute('bordered');
+        const compact = this.hasAttribute('compact');
+
+        // Base card styles
+        this.style.cssText = `
+            display: block;
+            position: relative;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            min-height: 100px;
+            ${this._getVariantStyles(variant)}
+            ${elevated ? this._getElevationStyles() : ''}
+            ${bordered ? 'border: 1px solid #e5e7eb;' : ''}
+        `;
+
+        // Apply section styles only if they exist
+        if (this._header) {
+            this._header.style.cssText = `
+                padding: ${compact ? '12px 16px' : '16px 20px'};
+                border-bottom: 1px solid #f3f4f6;
+                font-weight: 600;
+                font-size: 18px;
+                color: #111827;
+                background: inherit;
+            `;
+        }
+
+        if (this._body) {
+            this._body.style.cssText = `
+                padding: ${compact ? '12px 16px' : '16px 20px'};
+                flex: 1;
+                color: #374151;
+                line-height: 1.6;
+                background: inherit;
+            `;
+        }
+
+        if (this._footer) {
+            this._footer.style.cssText = `
+                padding: ${compact ? '12px 16px' : '16px 20px'};
+                border-top: 1px solid #f3f4f6;
+                background: #f9fafb;
+                font-size: 14px;
+                color: #6b7280;
+            `;
+        }
+
+        if (this._imageElement) {
+            this._imageElement.style.cssText = `
+                position: relative;
+                background: #f3f4f6;
+                ${this._getImagePositionStyles()}
+            `;
+        }
+
+        if (this._loadingOverlay) {
+            this._loadingOverlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                opacity: ${this.hasAttribute('loading') ? '1' : '0'};
+                visibility: ${this.hasAttribute('loading') ? 'visible' : 'hidden'};
+                transition: all 0.3s ease;
+            `;
+
+            // Loading spinner styles
+            const spinner = this._loadingOverlay.querySelector('.loading-spinner');
+            if (spinner) {
+                spinner.style.cssText = `
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                    color: #6b7280;
+                    font-size: 14px;
+                `;
+            }
+        }
     }
 
     _setupImage(url) {
+        if (!this._imageElement) return;
+
         const img = document.createElement('img');
         img.src = url;
         img.alt = this.getAttribute('image-alt') || '';
@@ -129,157 +340,6 @@ export default class XCard extends XBase {
 
         this._imageElement.innerHTML = '';
         this._imageElement.appendChild(img);
-    }
-
-    _arrangeCardSections() {
-        const imagePosition = this.getAttribute('image-position') || 'top';
-
-        // Clear existing arrangement
-        [this._imageElement, this._header, this._body, this._footer].forEach(section => {
-            if (section.parentNode === this) {
-                this.removeChild(section);
-            }
-        });
-
-        // Arrange based on image position
-        switch (imagePosition) {
-            case 'top':
-                this._appendNonEmptySections([this._imageElement, this._header, this._body, this._footer]);
-                break;
-            case 'bottom':
-                this._appendNonEmptySections([this._header, this._body, this._footer, this._imageElement]);
-                break;
-            case 'left':
-                this._createSideImageLayout('left');
-                break;
-            case 'right':
-                this._createSideImageLayout('right');
-                break;
-            default:
-                this._appendNonEmptySections([this._header, this._body, this._footer]);
-        }
-    }
-
-    _createSideImageLayout(side) {
-        const wrapper = document.createElement('div');
-        wrapper.style.cssText = `
-            display: flex;
-            ${side === 'right' ? 'flex-direction: row-reverse;' : ''}
-            height: 100%;
-        `;
-
-        const contentWrapper = document.createElement('div');
-        contentWrapper.style.cssText = `
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        `;
-
-        this._imageElement.style.width = '40%';
-        this._imageElement.style.flexShrink = '0';
-
-        this._appendNonEmptySections([this._header, this._body, this._footer], contentWrapper);
-
-        if (this.getAttribute('image')) {
-            wrapper.appendChild(this._imageElement);
-        }
-        wrapper.appendChild(contentWrapper);
-        this.appendChild(wrapper);
-    }
-
-    _appendNonEmptySections(sections, container = this) {
-        sections.forEach(section => {
-            if (section === this._imageElement) {
-                if (this.getAttribute('image')) {
-                    container.appendChild(section);
-                }
-            } else if (section.children.length > 0 || section.textContent.trim()) {
-                container.appendChild(section);
-            }
-        });
-    }
-
-    _applyCardStyles() {
-        const variant = this.getAttribute('variant') || 'default';
-        const elevated = this.hasAttribute('elevated');
-        const bordered = this.hasAttribute('bordered');
-        const compact = this.hasAttribute('compact');
-
-        // Base card styles
-        this.style.cssText = `
-            display: block;
-            position: relative;
-            background: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.2s ease;
-            ${this._getVariantStyles(variant)}
-            ${elevated ? this._getElevationStyles() : ''}
-            ${bordered ? 'border: 1px solid #e5e7eb;' : ''}
-        `;
-
-        // Header styles
-        this._header.style.cssText = `
-            padding: ${compact ? '12px 16px' : '16px 20px'};
-            border-bottom: 1px solid #f3f4f6;
-            font-weight: 600;
-            font-size: 18px;
-            color: #111827;
-        `;
-
-        // Body styles
-        this._body.style.cssText = `
-            padding: ${compact ? '12px 16px' : '16px 20px'};
-            flex: 1;
-            color: #374151;
-            line-height: 1.6;
-        `;
-
-        // Footer styles
-        this._footer.style.cssText = `
-            padding: ${compact ? '12px 16px' : '16px 20px'};
-            border-top: 1px solid #f3f4f6;
-            background: #f9fafb;
-            font-size: 14px;
-            color: #6b7280;
-        `;
-
-        // Image styles
-        this._imageElement.style.cssText = `
-            position: relative;
-            background: #f3f4f6;
-            ${this._getImagePositionStyles()}
-        `;
-
-        // Loading overlay styles
-        this._loadingOverlay.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            opacity: ${this.hasAttribute('loading') ? '1' : '0'};
-            visibility: ${this.hasAttribute('loading') ? 'visible' : 'hidden'};
-            transition: all 0.3s ease;
-        `;
-
-        // Loading spinner styles
-        const spinner = this._loadingOverlay.querySelector('.loading-spinner');
-        if (spinner) {
-            spinner.style.cssText = `
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
-                color: #6b7280;
-                font-size: 14px;
-            `;
-        }
     }
 
     _getVariantStyles(variant) {
@@ -386,7 +446,7 @@ export default class XCard extends XBase {
         this._arrangeCardSections();
     }
 
-    // Public API
+    // Public API methods remain the same
     setLoading(loading) {
         if (loading) {
             this.setAttr('loading', '');
@@ -432,11 +492,11 @@ export default class XCard extends XBase {
     getContent(section) {
         switch (section) {
             case 'header':
-                return this._header.innerHTML;
+                return this._header ? this._header.innerHTML : null;
             case 'body':
-                return this._body.innerHTML;
+                return this._body ? this._body.innerHTML : null;
             case 'footer':
-                return this._footer.innerHTML;
+                return this._footer ? this._footer.innerHTML : null;
             default:
                 return null;
         }
