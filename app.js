@@ -81,11 +81,11 @@ class ShowcaseApp {
             let examplePath = '';
 
             if (location.hostname.endsWith('github.io')) {
-                // GitHub Pages serves from /micro-framework/, so we need the full path
-                examplePath = `/micro-framework/src/examples/${exampleName}.html`;
+                // GitHub Pages serves from /ZephyrJS/, so we need the full path
+                examplePath = `/ZephyrJS/src/examples/${exampleName}.html`;
             } else {
                 // Local development - relative path is fine
-                examplePath = `/micro-framework/src/examples/${exampleName}.html`;
+                examplePath = `/ZephyrJS/src/examples/${exampleName}.html`;
             }
             // Update breadcrumb
             const componentName = this.getComponentDisplayName(exampleName);
