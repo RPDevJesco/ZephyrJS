@@ -1,5 +1,5 @@
 const basePath = location.hostname.endsWith('github.io')
-    ? '/ZephyrJS/src/'
+    ? '/zephyrjs/src/'
     : '../';
 
 import(`${basePath}core/XBase.js`).then(module => window.XBase = module.default);
