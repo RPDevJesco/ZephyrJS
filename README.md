@@ -34,7 +34,7 @@ Modern tooling has made us forget how simple web development can be:
 
 You can see the framework used in an actual web setting via:
 ```bash
-https://rpdevjesco.github.io/micro-framework/
+https://rpdevjesco.github.io/zephyrJS/
 ```
 
 ###
@@ -42,8 +42,8 @@ https://rpdevjesco.github.io/micro-framework/
 ### Installation
 
 ```bash
-git clone https://github.com/RPDevJesco/micro-framework.git
-cd micro-framework
+git clone https://github.com/RPDevJesco/zephyrJS.git
+cd zephyrJS
 ```
 
 ### Basic Usage
@@ -415,14 +415,14 @@ Start with HTML, then enhance:
 
 ```bash
 # Clone the repository
-git clone https://github.com/RPDevJesco/micro-framework.git
-cd micro-framework
+git clone https://github.com/RPDevJesco/zephyrJS.git
+cd zephyrJS
 ```
 
 ### Project Structure
 
 ```
-micro-framework/
+zephyrJS/
 ├── src/
 │   ├── core/
 │   │   └── XBase.js          # Base component class
